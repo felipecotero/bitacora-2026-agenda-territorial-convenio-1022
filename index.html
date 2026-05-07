@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bitácora · Agenda Territorial</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script src="data.js"></script>
+<script type="text/babel" src="comp-shared.jsx"></script>
+<script type="text/babel" src="comp-nav.jsx"></script>
+<script type="text/babel" src="view-tablero.jsx"></script>
+<script type="text/babel" src="view-cronograma.jsx"></script>
+<script type="text/babel" src="view-tareas.jsx"></script>
+<script type="text/babel" src="view-equipo.jsx"></script>
+<script type="text/babel" src="view-procesos.jsx"></script>
+<script type="text/babel" src="view-docs.jsx"></script>
+<script type="text/babel" src="github-sync.jsx"></script>
+<script type="text/babel" src="view-telar.jsx"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+function App() {
+  const [active, setActive] = useState('tablero');
+  const [agenda, setAgenda] = useState(null);
+
+  // Cargar data.json una vez al inicio
+  useEffect(() => {
+    fetch('data.json')
+      .then(r => r.json())
+      .then(d => {
+        const saved = localStorage.getItem('agenda-data-overrides');
+        if (saved) {
+          try {
+            const cached = JSON.parse(saved);
+            const diskVer = d?.meta?.version || '';
+            const cacheVer = cached?.meta?.version || '';
+            const diskUpd = d?.meta?.ultimaActualizacion || '';
+            const cacheUpd = cached?.meta?.ultimaActualizacion || '';
+            // Si el disco es más nuevo, descarta cache
+            if (diskVer !== cacheVer || diskUpd > cacheUpd) {
+              setAgenda(d);
+              localStorage.setItem('agenda-data-overrides', JSON.stringify(d));
+              return;
+            }
+            setAgenda(cached);
+            return;
+          } catch (e) {}
+        }
+        setAgenda(d);
+      })
+      .catch(err => {
+        console.warn('No se pudo cargar data.json:', err);
+        setAgenda({ meta: {}, carriles: {}, eventos: [] });
+      });
+  }, []);
+
+  // Debounce timer para guardar en GitHub
+  const ghTimerRef = React.useRef(null);
+  const ghLastJsonRef = React.useRef(null);
+
+  const updateAgenda = (next) => {
+    setAgenda(next);
+    try { localStorage.setItem('agenda-data-overrides', JSON.stringify(next)); } catch (e) {}
+
+    // Si está configurado GitHub, agendar push (debounce 1.5s)
+    if (window.GitHubSync && window.GitHubSync.estaConfigurado()) {
+      const json = JSON.stringify(next, null, 2);
+      ghLastJsonRef.current = json;
+      if (ghTimerRef.current) clearTimeout(ghTimerRef.current);
+      ghTimerRef.current = setTimeout(async () => {
+        const cfg = window.GitHubSync.cargarConfig();
+        const payload = ghLastJsonRef.current;
+        if (!cfg || !payload) return;
+        window.GitHubSync.emitirEstado('guardando', 'Guardando en GitHub…');
+        try {
+          await window.GitHubSync.commit(cfg, payload, `Telar: actualización ${new Date().toISOString().slice(0,16).replace('T',' ')}`);
+          window.GitHubSync.emitirEstado('ok', 'Guardado');
+        } catch (e) {
+          console.error('GitHub sync error', e);
+          window.GitHubSync.emitirEstado('error', e.message || 'Error desconocido');
+        }
+      }, 1500);
+    }
+  };
+
+  const [tasks, setTasks] = useState(() => {
+    const saved = localStorage.getItem('agenda-tasks');
+    if (saved) {
+      try {
+        const overrides = JSON.parse(saved);
+        return window.AGENDA.CRONOGRAMA.map(t => ({
+          ...t,
+          estado: overrides[t.id] != null ? overrides[t.id] : t.estado,
+        }));
+      } catch (e) {}
+    }
+    return window.AGENDA.CRONOGRAMA;
+  });
+  const [toast, setToast] = useState(null);
+
+  const persistTasks = (next) => {
+    const overrides = {};
+    next.forEach(t => { overrides[t.id] = t.estado; });
+    localStorage.setItem('agenda-tasks', JSON.stringify(overrides));
+  };
+
+  const onToggle = (id) => {
+    let prevEstado;
+    let titulo;
+    setTasks(prev => {
+      const next = prev.map(t => {
+        if (t.id === id) {
+          prevEstado = t.estado;
+          titulo = t.titulo;
+          return { ...t, estado: t.estado === 'hecha' ? 'pendiente' : 'hecha' };
+        }
+        return t;
+      });
+      persistTasks(next);
+      return next;
+    });
+    const accion = prevEstado === 'hecha' ? 'reabierta' : 'marcada hecha';
+    setToast({
+      id: Date.now(),
+      mensaje: `Tarea ${accion}`,
+      titulo,
+      undo: () => {
+        setTasks(prev => {
+          const next = prev.map(t => t.id === id ? { ...t, estado: prevEstado } : t);
+          persistTasks(next);
+          return next;
+        });
+        setToast(null);
+      },
+    });
+  };
+
+  // Auto-dismiss toast
+  useEffect(() => {
+    if (!toast) return;
+    const id = setTimeout(() => setToast(null), 6000);
+    return () => clearTimeout(id);
+  }, [toast]);
+
+  // Apply section colors and texture backgrounds as CSS vars
+  useEffect(() => {
+    const c = window.SECTION_COLORS[active] || window.SECTION_COLORS.tablero;
+    const root = document.documentElement;
+    root.style.setProperty('--sec-color', c.color);
+    root.style.setProperty('--sec-accent', c.accent);
+
+    const TEXTURES = {
+      tablero:    { img: 'img/bg-puente.jpg',       pos: 'top right',   op: 0.14, mask: 'radial-gradient(circle at 90% 0%, black 0%, black 30%, transparent 65%)' },
+      cronograma: { img: 'img/bg-cajas.jpg',        pos: 'bottom right', op: 0.13, mask: 'linear-gradient(225deg, black 0%, black 30%, transparent 65%)' },
+      tareas:     { img: 'img/bg-conectar.jpg',     pos: 'bottom left', op: 0.13, mask: 'linear-gradient(45deg, black 0%, black 28%, transparent 60%)' },
+      bitacora:   { img: 'img/bg-contraventeo.jpg', pos: 'top right',   op: 0.16, mask: 'linear-gradient(225deg, black 0%, black 32%, transparent 65%)' },
+      equipo:     { img: 'img/bg-onda.jpg',         pos: 'bottom right', op: 0.14, mask: 'linear-gradient(225deg, black 0%, black 30%, transparent 60%)' },
+      ciclo:      { img: 'img/bg-onda.jpg',         pos: 'top right',   op: 0.14, mask: 'radial-gradient(circle at 95% 5%, black 0%, black 28%, transparent 60%)' },
+      encuentro:  { img: 'img/bg-mapa.jpg',         pos: 'top right',   op: 0.18, mask: 'radial-gradient(circle at 92% 8%, black 0%, black 32%, transparent 65%)' },
+      telar:      { img: 'img/bg-cajas.jpg',        pos: 'bottom right',op: 0.10, mask: 'linear-gradient(to top left, black 0%, black 25%, transparent 55%)' },
+      documentos: { img: 'img/bg-circulo.jpg',      pos: 'top right',   op: 0.16, mask: 'radial-gradient(circle at 95% 0%, black 0%, black 28%, transparent 62%)' },
+    };
+    const t = TEXTURES[active] || TEXTURES.tablero;
+    root.style.setProperty('--sec-bg', `url("${t.img}")`);
+    root.style.setProperty('--sec-bg-pos', t.pos);
+    root.style.setProperty('--sec-bg-opacity', t.op);
+    root.style.setProperty('--sec-bg-mask', t.mask);
+  }, [active]);
+
+  const titulos = {
+    tablero:    { t: 'Tablero', s: 'Lo que importa esta semana' },
+    cronograma: { t: 'Cronograma', s: 'De aquí hasta el Encuentro RIJ' },
+    tareas:     { t: 'Tareas', s: 'Filtra por persona, marca lo hecho' },
+    bitacora:   { t: 'Bitácora', s: 'Novedades y síntesis del equipo' },
+    equipo:     { t: 'Equipo', s: 'Quién es quién en la Agenda Territorial' },
+    ciclo:      { t: 'Ciclo de Formación Puente', s: 'Autonomía digital de las redes' },
+    encuentro:  { t: 'Encuentro RIJ', s: '24 al 27 de junio · presencial' },
+    telar:      { t: 'El Telar', s: 'Calendario editable · única fuente de verdad' },
+    documentos: { t: 'Documentos', s: 'Materiales del Convenio 1022' },
+  };
+  const tit = titulos[active];
+
+  const counts = {
+    proximas: tasks.filter(t => t.estado !== 'hecha' && t.fecha >= window.AGENDA.HOY_ISO).length,
+    pendientes: tasks.filter(t => t.estado !== 'hecha').length,
+  };
+
+  // Scroll to top on view change
+  useEffect(() => {
+    document.querySelector('.main')?.scrollTo?.({ top: 0 });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [active]);
+
+  return (
+    <div className="app">
+      <Sidebar active={active} onChange={setActive} counts={counts} />
+      <main className="main" data-screen-label={`0${Object.keys(titulos).indexOf(active)+1} ${tit.t}`}>
+        <div className="section-accent-bar"></div>
+        <Topbar titulo={tit.t} subtitulo={tit.s} hoy={window.AGENDA.HOY_ISO} />
+        {active === 'tablero'    && <Tablero tasks={tasks} onToggle={onToggle} onGoTo={setActive} agenda={agenda} />}
+        {active === 'cronograma' && <Cronograma tasks={tasks} onToggle={onToggle} />}
+        {active === 'tareas'     && <Tareas tasks={tasks} onToggle={onToggle} />}
+        {active === 'bitacora'   && <Bitacora />}
+        {active === 'equipo'     && <Equipo />}
+        {active === 'ciclo'      && <Ciclo agenda={agenda} onGoTo={setActive} />}
+        {active === 'encuentro'  && <Encuentro onGoTo={setActive} />}
+        {active === 'telar'      && <Telar agenda={agenda} onUpdateAgenda={updateAgenda} />}
+        {active === 'documentos' && <Documentos />}
+      </main>
+      {toast && (
+        <div className="toast" key={toast.id}>
+          <span>
+            {toast.mensaje}
+            {toast.titulo && <span style={{ color: 'rgba(247,241,230,0.7)', marginLeft: 8 }}>· "{toast.titulo.length > 40 ? toast.titulo.slice(0,40)+'…' : toast.titulo}"</span>}
+          </span>
+          <button className="toast-undo" onClick={toast.undo}>Deshacer</button>
+          <button className="toast-close" onClick={() => setToast(null)} aria-label="Cerrar">×</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

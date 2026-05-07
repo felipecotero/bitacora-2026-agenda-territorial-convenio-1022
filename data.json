@@ -1,0 +1,306 @@
+{
+  "meta": {
+    "titulo": "Telar",
+    "subtitulo": "Mayo · Junio · Julio · 2026",
+    "descripcion": "Calendario interno de coordinación del Convenio 1022 de 2025",
+    "version": "v3",
+    "ultimaActualizacion": "2026-05-08",
+    "editores": ["Felipe Camacho Otero", "Mercy Tatiana Arias", "Jeimmy Johanna Ruiz"]
+  },
+  "carriles": {
+    "C1": {
+      "nombre": "Formación Puente",
+      "descripcion": "Saberes financieros · saberes RIJ · comunicaciones",
+      "audiencia": "Pleno de organizaciones de ambas redes",
+      "color": "#A8438A",
+      "conducen": "Mercy · Jeimmy · Felipe (2 sesiones)"
+    },
+    "C2": {
+      "nombre": "Autonomía Digital",
+      "descripcion": "Plataformas · kit gráfico · video · transferencia",
+      "audiencia": "Comités de comunicaciones + integrantes interesadas",
+      "color": "#5A3680",
+      "conducen": "Felipe Camacho"
+    },
+    "C3": {
+      "nombre": "Identidad Mujeres",
+      "descripcion": "Construcción colectiva de la identidad gráfica",
+      "audiencia": "Comité de la Red de Mujeres",
+      "color": "#3D50A8",
+      "conducen": "Felipe Camacho con el comité"
+    },
+    "HITO": {
+      "nombre": "Hito",
+      "descripcion": "Momento clave del proceso",
+      "audiencia": "Variable",
+      "color": "#528E71",
+      "conducen": "Variable"
+    }
+  },
+  "eventos": [
+    {
+      "fecha": "2026-05-08",
+      "carril": "HITO",
+      "titulo": "Reunión de coordinación · cierre del Ciclo",
+      "hora": "Tarde",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Felipe coordina con Mercy y Jeimmy para consolidar fechas, horas y días del Ciclo. Después de esta reunión todo queda en firme.",
+      "destacado": true
+    },
+    {
+      "fecha": "2026-05-08",
+      "carril": "C2",
+      "titulo": "Minga inaugural · Autonomía Digital",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Apertura del Ciclo de Autonomía Digital. Encuadre + Mapa de las Llaves. Esta sesión se mueve — no arrancamos este viernes; probablemente miércoles 13 de la semana entrante. Se cierra mañana en la tarde.",
+      "estadoCal": "en-revision"
+    },
+    {
+      "fecha": "2026-05-13",
+      "carril": "C2",
+      "titulo": "Comunicaciones específicas · equipo RIJ",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión específica con el equipo de comunicaciones de la Red Intercultural Juvenil. Fecha tentativa — se cierra mañana en la reunión de coordinación.",
+      "estadoCal": "en-revision"
+    },
+    {
+      "fecha": "2026-05-14",
+      "carril": "C2",
+      "titulo": "Comunicaciones específicas · equipo Red de Mujeres",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión específica con el equipo de comunicaciones de la Red de Mujeres. Fecha tentativa — se cierra mañana en la reunión de coordinación.",
+      "estadoCal": "en-revision"
+    },
+    {
+      "fecha": "2026-05-13",
+      "carril": "C1",
+      "orientadora": "mercy",
+      "titulo": "Finanzas Personales",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 1 de la línea Saberes financieros. Apertura de la línea de Mercy.",
+      "estadoCal": "propuesta"
+    },
+    {
+      "fecha": "2026-05-15",
+      "carril": "C1",
+      "orientadora": "felipe",
+      "titulo": "Comunicaciones I",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 2 · Línea Comunicaciones (Felipe).",
+      "estadoCal": "propuesta"
+    },
+    {
+      "fecha": "2026-05-15",
+      "carril": "C3",
+      "titulo": "Identidad gráfica · S2",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Texturas del territorio."
+    },
+    {
+      "fecha": "2026-05-20",
+      "carril": "C1",
+      "orientadora": "mercy",
+      "titulo": "Presupuesto",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 3 · Saberes financieros.",
+      "estadoCal": "propuesta"
+    },
+    {
+      "fecha": "2026-05-22",
+      "carril": "C1",
+      "orientadora": "felipe",
+      "titulo": "Comunicaciones II",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 4 · Línea Comunicaciones (Felipe).",
+      "estadoCal": "propuesta"
+    },
+    {
+      "fecha": "2026-05-22",
+      "carril": "C2",
+      "titulo": "Sesión técnica · Plataformas",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Cierre del Mapa de las Llaves + plataformas web."
+    },
+    {
+      "fecha": "2026-05-25",
+      "carril": "C1",
+      "orientadora": "jeimmy",
+      "titulo": "Íntimo esencial",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 5 · Saberes RIJ. Andrea propone 18 may; Mercy alerta festivo.",
+      "estadoCal": "en-revision"
+    },
+    {
+      "fecha": "2026-05-27",
+      "carril": "C1",
+      "orientadora": "mercy",
+      "titulo": "Flujo de caja",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 6 · Saberes financieros.",
+      "estadoCal": "propuesta"
+    },
+    {
+      "fecha": "2026-05-29",
+      "carril": "C1",
+      "orientadora": "mercy",
+      "titulo": "Diversificación de ingresos",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 7 · Saberes financieros.",
+      "estadoCal": "propuesta"
+    },
+    {
+      "fecha": "2026-06-01",
+      "carril": "C1",
+      "orientadora": "jeimmy",
+      "titulo": "Vínculos Recíprocos",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 8 · Saberes RIJ. Andrea propone 1 jun: confirmado.",
+      "estadoCal": "en-revision"
+    },
+    {
+      "fecha": "2026-06-05",
+      "carril": "C1",
+      "orientadora": "mercy",
+      "titulo": "Indicadores para control financiero",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 9 · Cierre línea Saberes financieros.",
+      "estadoCal": "propuesta"
+    },
+    {
+      "fecha": "2026-06-05",
+      "carril": "C2",
+      "titulo": "Sesión técnica · Kit Gráfico",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Manual vivo, plantillas, paleta y tipografía."
+    },
+    {
+      "fecha": "2026-06-12",
+      "carril": "C1",
+      "orientadora": "jeimmy",
+      "titulo": "Plural Comunitario",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 10 · Saberes RIJ.",
+      "estadoCal": "en-revision"
+    },
+    {
+      "fecha": "2026-06-12",
+      "carril": "C2",
+      "titulo": "Sesión técnica · Plataforma web Mujeres",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Habilitar repositorio y plataforma web replicando modelo RIJ en GitHub Pages."
+    },
+    {
+      "fecha": "2026-06-19",
+      "carril": "C1",
+      "orientadora": "jeimmy",
+      "titulo": "Herramientas",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 11 · Saberes RIJ.",
+      "estadoCal": "en-revision"
+    },
+    {
+      "fecha": "2026-06-19",
+      "carril": "C2",
+      "titulo": "Sesión técnica · Directorio Vivo",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Actualizar directorio RIJ + crear directorio Mujeres."
+    },
+    {
+      "fecha": "2026-06-22",
+      "carril": "C1",
+      "orientadora": "jeimmy",
+      "titulo": "Herramientas II",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 12 · Cierre línea Saberes RIJ.",
+      "estadoCal": "en-revision"
+    },
+    {
+      "fecha": "2026-06-24",
+      "carril": "HITO",
+      "titulo": "Encuentro Red Intercultural Juvenil · día 1",
+      "hora": "—",
+      "duracion": "3 noches · 5 jornadas",
+      "lugar": "Cali / Tunja por confirmar",
+      "notas": "Encuentro presencial. ~40 participantes. Inicio del encuentro.",
+      "destacado": true
+    },
+    {
+      "fecha": "2026-06-26",
+      "carril": "HITO",
+      "titulo": "Cierre componente junio",
+      "hora": "—",
+      "duracion": "—",
+      "lugar": "—",
+      "notas": "Manual vivo + Kit Gráfico consolidados."
+    },
+    {
+      "fecha": "2026-07-03",
+      "carril": "C2",
+      "titulo": "Sesión técnica · Video y audio",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "CapCut e IA gratuita para producción audiovisual sostenible."
+    },
+    {
+      "fecha": "2026-07-10",
+      "carril": "C2",
+      "titulo": "Sesión técnica · Cierre y mantenimiento",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Plan de mantenimiento por red."
+    },
+    {
+      "fecha": "2026-07-17",
+      "carril": "HITO",
+      "titulo": "Acta de Transferencia",
+      "hora": "Por confirmar",
+      "duracion": "Variable",
+      "lugar": "Por definir",
+      "notas": "Firma por red. Cierre formal del ciclo del primer semestre.",
+      "destacado": true
+    }
+  ]
+}

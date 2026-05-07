@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Debug / temporales
+_debug_*.png
+_debug_*.jpg
+*.log
+
+# Editores
+.vscode/
+.idea/

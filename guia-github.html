@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guía · Conectar el Telar con GitHub</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { background: var(--crema); }
+  .guia {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+  }
+  .guia-eyebrow {
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    color: var(--violeta);
+    font-weight: 600;
+  }
+  .guia h1 {
+    font-family: var(--display);
+    font-size: 44px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 6px 0 12px;
+    color: var(--tinta);
+    line-height: 1.1;
+  }
+  .guia h1 em {
+    font-family: var(--acento);
+    font-style: normal;
+    color: var(--violeta);
+    font-weight: 400;
+  }
+  .guia .lead {
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--tinta-2);
+    margin: 0 0 36px;
+    max-width: 60ch;
+  }
+  .guia-paso {
+    background: var(--carta);
+    border: 1px solid rgba(29,15,46,0.10);
+    border-left: 6px solid var(--violeta);
+    border-radius: var(--r-lg);
+    padding: 24px 26px;
+    margin-bottom: 18px;
+    box-shadow: var(--shadow-1);
+  }
+  .guia-paso-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--violeta);
+    color: var(--crema);
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 16px;
+    margin-right: 12px;
+    vertical-align: middle;
+  }
+  .guia-paso h2 {
+    display: inline;
+    font-family: var(--display);
+    font-size: 22px;
+    margin: 0;
+    color: var(--tinta);
+    vertical-align: middle;
+  }
+  .guia-paso p,
+  .guia-paso ul,
+  .guia-paso ol {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--tinta-2);
+    margin: 12px 0 8px;
+  }
+  .guia-paso ul, .guia-paso ol { padding-left: 22px; }
+  .guia-paso li { margin-bottom: 6px; }
+  .guia-paso code,
+  .guia-paso .gh-path {
+    font-family: ui-monospace, 'SF Mono', monospace;
+    background: var(--hueso);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--tinta);
+  }
+  .guia-paso a {
+    color: var(--violeta);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1.5px;
+    font-weight: 500;
+  }
+  .guia-pantalla {
+    background: var(--papel);
+    border: 1px solid rgba(29,15,46,0.12);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin: 14px 0 8px;
+    font-family: ui-monospace, 'SF Mono', monospace;
+    font-size: 13px;
+    color: var(--tinta);
+    line-height: 1.7;
+  }
+  .gh-breadcrumb {
+    color: var(--tinta-2);
+  }
+  .gh-breadcrumb strong {
+    color: var(--violeta);
+    background: rgba(168,67,138,0.12);
+    padding: 1px 6px;
+    border-radius: 3px;
+  }
+  .gh-arrow { color: var(--lino); margin: 0 6px; }
+  .check {
+    background: #E8F4EC;
+    border: 1px solid #8BC9A2;
+    color: #1F5E36;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 14px 0 0;
+    font-size: 14px;
+  }
+  .alert {
+    background: #FFF6D9;
+    border: 1px solid #E8C535;
+    color: #5D4F2A;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 14px 0 0;
+    font-size: 14px;
+  }
+  .danger {
+    background: #FBE6E0;
+    border: 1px solid #E0A795;
+    color: #7A2A14;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin: 14px 0 0;
+    font-size: 14px;
+  }
+  .volver {
+    display: inline-block;
+    margin-bottom: 32px;
+    color: var(--tinta-2);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .volver:hover { color: var(--violeta); }
+  .checklist {
+    background: var(--carta);
+    border: 2px dashed var(--violeta);
+    border-radius: var(--r-lg);
+    padding: 22px 26px;
+    margin-top: 32px;
+  }
+  .checklist h3 {
+    font-family: var(--acento);
+    font-size: 28px;
+    color: var(--violeta);
+    margin: 0 0 12px;
+    font-weight: 400;
+  }
+  .checklist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .checklist li {
+    padding: 8px 0;
+    font-size: 15px;
+    border-bottom: 1px dashed rgba(29,15,46,0.12);
+  }
+  .checklist li:last-child { border-bottom: 0; }
+  .checklist li::before {
+    content: "☐";
+    color: var(--violeta);
+    margin-right: 10px;
+    font-size: 18px;
+  }
+</style>
+</head>
+<body>
+
+<div class="guia">
+
+  <a href="index.html" class="volver">← Volver al Telar</a>
+
+  <div class="guia-eyebrow">Guía interna · 5 minutos</div>
+  <h1>Conectar el Telar <em>con GitHub</em></h1>
+  <p class="lead">
+    Esta guía es para Mercy, Jeimmy y Catalina. Sirve para que los cambios que hagan en el Telar (mover una sesión, agregar una nueva, cambiar un horario) se guarden automáticamente en el repositorio del proyecto, sin necesidad de bajar archivos ni subirlos a mano.
+  </p>
+
+  <div class="guia-paso">
+    <span class="guia-paso-num">1</span>
+    <h2>Asegurarse de tener cuenta en GitHub</h2>
+    <p>
+      Si aún no tienes cuenta, créala gratis en <a href="https://github.com/signup" target="_blank">github.com/signup</a>. Usa preferiblemente tu correo institucional. Anota tu nombre de usuario; lo vas a necesitar más adelante.
+    </p>
+    <div class="alert">
+      Si ya tienes cuenta, salta al paso 2.
+    </div>
+  </div>
+
+  <div class="guia-paso">
+    <span class="guia-paso-num">2</span>
+    <h2>Pedirle al administrador del repo acceso de escritura</h2>
+    <p>
+      El repositorio del Telar lo administra una sola persona del equipo (probablemente Catalina). Esa persona debe agregarte como <strong>colaboradora</strong>:
+    </p>
+    <div class="guia-pantalla">
+      <span class="gh-breadcrumb">Repositorio <span class="gh-arrow">›</span> <strong>Settings</strong> <span class="gh-arrow">›</span> <strong>Collaborators</strong> <span class="gh-arrow">›</span> Add people</span>
+    </div>
+    <p>
+      Vas a recibir una invitación por correo. Acéptala antes de seguir.
+    </p>
+  </div>
+
+  <div class="guia-paso">
+    <span class="guia-paso-num">3</span>
+    <h2>Crear tu token personal</h2>
+    <p>
+      El token es una llave que le das al Telar para escribir en GitHub a tu nombre. Tú la creas, tú la borras. Pasos:
+    </p>
+    <ol>
+      <li>Entra a <a href="https://github.com/settings/tokens?type=beta" target="_blank">github.com/settings/tokens?type=beta</a></li>
+      <li>Clic en <strong>Generate new token</strong> (botón verde arriba a la derecha)</li>
+      <li>En <strong>Token name</strong> escribe algo claro: <code>Telar – Mercy</code></li>
+      <li>En <strong>Expiration</strong> elige <code>Custom</code> y pon una fecha 90 días adelante (después puedes renovarla)</li>
+      <li>En <strong>Repository access</strong> elige <strong>Only select repositories</strong> y selecciona el repo del Telar</li>
+      <li>En <strong>Repository permissions</strong> baja hasta <strong>Contents</strong> y cámbialo a <code>Read and write</code></li>
+      <li>Baja al final y clic en <strong>Generate token</strong></li>
+      <li>Te aparece un código tipo <code>github_pat_11AAA…</code> — <strong>cópialo ya</strong>, GitHub no te lo va a mostrar de nuevo</li>
+    </ol>
+    <div class="danger">
+      <strong>Importante:</strong> nunca compartas el token por chat, correo o WhatsApp. Si crees que alguien lo vio, vuelve a la página de tokens y bórralo (Revoke). Crear uno nuevo toma 2 minutos.
+    </div>
+  </div>
+
+  <div class="guia-paso">
+    <span class="guia-paso-num">4</span>
+    <h2>Pegar el token en el Telar</h2>
+    <p>
+      Vuelve a esta agenda, abre la sección <strong>El Telar</strong> y arriba verás un botón gris que dice <strong>Configurar GitHub</strong>. Clic ahí.
+    </p>
+    <p>Llena los campos con:</p>
+    <ul>
+      <li><strong>Token:</strong> el código <code>github_pat_…</code> que copiaste</li>
+      <li><strong>Owner:</strong> el usuario u organización donde vive el repo (ej. <code>mincultura</code> o el usuario de Catalina)</li>
+      <li><strong>Repositorio:</strong> el nombre del repo (ej. <code>agenda-territorial</code>)</li>
+      <li><strong>Rama:</strong> deja <code>main</code> a menos que el equipo use otra</li>
+      <li><strong>Ruta al archivo:</strong> deja <code>data.json</code></li>
+      <li><strong>(Opcional)</strong> tu nombre y correo, para que los commits queden a tu nombre</li>
+    </ul>
+    <p>
+      Clic en <strong>Probar conexión</strong>. Si todo está bien, aparece un mensaje verde. Luego clic en <strong>Guardar configuración</strong>.
+    </p>
+    <div class="check">
+      ✓ Listo. El badge en la esquina superior del Telar pasa de gris (<em>Configurar GitHub</em>) a verde (<em>conectado</em>).
+    </div>
+  </div>
+
+  <div class="guia-paso">
+    <span class="guia-paso-num">5</span>
+    <h2>Editar normalmente</h2>
+    <p>
+      A partir de aquí no hay que pensar más en GitHub. Cada vez que cambies algo:
+    </p>
+    <ul>
+      <li>El badge cambia a amarillo: <strong>Guardando…</strong></li>
+      <li>A los 1-2 segundos pasa a verde: <strong>✓ Guardado en GitHub</strong></li>
+      <li>En el repo aparece un commit nuevo a tu nombre, con la hora del cambio</li>
+    </ul>
+    <p>
+      Si algo falla (sin internet, token vencido) el badge se pone rojo y dice <strong>Error al guardar</strong>. Tus cambios siguen guardados localmente, así que no se pierden — solo arregla la conexión y vuelve a editar cualquier cosita para forzar el guardado.
+    </p>
+  </div>
+
+  <div class="checklist">
+    <h3>Checklist rápida</h3>
+    <ul>
+      <li>Tengo cuenta en GitHub y soy colaboradora del repo</li>
+      <li>Generé mi token personal con permiso <em>Contents: Read and write</em></li>
+      <li>Copié el token en un lugar seguro (gestor de contraseñas o nota cifrada)</li>
+      <li>Pegué el token en el Telar y la prueba de conexión salió verde</li>
+      <li>Hice un cambio de prueba y vi el commit aparecer en GitHub</li>
+    </ul>
+  </div>
+
+  <div style="margin-top: 40px; text-align: center;">
+    <a href="index.html" class="btn-solido" style="background: var(--violeta); color: var(--crema); padding: 12px 28px; border-radius: 999px; text-decoration: none; font-weight: 500;">
+      Volver al Telar →
+    </a>
+  </div>
+
+  <p style="margin-top: 40px; text-align: center; font-size: 13px; color: var(--tinta-2);">
+    ¿Algo no funciona? Escribe a Catalina o consulta esta guía de nuevo.
+  </p>
+</div>
+
+</body>
+</html>
