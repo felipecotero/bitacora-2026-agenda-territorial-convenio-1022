@@ -184,65 +184,35 @@ function Ciclo({ agenda, onGoTo }) {
         </div>
       </div>
 
-      {/* Las tres líneas */}
+      {/* Las tres líneas — derivadas dinámicamente del CICLO (que viene de data.json) */}
       <div className="grid-3">
-        <div className="card" style={{ borderTop: '4px solid #A8438A' }}>
-          <div className="row gap-sm" style={{ alignItems: 'center', marginBottom: 8 }}>
-            <Avatar id="mercy" />
-            <div>
-              <div className="eyebrow" style={{ color: '#A8438A' }}>Línea · Mercy</div>
-              <h3 style={{ fontFamily: 'var(--display)', fontSize: 18, fontWeight: 600, margin: 0 }}>Saberes financieros</h3>
+        {[
+          { orient: 'mercy',  color: '#A8438A', label: 'Línea · Mercy',  titulo: 'Saberes financieros', desc: 'Cinco sesiones que abren la pregunta por los recursos en clave personal y organizativa.' },
+          { orient: 'jeimmy', color: '#D97B3F', label: 'Línea · Jeimmy', titulo: 'Saberes RIJ',         desc: 'Cinco sesiones desde lo íntimo, lo plural y las herramientas de la Red Intercultural Juvenil.' },
+          { orient: 'felipe', color: '#E8C535', label: 'Línea · Felipe', titulo: 'Comunicaciones',      desc: 'Dos sesiones generales del ciclo, sin contar las capacitaciones específicas con los grupos de comunicaciones de cada red.' },
+        ].map(({ orient, color, label, titulo, desc }) => {
+          const sesiones = CICLO.filter(s => s.orient === orient);
+          return (
+            <div key={orient} className="card" style={{ borderTop: `4px solid ${color}` }}>
+              <div className="row gap-sm" style={{ alignItems: 'center', marginBottom: 8 }}>
+                <Avatar id={orient} />
+                <div>
+                  <div className="eyebrow" style={{ color: orient === 'felipe' ? '#9A7E12' : color }}>{label}</div>
+                  <h3 style={{ fontFamily: 'var(--display)', fontSize: 18, fontWeight: 600, margin: 0 }}>{titulo}</h3>
+                </div>
+              </div>
+              <p style={{ fontSize: 13, color: 'var(--tinta-2)', margin: '0 0 10px', lineHeight: 1.55 }}>
+                {desc}
+              </p>
+              <ul style={{ fontSize: 12.5, color: 'var(--tinta-2)', margin: 0, paddingLeft: 16, lineHeight: 1.7 }}>
+                {sesiones.map(s => (
+                  <li key={s.n}>{s.tema}</li>
+                ))}
+                {orient === 'felipe' && <li className="muted" style={{ fontStyle: 'italic' }}>+ talleres por red</li>}
+              </ul>
             </div>
-          </div>
-          <p style={{ fontSize: 13, color: 'var(--tinta-2)', margin: '0 0 10px', lineHeight: 1.55 }}>
-            Cinco sesiones que abren la pregunta por los recursos en clave personal y organizativa.
-          </p>
-          <ul style={{ fontSize: 12.5, color: 'var(--tinta-2)', margin: 0, paddingLeft: 16, lineHeight: 1.7 }}>
-            <li>Finanzas Personales</li>
-            <li>Presupuesto</li>
-            <li>Flujo de caja</li>
-            <li>Diversificación de ingresos</li>
-            <li>Indicadores para control financiero</li>
-          </ul>
-        </div>
-
-        <div className="card" style={{ borderTop: '4px solid #D97B3F' }}>
-          <div className="row gap-sm" style={{ alignItems: 'center', marginBottom: 8 }}>
-            <Avatar id="jeimmy" />
-            <div>
-              <div className="eyebrow" style={{ color: '#D97B3F' }}>Línea · Jeimmy</div>
-              <h3 style={{ fontFamily: 'var(--display)', fontSize: 18, fontWeight: 600, margin: 0 }}>Saberes RIJ</h3>
-            </div>
-          </div>
-          <p style={{ fontSize: 13, color: 'var(--tinta-2)', margin: '0 0 10px', lineHeight: 1.55 }}>
-            Cinco sesiones desde lo íntimo, lo plural y las herramientas de la Red Intercultural Juvenil.
-          </p>
-          <ul style={{ fontSize: 12.5, color: 'var(--tinta-2)', margin: 0, paddingLeft: 16, lineHeight: 1.7 }}>
-            <li>Íntimo esencial</li>
-            <li>Vínculos Recíprocos</li>
-            <li>Plural Comunitario</li>
-            <li>Herramientas</li>
-            <li>Herramientas II</li>
-          </ul>
-        </div>
-
-        <div className="card" style={{ borderTop: '4px solid #E8C535' }}>
-          <div className="row gap-sm" style={{ alignItems: 'center', marginBottom: 8 }}>
-            <Avatar id="felipe" />
-            <div>
-              <div className="eyebrow" style={{ color: '#9A7E12' }}>Línea · Felipe</div>
-              <h3 style={{ fontFamily: 'var(--display)', fontSize: 18, fontWeight: 600, margin: 0 }}>Comunicaciones</h3>
-            </div>
-          </div>
-          <p style={{ fontSize: 13, color: 'var(--tinta-2)', margin: '0 0 10px', lineHeight: 1.55 }}>
-            Dos sesiones generales del ciclo, sin contar las capacitaciones específicas con los grupos de comunicaciones de cada red.
-          </p>
-          <ul style={{ fontSize: 12.5, color: 'var(--tinta-2)', margin: 0, paddingLeft: 16, lineHeight: 1.7 }}>
-            <li>Comunicaciones I</li>
-            <li>Comunicaciones II</li>
-            <li className="muted" style={{ fontStyle: 'italic' }}>+ talleres por red</li>
-          </ul>
-        </div>
+          );
+        })}
       </div>
 
       {/* Calendario con filtro */}

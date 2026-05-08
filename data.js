@@ -65,7 +65,10 @@ const TEAM = [
 ];
 
 // Formato fecha: año-mes-día (ISO). Mes 04=abril, 05=mayo, 06=junio, 07=julio.
-const HOY_ISO = '2026-05-07'; // Jueves 7 de mayo
+// Fecha de hoy en ISO local (yyyy-mm-dd) — usa hora local del dispositivo,
+// NO Date.toISOString() que devuelve UTC y puede retrasarse un día en Colombia (UTC-5).
+const _hoy = new Date();
+const HOY_ISO = `${_hoy.getFullYear()}-${String(_hoy.getMonth()+1).padStart(2,'0')}-${String(_hoy.getDate()).padStart(2,'0')}`;
 
 const CRONOGRAMA = [
   {

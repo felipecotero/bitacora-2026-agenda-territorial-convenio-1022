@@ -5,7 +5,11 @@
     "descripcion": "Calendario interno de coordinación del Convenio 1022 de 2025",
     "version": "v3",
     "ultimaActualizacion": "2026-05-08",
-    "editores": ["Felipe Camacho Otero", "Mercy Tatiana Arias", "Jeimmy Johanna Ruiz"]
+    "editores": [
+      "Felipe Camacho Otero",
+      "Mercy Tatiana Arias",
+      "Jeimmy Johanna Ruiz"
+    ]
   },
   "carriles": {
     "C1": {
@@ -39,6 +43,16 @@
   },
   "eventos": [
     {
+      "fecha": "2026-05-07",
+      "carril": "C2",
+      "titulo": "Minga Circulacion y Divulgación · Autonomía Digital",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Apertura del Ciclo de Autonomía Digital. Encuadre + Mapa de las Llaves. Esta sesión se mueve — no arrancamos este viernes; probablemente miércoles 13 de la semana entrante. Se cierra mañana en la tarde.",
+      "estadoCal": "en-revision"
+    },
+    {
       "fecha": "2026-05-08",
       "carril": "HITO",
       "titulo": "Reunión de coordinación · cierre del Ciclo",
@@ -49,14 +63,14 @@
       "destacado": true
     },
     {
-      "fecha": "2026-05-08",
-      "carril": "C2",
-      "titulo": "Minga inaugural · Autonomía Digital",
-      "hora": "Por confirmar",
+      "fecha": "2026-05-11",
+      "carril": "HITO",
+      "titulo": "Presentación Del Ciclo de Formación Puente",
+      "hora": "18:00 - 19:30",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
-      "notas": "Apertura del Ciclo de Autonomía Digital. Encuadre + Mapa de las Llaves. Esta sesión se mueve — no arrancamos este viernes; probablemente miércoles 13 de la semana entrante. Se cierra mañana en la tarde.",
-      "estadoCal": "en-revision"
+      "notas": "Agenda\n0. Preset  Yully/Mónica 10 min\n1. Apertura, contexto, Jeimmy 10min\n   1.1. Presentación de las sesiones Felipe 25min\n2. Reglas de Juego Mercy 15 min.\n3. Preguntas y Varios Todxs 20 min",
+      "estadoCal": "propuesta"
     },
     {
       "fecha": "2026-05-13",
@@ -66,16 +80,6 @@
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Sesión específica con el equipo de comunicaciones de la Red Intercultural Juvenil. Fecha tentativa — se cierra mañana en la reunión de coordinación.",
-      "estadoCal": "en-revision"
-    },
-    {
-      "fecha": "2026-05-14",
-      "carril": "C2",
-      "titulo": "Comunicaciones específicas · equipo Red de Mujeres",
-      "hora": "Por confirmar",
-      "duracion": "1h 30min",
-      "lugar": "Microsoft Teams",
-      "notas": "Sesión específica con el equipo de comunicaciones de la Red de Mujeres. Fecha tentativa — se cierra mañana en la reunión de coordinación.",
       "estadoCal": "en-revision"
     },
     {
@@ -90,10 +94,20 @@
       "estadoCal": "propuesta"
     },
     {
+      "fecha": "2026-05-14",
+      "carril": "C2",
+      "titulo": "Comunicaciones específicas · equipo Red de Mujeres",
+      "hora": "Por confirmar",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión específica con el equipo de comunicaciones de la Red de Mujeres. Fecha tentativa — se cierra mañana en la reunión de coordinación.",
+      "estadoCal": "en-revision"
+    },
+    {
       "fecha": "2026-05-15",
       "carril": "C1",
       "orientadora": "felipe",
-      "titulo": "Comunicaciones I",
+      "titulo": "Comunicaciones I - Desde dónde hablamos",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
@@ -110,11 +124,22 @@
       "notas": "Texturas del territorio."
     },
     {
+      "fecha": "2026-05-19",
+      "carril": "C1",
+      "orientadora": "jeimmy",
+      "titulo": "Contexto - \"Curar el Entorno\"",
+      "hora": "10:00 - 11:30",
+      "duracion": "1h 30min",
+      "lugar": "Microsoft Teams",
+      "notas": "Sesión 5 · Saberes RIJ. Andrea propone 18 may; Mercy alerta festivo.",
+      "estadoCal": "confirmada"
+    },
+    {
       "fecha": "2026-05-20",
       "carril": "C1",
       "orientadora": "mercy",
       "titulo": "Presupuesto",
-      "hora": "Por confirmar",
+      "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Sesión 3 · Saberes financieros.",
@@ -124,8 +149,8 @@
       "fecha": "2026-05-22",
       "carril": "C1",
       "orientadora": "felipe",
-      "titulo": "Comunicaciones II",
-      "hora": "Por confirmar",
+      "titulo": "Comunicaciones II - Decidir qué se dice y qué se cuida",
+      "hora": "17:30 - 19:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Sesión 4 · Línea Comunicaciones (Felipe).",
@@ -144,30 +169,30 @@
       "fecha": "2026-05-25",
       "carril": "C1",
       "orientadora": "jeimmy",
-      "titulo": "Íntimo esencial",
-      "hora": "Por confirmar",
+      "titulo": "Reciprocidad - \"La Ética de la Corresponsabilidad\" ",
+      "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
-      "notas": "Sesión 5 · Saberes RIJ. Andrea propone 18 may; Mercy alerta festivo.",
-      "estadoCal": "en-revision"
+      "notas": "Sesión 8 · Saberes RIJ. Andrea propone 1 jun: confirmado.",
+      "estadoCal": "confirmada"
     },
     {
       "fecha": "2026-05-27",
       "carril": "C1",
       "orientadora": "mercy",
       "titulo": "Flujo de caja",
-      "hora": "Por confirmar",
+      "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Sesión 6 · Saberes financieros.",
-      "estadoCal": "propuesta"
+      "estadoCal": "confirmada"
     },
     {
       "fecha": "2026-05-29",
       "carril": "C1",
       "orientadora": "mercy",
       "titulo": "Diversificación de ingresos",
-      "hora": "Por confirmar",
+      "hora": "17:30 - 19:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Sesión 7 · Saberes financieros.",
@@ -177,19 +202,19 @@
       "fecha": "2026-06-01",
       "carril": "C1",
       "orientadora": "jeimmy",
-      "titulo": "Vínculos Recíprocos",
-      "hora": "Por confirmar",
+      "titulo": "Flujo del Ser - La Coherencia Interna",
+      "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
-      "notas": "Sesión 8 · Saberes RIJ. Andrea propone 1 jun: confirmado.",
+      "notas": "Sesión 10 · Saberes RIJ.",
       "estadoCal": "en-revision"
     },
     {
-      "fecha": "2026-06-05",
+      "fecha": "2026-06-03",
       "carril": "C1",
       "orientadora": "mercy",
       "titulo": "Indicadores para control financiero",
-      "hora": "Por confirmar",
+      "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Sesión 9 · Cierre línea Saberes financieros.",
@@ -205,15 +230,15 @@
       "notas": "Manual vivo, plantillas, paleta y tipografía."
     },
     {
-      "fecha": "2026-06-12",
+      "fecha": "2026-06-05",
       "carril": "C1",
       "orientadora": "jeimmy",
-      "titulo": "Plural Comunitario",
-      "hora": "Por confirmar",
+      "titulo": "Caja de Herramientas I - Lo Político del Cuidado Situado",
+      "hora": "17:30 - 19:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
-      "notas": "Sesión 10 · Saberes RIJ.",
-      "estadoCal": "en-revision"
+      "notas": "Sesión 11 · Saberes RIJ.",
+      "estadoCal": "confirmada"
     },
     {
       "fecha": "2026-06-12",
@@ -223,17 +248,6 @@
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Habilitar repositorio y plataforma web replicando modelo RIJ en GitHub Pages."
-    },
-    {
-      "fecha": "2026-06-19",
-      "carril": "C1",
-      "orientadora": "jeimmy",
-      "titulo": "Herramientas",
-      "hora": "Por confirmar",
-      "duracion": "1h 30min",
-      "lugar": "Microsoft Teams",
-      "notas": "Sesión 11 · Saberes RIJ.",
-      "estadoCal": "en-revision"
     },
     {
       "fecha": "2026-06-19",
@@ -248,8 +262,8 @@
       "fecha": "2026-06-22",
       "carril": "C1",
       "orientadora": "jeimmy",
-      "titulo": "Herramientas II",
-      "hora": "Por confirmar",
+      "titulo": "Herramientas II - Lo Politico del Cuidado Situado",
+      "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Sesión 12 · Cierre línea Saberes RIJ.",
