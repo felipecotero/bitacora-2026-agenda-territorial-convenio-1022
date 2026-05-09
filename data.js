@@ -130,11 +130,104 @@ const CRONOGRAMA = [
   {
     id: 't-may08-ciclo',
     fecha: '2026-05-08',
-    titulo: 'Reunión de coordinación · Ciclo de Formación Puente',
-    detalle: 'Cierre de fechas, horas y días con Mercy y Jeimmy. Articula propuesta del 5 de mayo con observaciones de Andrea (Fondo Mixto) y alerta sobre festivos.',
+    titulo: 'Reunión Ciclo de Formación Puente · calendario en firme ✓',
+    detalle: 'Mercy, Jeimmy y Felipe cerraron el calendario definitivo: 12 sesiones con fechas, horas y títulos exactos. Horarios: lun/mar 18:30–20:00 · vie 17:30–19:00 · festivos → martes 10:00–11:30.',
     responsables: ['felipe', 'mercy', 'jeimmy'],
-    tipo: 'reunion', estado: 'pendiente',
-    alerta: 'Cierra el ciclo',
+    tipo: 'reunion', estado: 'hecha',
+  },
+  // — Compromisos del acta del 8 de mayo ·····················································
+  {
+    id: 't-may08-c2',
+    fecha: '2026-05-08',
+    titulo: 'Compartir enlace Canva de la presentación con Mercy y Jeimmy',
+    detalle: 'Felipe comparte el enlace de edición de la presentación «Ciclo de Formación Puente» en Canva para que Mercy y Jeimmy puedan modificarla.',
+    responsables: ['felipe'],
+    tipo: 'entrega', estado: 'pendiente',
+  },
+  {
+    id: 't-may08-c3',
+    fecha: '2026-05-08',
+    titulo: 'Enviar documento de contenidos Comunicaciones I y II',
+    detalle: 'Felipe envía a Mercy y Jeimmy el documento que detalla el contenido de las sesiones del 15 y 22 de mayo.',
+    responsables: ['felipe'],
+    tipo: 'entrega', estado: 'pendiente',
+  },
+  {
+    id: 't-may09-c4',
+    fecha: '2026-05-09',
+    titulo: 'Carta de compromiso institucional · versión depurada',
+    detalle: 'Felipe redacta y envía al equipo la carta de compromiso para las organizaciones. Versión más corta que el borrador de Claudia. Las organizaciones la devuelven firmada después de la presentación del 11 de mayo.',
+    responsables: ['felipe'],
+    tipo: 'entrega', estado: 'pendiente',
+    alerta: 'Circula hoy',
+  },
+  {
+    id: 't-may09-c5',
+    fecha: '2026-05-09',
+    titulo: 'Correo de invitación a organizaciones · presentación del 11 de mayo',
+    detalle: 'Felipe (con apoyo de M.) envía invitación por correo a todas las organizaciones para la sesión inaugural del Ciclo del 11 de mayo, 18:00–19:30. Con copia a agenda territorial. Sin pieza gráfica en esta convocatoria.',
+    responsables: ['felipe'],
+    tipo: 'entrega', estado: 'pendiente',
+    alerta: 'Sale hoy sábado',
+  },
+  {
+    id: 't-may09-c1',
+    fecha: '2026-05-09',
+    titulo: 'Presentación Canva «Ciclo de Formación Puente» · depuración',
+    detalle: 'Mercy y Jeimmy limpian la presentación duplicada en Canva: ajustan diapositiva de enfoques y arman la diapositiva de acuerdos/reglas del juego (no existe aún). Confirman al equipo que pudieron abrir y modificar.',
+    responsables: ['mercy', 'jeimmy'],
+    tipo: 'entrega', estado: 'pendiente',
+    alerta: 'Cierra domingo 10',
+  },
+  {
+    id: 't-may11-c6',
+    fecha: '2026-05-11',
+    titulo: 'Correo a organizaciones en latencia · ingreso al Ciclo',
+    detalle: 'Jeimmy envía correo previo al 11 de mayo a las organizaciones en estado de latencia/alerta de la ruta de desarrollo de capacidades, para informarles que necesitan ingresar al proceso.',
+    responsables: ['jeimmy'],
+    tipo: 'entrega', estado: 'pendiente',
+  },
+  {
+    id: 't-may11-c7',
+    fecha: '2026-05-11',
+    titulo: 'Presionar Fondo Mixto · certificación del Ciclo',
+    detalle: 'Antes de la presentación del 11 de mayo, el equipo presiona a Andrea (Fondo Mixto) para obtener respuesta sobre si emitirá certificación oficial por las sesiones. Consulta previa sin respuesta.',
+    responsables: ['yuli', 'mercy', 'jeimmy', 'felipe'],
+    tipo: 'gestion', estado: 'pendiente',
+    alerta: 'Antes de las 18:00',
+  },
+  {
+    id: 't-may11-c9',
+    fecha: '2026-05-11',
+    titulo: 'Agregar a Felipe a grupo Minga Nodo Andina',
+    detalle: 'Jeimmy incorpora a Felipe Camacho al grupo de la Minga del Nodo Andina para el ejercicio de identidad por nodos. A partir del 11 de mayo inician tres puntos de trabajo en mayo.',
+    responsables: ['jeimmy'],
+    tipo: 'gestion', estado: 'pendiente',
+  },
+  {
+    id: 't-may11-sesion0',
+    fecha: '2026-05-11', hora: '18:00–19:30',
+    titulo: 'Sesión inaugural · Presentación del Ciclo de Formación Puente',
+    detalle: 'Con todas las organizaciones del Convenio 1022. Estructura: (i) contexto del convenio — Yuli/Mónica 5–10 min; (ii) apertura del Ciclo — Jeimmy 10 min; (iii) cronograma 12 sesiones — Felipe; (iv) reglas del juego — Mercy 15 min; (v) preguntas — 20 min. Total: ~90 min.',
+    responsables: ['yuli', 'monica', 'jeimmy', 'mercy', 'felipe'],
+    tipo: 'formacion', estado: 'pendiente',
+    alerta: 'Sesión inaugural',
+  },
+  {
+    id: 't-indef-c8',
+    fecha: '2026-05-11',
+    titulo: 'Continuidad Red de Mujeres en el Convenio · decisión pendiente',
+    detalle: 'Mercy comunica al equipo, cuando tenga claridad, la decisión sobre si la Red de Mujeres continúa en Artes para la Paz o se vincula a Poblaciones. Mientras tanto, las cinco mujeres quedan invitadas a participar en sesiones de comunicaciones del nodo RIJ.',
+    responsables: ['mercy'],
+    tipo: 'decision', estado: 'pendiente',
+  },
+  {
+    id: 't-may08',
+    fecha: '2026-05-08',
+    titulo: 'Sede del Encuentro RIJ · confirmada Cali ✓',
+    detalle: 'Yuli Camelo confirmó al cierre del día: el Encuentro de la RIJ será en Cali. Decisión comunicada a todo el equipo el 8 de mayo de 2026.',
+    responsables: ['yuli'],
+    tipo: 'decision', estado: 'hecha',
   },
   {
     id: 't-may13-ciclo',
@@ -222,27 +315,27 @@ const CRONOGRAMA = [
 ];
 
 // Ciclo de Formación Puente · Avanzada formativa
-// Propuesta Mercy del 5 de mayo + ajustes de Andrea (Fondo Mixto) y Mercy sobre festivos
-// CIERRA: reunión de coordinación mañana en la tarde con Mercy y Jeimmy
+// Calendario definitivo cerrado en reunión del 8 de mayo con Mercy Arias, Jeimmy Ruiz y Felipe Camacho
+// Horarios: lun/mar 18:30–20:00 · vie 17:30–19:00 · si lunes es festivo → martes 10:00–11:30
 const CICLO = [
-  { n: 1, fecha: '2026-05-13', dia: 'Miércoles', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Finanzas Personales', estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 2, fecha: '2026-05-15', dia: 'Viernes', orient: 'felipe', tipo: 'Comunicaciones', tema: 'Comunicaciones I', estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 3, fecha: '2026-05-20', dia: 'Miércoles', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Presupuesto', estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 4, fecha: '2026-05-22', dia: 'Viernes', orient: 'felipe', tipo: 'Comunicaciones', tema: 'Comunicaciones II', estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 5, fecha: '2026-05-25', dia: 'Lunes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Íntimo esencial', estado: 'pendiente', estadoCal: 'en-revision', alerta: 'Andrea propone 18 may; Mercy alerta festivo' },
-  { n: 6, fecha: '2026-05-27', dia: 'Miércoles', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Flujo de caja', estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 7, fecha: '2026-05-29', dia: 'Viernes', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Diversificación de ingresos', estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 8, fecha: '2026-06-01', dia: 'Lunes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Vínculos Recíprocos', estado: 'pendiente', estadoCal: 'en-revision', alerta: 'Andrea propone 1 jun: confirmado' },
-  { n: 9, fecha: '2026-06-05', dia: 'Viernes', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Indicadores para control financiero', estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 10, fecha: '2026-06-12', dia: 'Viernes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Plural Comunitario', estado: 'pendiente', estadoCal: 'en-revision' },
-  { n: 11, fecha: '2026-06-19', dia: 'Viernes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Herramientas', estado: 'pendiente', estadoCal: 'en-revision' },
-  { n: 12, fecha: '2026-06-22', dia: 'Lunes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Herramientas II', estado: 'pendiente', estadoCal: 'en-revision' },
+  { n: 1,  fecha: '2026-05-13', dia: 'Martes',    hora: '18:30–20:00', orient: 'mercy',  tipo: 'Saberes financieros', tema: 'Finanzas personales',                                       estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 2,  fecha: '2026-05-15', dia: 'Jueves',    hora: '17:30–19:00', orient: 'felipe', tipo: 'Comunicaciones',       tema: 'Desde dónde hablamos — Comunicaciones 1',                 estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 3,  fecha: '2026-05-19', dia: 'Martes',    hora: '10:00–11:30', orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Contexto: curar el entorno',                              estado: 'pendiente', estadoCal: 'confirmado', alerta: 'Lunes 18 festivo → martes 10:00' },
+  { n: 4,  fecha: '2026-05-22', dia: 'Viernes',   hora: '17:30–19:00', orient: 'felipe', tipo: 'Comunicaciones',       tema: 'Decidir qué se dice y qué se cuida — Comunicaciones 2',   estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 5,  fecha: '2026-05-23', dia: 'Sábado',    hora: '17:30–19:00', orient: 'mercy',  tipo: 'Saberes financieros', tema: 'Diversificación de ingresos',                              estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 6,  fecha: '2026-05-25', dia: 'Lunes',     hora: '18:30–20:00', orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Reciprocidad: la ética de la corresponsabilidad',          estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 7,  fecha: '2026-06-01', dia: 'Lunes',     hora: '18:30–20:00', orient: 'mercy',  tipo: 'Saberes financieros', tema: 'Flujo de caja',                                            estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 8,  fecha: '2026-06-02', dia: 'Martes',    hora: '18:30–20:00', orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Flujo del ser: la coherencia interna',                     estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 9,  fecha: '2026-06-03', dia: 'Miércoles', hora: '17:30–19:00', orient: 'mercy',  tipo: 'Saberes financieros', tema: 'Indicadores para el control financiero',                   estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 10, fecha: '2026-06-05', dia: 'Viernes',   hora: '17:30–19:00', orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Caja de herramientas: lo político del cuidado situado — Herramientas 1', estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 11, fecha: '2026-06-22', dia: 'Lunes',     hora: '18:30–20:00', orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Herramientas 2: lo político del cuidado situado',          estado: 'pendiente', estadoCal: 'confirmado' },
+  { n: 12, fecha: '2026-05-11', dia: 'Lunes',     hora: '18:00–19:30', orient: 'yuli',   tipo: 'Sesión inaugural',    tema: 'Presentación del Ciclo de Formación Puente',               estado: 'pendiente', estadoCal: 'confirmado', alerta: 'Sesión inaugural — abre el calendario' },
 ];
 
-// Hilo del ciclo · correo del 5 al 6 de mayo
+// Hilo del ciclo · proceso del 5 al 8 de mayo — CALENDARIO EN FIRME
 const CICLO_HILO = {
-  estado: 'En coordinación · cierra mañana en la tarde',
-  bajada: 'Reunión de cierre con Mercy y Jeimmy para consolidar fechas, horas y días.',
+  estado: 'Calendario en firme ✓ — cerrado en reunión del 8 de mayo',
+  bajada: 'Fechas, horas y títulos definitivos acordados por Mercy, Jeimmy y Felipe el 8 de mayo de 2026.',
   mensajes: [
     {
       fecha: '2026-05-05', autor: 'mercy', tipo: 'propuesta',
@@ -261,8 +354,8 @@ const CICLO_HILO = {
     },
     {
       fecha: '2026-05-08', autor: null, tipo: 'cierre',
-      titulo: 'Reunión de cierre · mañana en la tarde',
-      cuerpo: 'Felipe coordina con Mercy y Jeimmy reunión para consolidar definitivamente fechas, horas y días del ciclo. Después de esta reunión todo queda en firme y se actualiza esta sección.',
+      titulo: 'Reunión de cierre del 8 de mayo — calendario en firme ✓',
+      cuerpo: 'Mercy, Jeimmy y Felipe se reunieron y cerraron el calendario definitivo. Se acordaron 12 sesiones con fechas, horas y títulos exactos. Regla general: lun/mar 18:30–20:00 · vie 17:30–19:00 · si lunes es festivo → martes 10:00–11:30. La sesión inaugural es el lunes 11 de mayo, 18:00–19:30.',
     },
   ],
 };
@@ -375,6 +468,11 @@ const BITACORA = [
     cuerpo: 'Al cierre del 8 de mayo, Yuli Camelo nos informó a todas y todos: el Encuentro de la Red Intercultural Juvenil será en Cali. La duda entre Cali y Tunja queda resuelta. Se actualiza el cronograma y se retira la alerta de decisión pendiente.',
   },
   {
+    fecha: '2026-05-08', tipo: 'sintesis', autor: 'felipe',
+    titulo: 'Acta del 8 de mayo · Ciclo de Formación Puente en firme',
+    cuerpo: 'Reunión con Mercy Arias, Jeimmy Ruiz y Felipe Camacho. Decisiones principales: (1) Calendario de 12 sesiones cerrado con fechas, horas y títulos definitivos — arranca el martes 13 de mayo, cierra el lunes 22 de junio; sesión inaugural el lunes 11 de mayo 18:00–19:30. (2) Se certifica a la organización, no a la persona; los representantes pueden rotar entre sesiones. (3) En lugar de formulario de inscripción, se usará carta de compromiso institucional firmada después del 11 de mayo. (4) Tres instrumentos pedagógicos por sesión: autodiagnóstico voluntario de 5 preguntas, lista de asistencia y carta de compromiso. (5) Pendiente: Fondo Mixto confirmar si emite certificación. (6) Las cinco mujeres de la Red de Mujeres quedan invitadas a sesiones de comunicaciones del nodo RIJ mientras se define su continuidad en el Convenio. (7) Minga del Nodo Andina: Felipe se incorpora el 11 de mayo; perfiles ya cerrados desde el 7 de mayo.',
+  },
+  {
     fecha: '2026-05-07', tipo: 'novedad', autor: 'felipe',
     titulo: 'Ciclo de Formación Puente · entra al sitio en versión propuesta',
     cuerpo: 'Mercy compartió el 5 de mayo una propuesta de 12 sesiones (5 suyas, 5 de Jeimmy, 2 mías). Andrea del Fondo Mixto pidió ajustar fechas y Mercy alertó que el 18 de mayo y el 15 de junio son festivos. Mañana en la tarde nos reunimos las tres para cerrar fechas, horas y días definitivos. Mientras tanto, el calendario queda como propuesta en la sección Ciclo.',
@@ -403,10 +501,16 @@ const BITACORA = [
 
 const ALERTAS = [
   {
-    icono: '◐',
-    titulo: 'Ciclo de Formación · cierra mañana en la tarde',
-    detalle: 'Reunión con Mercy y Jeimmy para consolidar fechas, horas y días. Hasta entonces el calendario está como propuesta.',
-    color: '#A8438A',
+    icono: '!',
+    titulo: 'Hoy sábado 9 · Correo de invitación y carta de compromiso',
+    detalle: 'Felipe envía correo de invitación a organizaciones para el 11 de mayo y la carta de compromiso depurada. Mercy y Jeimmy confirman que pudieron abrir la presentación en Canva.',
+    color: '#D97B3F',
+  },
+  {
+    icono: '!',
+    titulo: 'Lunes 11 · antes de las 18:00 — Certificación Fondo Mixto',
+    detalle: 'Presionar a Andrea (Fondo Mixto) para obtener respuesta sobre si emitirá certificación oficial de las sesiones del Ciclo.',
+    color: '#3D50A8',
   },
   {
     icono: '✓',
