@@ -97,22 +97,35 @@ function DocumentoModal({ doc, onClose }) {
 }
 
 /* ── Editor de entrada de Bitácora ── */
-function BitacoraEditor({ onGuardar, onCancelar }) {
+function BitacoraEditor({ onGuardar, onCancelar, initialValues, modoEdicion }) {
   const { TEAM } = window.AGENDA;
   const hoy = new Date();
   const fechaHoy = `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}-${String(hoy.getDate()).padStart(2,'0')}`;
 
   const [form, setForm] = useState({
-    tipo: 'novedad',
-    autor: 'felipe',
-    titulo: '',
-    cuerpo: '',
-    fecha: fechaHoy,
+    tipo:       initialValues?.tipo       || 'novedad',
+    autor:      initialValues?.autor      || 'felipe',
+    asistentes: initialValues?.asistentes || [],
+    titulo:     initialValues?.titulo     || '',
+    cuerpo:     initialValues?.cuerpo     || '',
+    enlaceUrl:  initialValues?.enlaceUrl  || '',
+    enlaceLabel:initialValues?.enlaceLabel|| '',
+    fecha:      initialValues?.fecha      || fechaHoy,
   });
   const [guardando, setGuardando] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError]         = useState('');
 
   const update = (k, v) => setForm(p => ({ ...p, [k]: v }));
+
+  const toggleAsistente = (id) => {
+    setForm(p => ({
+      ...p,
+      asistentes: p.asistentes.includes(id)
+        ? p.asistentes.filter(a => a !== id)
+        : [...p.asistentes, id],
+    }));
+  };
+
   const valido = form.titulo.trim().length > 0 && form.cuerpo.trim().length > 0;
 
   const guardar = async () => {
@@ -120,7 +133,18 @@ function BitacoraEditor({ onGuardar, onCancelar }) {
     setGuardando(true);
     setError('');
     try {
-      await onGuardar({ ...form, titulo: form.titulo.trim(), cuerpo: form.cuerpo.trim() });
+      const entry = {
+        ...form,
+        titulo:      form.titulo.trim(),
+        cuerpo:      form.cuerpo.trim(),
+        enlaceUrl:   form.enlaceUrl.trim(),
+        enlaceLabel: form.enlaceLabel.trim(),
+      };
+      // Limpiar campos vacíos opcionales
+      if (!entry.enlaceUrl)   { delete entry.enlaceUrl;   delete entry.enlaceLabel; }
+      if (!entry.enlaceLabel) delete entry.enlaceLabel;
+      if (!entry.asistentes?.length) delete entry.asistentes;
+      await onGuardar(entry);
     } catch (e) {
       setError(e.message || 'Error al guardar');
       setGuardando(false);
@@ -128,51 +152,73 @@ function BitacoraEditor({ onGuardar, onCancelar }) {
   };
 
   const tiposBtn = [
-    { id: 'novedad',  label: 'Novedad',        color: '#E8C535', bg: 'rgba(232,197,53,0.15)'  },
-    { id: 'sintesis', label: 'Síntesis',        color: '#5A3680', bg: 'rgba(90,54,128,0.12)'   },
+    { id: 'novedad',  label: 'Novedad',   color: '#E8C535', bg: 'rgba(232,197,53,0.15)' },
+    { id: 'sintesis', label: 'Síntesis',  color: '#5A3680', bg: 'rgba(90,54,128,0.12)'  },
   ];
+
+  const labelStyle = { fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 7 };
 
   return (
     <div className="card" style={{ border: '2px solid var(--violeta)', background: 'var(--crema)' }}>
-      <div className="eyebrow" style={{ color: 'var(--violeta)', marginBottom: 14 }}>Nueva entrada · Bitácora</div>
+      <div className="eyebrow" style={{ color: 'var(--violeta)', marginBottom: 16 }}>
+        {modoEdicion ? '✏️ Editar entrada · Bitácora' : 'Nueva entrada · Bitácora'}
+      </div>
 
       {/* Tipo */}
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 8 }}>Tipo</div>
+        <div style={labelStyle}>Tipo</div>
         <div className="row gap-sm">
           {tiposBtn.map(t => (
-            <button key={t.id} onClick={() => update('tipo', t.id)}
-              style={{
-                padding: '6px 16px', borderRadius: 20, fontWeight: 600, fontSize: 13,
-                border: `2px solid ${form.tipo === t.id ? t.color : 'transparent'}`,
-                background: form.tipo === t.id ? t.bg : 'var(--hueso)',
-                color: form.tipo === t.id ? t.color : 'var(--tinta-2)',
-                cursor: 'pointer', transition: 'all 0.15s',
-              }}>
-              {t.label}
-            </button>
+            <button key={t.id} onClick={() => update('tipo', t.id)} style={{
+              padding: '6px 16px', borderRadius: 20, fontWeight: 600, fontSize: 13,
+              border: `2px solid ${form.tipo === t.id ? t.color : 'transparent'}`,
+              background: form.tipo === t.id ? t.bg : 'var(--hueso)',
+              color: form.tipo === t.id ? t.color : 'var(--tinta-2)',
+              cursor: 'pointer', transition: 'all 0.15s',
+            }}>{t.label}</button>
           ))}
         </div>
       </div>
 
-      {/* Autor */}
+      {/* Autor — selección única */}
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 8 }}>Quién escribe</div>
+        <div style={labelStyle}>Quién escribe</div>
         <div className="row gap-sm" style={{ flexWrap: 'wrap' }}>
           {TEAM.map(p => {
             const sel = form.autor === p.id;
             return (
-              <button key={p.id} onClick={() => update('autor', p.id)}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: 8,
-                  padding: '5px 12px 5px 6px', borderRadius: 20,
-                  border: `2px solid ${sel ? p.color : 'transparent'}`,
-                  background: sel ? `${p.color}18` : 'var(--hueso)',
-                  cursor: 'pointer', fontSize: 13, fontWeight: sel ? 600 : 400,
-                  color: sel ? p.color : 'var(--tinta-2)', transition: 'all 0.15s',
-                }}>
-                <Avatar id={p.id} size="sm" />
-                {p.corto}
+              <button key={p.id} onClick={() => update('autor', p.id)} style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                padding: '5px 12px 5px 6px', borderRadius: 20,
+                border: `2px solid ${sel ? p.color : 'transparent'}`,
+                background: sel ? `${p.color}18` : 'var(--hueso)',
+                cursor: 'pointer', fontSize: 13, fontWeight: sel ? 600 : 400,
+                color: sel ? p.color : 'var(--tinta-2)', transition: 'all 0.15s',
+              }}>
+                <Avatar id={p.id} size="sm" />{p.corto}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Asistentes — selección múltiple */}
+      <div style={{ marginBottom: 16 }}>
+        <div style={labelStyle}>Asistentes / participantes <span style={{ fontWeight: 400, textTransform: 'none', fontSize: 11, color: 'var(--tinta-3)' }}>(opcional · múltiple)</span></div>
+        <div className="row gap-sm" style={{ flexWrap: 'wrap' }}>
+          {TEAM.map(p => {
+            const sel = (form.asistentes || []).includes(p.id);
+            return (
+              <button key={p.id} onClick={() => toggleAsistente(p.id)} style={{
+                display: 'flex', alignItems: 'center', gap: 8,
+                padding: '5px 12px 5px 6px', borderRadius: 20,
+                border: `2px solid ${sel ? p.color : 'transparent'}`,
+                background: sel ? `${p.color}18` : 'var(--hueso)',
+                cursor: 'pointer', fontSize: 13, fontWeight: sel ? 600 : 400,
+                color: sel ? p.color : 'var(--tinta-2)', transition: 'all 0.15s',
+              }}>
+                <Avatar id={p.id} size="sm" />{p.corto}
+                {sel && <span style={{ marginLeft: 2, fontSize: 11 }}>✓</span>}
               </button>
             );
           })}
@@ -181,28 +227,37 @@ function BitacoraEditor({ onGuardar, onCancelar }) {
 
       {/* Título */}
       <div style={{ marginBottom: 12 }}>
-        <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 6 }}>Título</div>
-        <input
-          className="ed-input"
-          type="text"
+        <div style={labelStyle}>Título</div>
+        <input className="ed-input" type="text"
           placeholder="Ej: Reunión de equipo · acuerdos del lunes"
-          value={form.titulo}
-          onChange={e => update('titulo', e.target.value)}
-          style={{ fontSize: 15, fontWeight: 500 }}
-        />
+          value={form.titulo} onChange={e => update('titulo', e.target.value)}
+          style={{ fontSize: 15, fontWeight: 500 }} />
       </div>
 
       {/* Cuerpo */}
       <div style={{ marginBottom: 16 }}>
-        <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 6 }}>Descripción</div>
-        <textarea
-          className="ed-input"
+        <div style={labelStyle}>Descripción</div>
+        <textarea className="ed-input"
           placeholder="¿Qué pasó? ¿Qué quedó acordado? ¿Qué hay que tener en cuenta?"
-          value={form.cuerpo}
-          onChange={e => update('cuerpo', e.target.value)}
-          rows={5}
-          style={{ resize: 'vertical', fontSize: 14, lineHeight: 1.6, fontFamily: 'inherit' }}
-        />
+          value={form.cuerpo} onChange={e => update('cuerpo', e.target.value)}
+          rows={5} style={{ resize: 'vertical', fontSize: 14, lineHeight: 1.6, fontFamily: 'inherit' }} />
+      </div>
+
+      {/* Enlace / adjunto */}
+      <div style={{ marginBottom: 16, padding: '14px 16px', background: 'var(--hueso)', borderRadius: 10 }}>
+        <div style={{ ...labelStyle, marginBottom: 10 }}>Adjunto / enlace externo <span style={{ fontWeight: 400, textTransform: 'none', fontSize: 11 }}>(opcional · Google Drive, acta, imagen…)</span></div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <input className="ed-input" type="url"
+            placeholder="https://drive.google.com/… o cualquier URL"
+            value={form.enlaceUrl} onChange={e => update('enlaceUrl', e.target.value)}
+            style={{ fontSize: 13 }} />
+          {form.enlaceUrl && (
+            <input className="ed-input" type="text"
+              placeholder="Nombre del documento (ej: Acta reunión 8 mayo)"
+              value={form.enlaceLabel} onChange={e => update('enlaceLabel', e.target.value)}
+              style={{ fontSize: 13 }} />
+          )}
+        </div>
       </div>
 
       {error && (
@@ -213,14 +268,88 @@ function BitacoraEditor({ onGuardar, onCancelar }) {
 
       <div className="row gap-sm" style={{ justifyContent: 'flex-end' }}>
         <button className="btn-fantasma" onClick={onCancelar} disabled={guardando}>Cancelar</button>
-        <button
-          className="btn-solido"
-          onClick={guardar}
+        <button className="btn-solido" onClick={guardar}
           disabled={!valido || guardando}
-          style={{ background: 'var(--violeta)', opacity: (!valido || guardando) ? 0.5 : 1 }}
-        >
-          {guardando ? 'Guardando en GitHub…' : '↑ Publicar entrada'}
+          style={{ background: 'var(--violeta)', opacity: (!valido || guardando) ? 0.5 : 1 }}>
+          {guardando ? 'Guardando en GitHub…' : (modoEdicion ? '✓ Guardar cambios' : '↑ Publicar entrada')}
         </button>
+      </div>
+    </div>
+  );
+}
+
+/* ── Fila de entrada en la Bitácora ── */
+function BitacoraRow({ entry, onEditar }) {
+  const m = getMember(entry.autor);
+  const tipoColor = entry.tipo === 'novedad' ? 'amarillo' : 'violeta';
+  const [expandido, setExpandido] = useState(false);
+
+  return (
+    <div style={{ padding: '16px 0', borderBottom: '1px solid var(--hueso)' }}>
+      <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+        <div style={{ flexShrink: 0 }}>
+          <Avatar id={entry.autor} />
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          {/* Cabecera */}
+          <div style={{ display: 'flex', gap: 8, alignItems: 'baseline', flexWrap: 'wrap', marginBottom: 4 }}>
+            <span style={{ fontWeight: 600, fontSize: 14 }}>{m?.corto || entry.autor}</span>
+            <span className={`chip chip-${tipoColor}`}>
+              {entry.tipo === 'novedad' ? 'Novedad' : 'Síntesis'}
+            </span>
+            <span className="muted" style={{ fontSize: 12 }}>{formatFecha(entry.fecha)}</span>
+          </div>
+
+          {/* Título */}
+          <h4 style={{ fontSize: 15, fontWeight: 600, margin: '2px 0 6px', lineHeight: 1.35 }}>{entry.titulo}</h4>
+
+          {/* Cuerpo — expandible si es largo */}
+          <div style={{ fontSize: 13.5, color: 'var(--tinta-2)', lineHeight: 1.6, margin: '0 0 8px' }}>
+            {entry.cuerpo.length > 280 && !expandido
+              ? <>{entry.cuerpo.slice(0, 280)}<span style={{ color: 'var(--tinta-3)' }}>… </span><button onClick={() => setExpandido(true)} style={{ background: 'none', border: 'none', color: 'var(--violeta)', fontSize: 13, cursor: 'pointer', padding: 0, fontWeight: 600 }}>leer más</button></>
+              : <>{entry.cuerpo}{entry.cuerpo.length > 280 && <> <button onClick={() => setExpandido(false)} style={{ background: 'none', border: 'none', color: 'var(--tinta-3)', fontSize: 12, cursor: 'pointer', padding: 0 }}>↑ menos</button></>}</>
+            }
+          </div>
+
+          {/* Asistentes */}
+          {entry.asistentes?.length > 0 && (
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 8, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--tinta-3)' }}>Asistentes</span>
+              <AvatarStack ids={entry.asistentes} size="sm" />
+              <span style={{ fontSize: 12, color: 'var(--tinta-3)' }}>
+                {entry.asistentes.map(id => getMember(id)?.corto).filter(Boolean).join(', ')}
+              </span>
+            </div>
+          )}
+
+          {/* Enlace adjunto */}
+          {entry.enlaceUrl && (
+            <a href={entry.enlaceUrl} target="_blank" rel="noopener"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: 6,
+                fontSize: 13, color: 'var(--violeta)', fontWeight: 600,
+                padding: '4px 12px 4px 10px', borderRadius: 8,
+                background: 'rgba(90,54,128,0.08)', border: '1px solid rgba(90,54,128,0.2)',
+                textDecoration: 'none', marginBottom: 4,
+              }}>
+              📎 {entry.enlaceLabel || 'Abrir adjunto'} ↗
+            </a>
+          )}
+        </div>
+
+        {/* Botón editar */}
+        {onEditar && (
+          <button onClick={onEditar} title="Editar esta entrada"
+            style={{
+              background: 'none', border: '1px solid var(--lino)', borderRadius: 8,
+              width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', color: 'var(--tinta-3)', fontSize: 14, flexShrink: 0,
+              transition: 'all 0.15s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background='var(--hueso)'; e.currentTarget.style.color='var(--violeta)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background='none'; e.currentTarget.style.color='var(--tinta-3)'; }}
+          >✏️</button>
+        )}
       </div>
     </div>
   );
@@ -230,23 +359,44 @@ function BitacoraEditor({ onGuardar, onCancelar }) {
 function Bitacora({ agenda, onUpdateAgenda }) {
   const { TEAM } = window.AGENDA;
 
-  // Leer desde agenda.bitacora (data.json GitHub) con fallback a data.js
   const entradas = (agenda?.bitacora || window.AGENDA.BITACORA || [])
     .slice()
     .sort((a, b) => b.fecha.localeCompare(a.fecha));
 
-  const [tipo, setTipo] = useState('todo');
+  const [tipo,          setTipo]          = useState('todo');
+  const [editando,      setEditando]      = useState(null); // null | { index: number, entry: {} }
   const [editorAbierto, setEditorAbierto] = useState(false);
   const filtered = entradas.filter(b => tipo === 'todo' || b.tipo === tipo);
 
   const ghConfigurado = window.GitHubSync?.estaConfigurado?.() || false;
 
-  const onGuardar = async (entrada) => {
-    const nuevasBitacora = [entrada, ...(agenda?.bitacora || [])];
-    const next = { ...agenda, bitacora: nuevasBitacora };
-    await onUpdateAgenda(next);
+  // Guardar nueva entrada (prepend)
+  const onGuardarNueva = async (entrada) => {
+    const next = { ...agenda, bitacora: [entrada, ...(agenda?.bitacora || [])] };
+    onUpdateAgenda(next);
     setEditorAbierto(false);
   };
+
+  // Guardar edición de entrada existente (reemplazar en posición original)
+  const onGuardarEdicion = async (entradaEditada) => {
+    const bitacoraActual = agenda?.bitacora || [];
+    // Encontrar el índice real en el array original (no filtrado)
+    const idxReal = bitacoraActual.findIndex(
+      b => b.fecha === editando.entry.fecha &&
+           b.autor === editando.entry.autor &&
+           b.titulo === editando.entry.titulo
+    );
+    const nueva = [...bitacoraActual];
+    if (idxReal >= 0) {
+      nueva[idxReal] = entradaEditada;
+    } else {
+      nueva.unshift(entradaEditada); // fallback: prepend
+    }
+    onUpdateAgenda({ ...agenda, bitacora: nueva });
+    setEditando(null);
+  };
+
+  const editorVisible = editorAbierto || editando !== null;
 
   return (
     <div className="col gap-lg">
@@ -256,28 +406,35 @@ function Bitacora({ agenda, onUpdateAgenda }) {
           <h2 className="section-title" style={{ fontSize: 26 }}>Lo que pasa en el equipo</h2>
           <p className="section-sub">novedades cuando surjan, síntesis cada lunes</p>
         </div>
-        {!editorAbierto && (
-          <button
-            className="btn-solido"
-            onClick={() => setEditorAbierto(true)}
-            style={{ background: 'var(--violeta)', alignSelf: 'flex-start' }}
-            title={ghConfigurado ? 'Publicar nueva entrada' : 'Configura GitHub primero para guardar entradas'}
-          >
+        {!editorVisible && (
+          <button className="btn-solido" onClick={() => setEditorAbierto(true)}
+            style={{ background: 'var(--violeta)', alignSelf: 'flex-start' }}>
             + Nueva entrada
           </button>
         )}
       </div>
 
+      {/* Editor: nueva entrada */}
       {editorAbierto && (
         <BitacoraEditor
-          onGuardar={onGuardar}
+          onGuardar={onGuardarNueva}
           onCancelar={() => setEditorAbierto(false)}
         />
       )}
 
-      {!ghConfigurado && !editorAbierto && (
+      {/* Editor: editar entrada existente */}
+      {editando && (
+        <BitacoraEditor
+          modoEdicion
+          initialValues={editando.entry}
+          onGuardar={onGuardarEdicion}
+          onCancelar={() => setEditando(null)}
+        />
+      )}
+
+      {!ghConfigurado && !editorVisible && (
         <div style={{ padding: '10px 14px', background: 'rgba(232,197,53,0.15)', border: '1px solid rgba(232,197,53,0.4)', borderRadius: 10, fontSize: 13, color: 'var(--tinta-2)' }}>
-          ℹ️ Para publicar entradas, configura GitHub en el botón de la barra superior.
+          ℹ️ Para publicar o editar entradas, configura GitHub en el botón de la barra superior.
         </div>
       )}
 
@@ -285,7 +442,7 @@ function Bitacora({ agenda, onUpdateAgenda }) {
         <button className={tipo === 'todo' ? 'active' : ''} onClick={() => setTipo('todo')}>
           Todo <span style={{ opacity: 0.6, fontSize: 12 }}>· {entradas.length}</span>
         </button>
-        <button className={tipo === 'novedad' ? 'active' : ''} onClick={() => setTipo('novedad')}>Novedades</button>
+        <button className={tipo === 'novedad'  ? 'active' : ''} onClick={() => setTipo('novedad')}>Novedades</button>
         <button className={tipo === 'sintesis' ? 'active' : ''} onClick={() => setTipo('sintesis')}>Síntesis semanal</button>
       </div>
 
@@ -295,7 +452,13 @@ function Bitacora({ agenda, onUpdateAgenda }) {
             sin entradas aún
           </p>
         )}
-        {filtered.map((b, i) => <BitacoraRow key={i} entry={b} />)}
+        {filtered.map((b, i) => (
+          <BitacoraRow
+            key={i}
+            entry={b}
+            onEditar={ghConfigurado ? () => setEditando({ index: i, entry: b }) : null}
+          />
+        ))}
       </div>
 
       <div className="card card-tinted-azul">
@@ -316,3 +479,4 @@ function Bitacora({ agenda, onUpdateAgenda }) {
 
 window.Documentos = Documentos;
 window.Bitacora = Bitacora;
+
