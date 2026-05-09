@@ -32,33 +32,34 @@ function App() {
   const [active, setActive] = useState('tablero');
   const [agenda, setAgenda] = useState(null);
 
-  // Cargar data.json una vez al inicio
+  // Fuente única de verdad: data.json en GitHub.
+  // El archivo local data.json ya no se usa como fuente activa —
+  // solo GitHub es susceptible de modificaciones desde el Telar.
+  // Si no hay internet, cae al caché del localStorage como fallback.
+  const DATA_URL = 'https://raw.githubusercontent.com/felipecotero/bitacora-2026-agenda-territorial-convenio-1022/main/data.json';
+
   useEffect(() => {
-    fetch('data.json')
-      .then(r => r.json())
+    fetch(DATA_URL + '?t=' + Date.now()) // cache-bust para siempre tener la versión fresca
+      .then(r => {
+        if (!r.ok) throw new Error(`GitHub ${r.status}`);
+        return r.json();
+      })
       .then(d => {
+        // GitHub respondió → es la fuente de verdad, actualizar localStorage
+        setAgenda(d);
+        try { localStorage.setItem('agenda-data-overrides', JSON.stringify(d)); } catch (e) {}
+      })
+      .catch(err => {
+        console.warn('No se pudo cargar data.json desde GitHub:', err);
+        // Fallback: usar caché local si existe
         const saved = localStorage.getItem('agenda-data-overrides');
         if (saved) {
           try {
-            const cached = JSON.parse(saved);
-            const diskVer = d?.meta?.version || '';
-            const cacheVer = cached?.meta?.version || '';
-            const diskUpd = d?.meta?.ultimaActualizacion || '';
-            const cacheUpd = cached?.meta?.ultimaActualizacion || '';
-            // Si el disco es más nuevo, descarta cache
-            if (diskVer !== cacheVer || diskUpd > cacheUpd) {
-              setAgenda(d);
-              localStorage.setItem('agenda-data-overrides', JSON.stringify(d));
-              return;
-            }
-            setAgenda(cached);
+            setAgenda(JSON.parse(saved));
+            console.info('Usando caché local (sin conexión).');
             return;
           } catch (e) {}
         }
-        setAgenda(d);
-      })
-      .catch(err => {
-        console.warn('No se pudo cargar data.json:', err);
         setAgenda({ meta: {}, carriles: {}, eventos: [] });
       });
   }, []);
