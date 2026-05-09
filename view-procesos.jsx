@@ -314,21 +314,14 @@ function Encuentro({ onGoTo }) {
               <strong style={{ color: 'var(--crema)' }}>24 al 27 de junio de 2026</strong>. 3 noches. 5 jornadas efectivas. Aproximadamente 40 participantes de las organizaciones de la RIJ.
             </p>
           </div>
-          <div style={{ background: 'rgba(255,255,255,0.08)', borderRadius: 'var(--r-lg)', padding: 22, backdropFilter: 'blur(8px)' }}>
-            <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--amarillo)', marginBottom: 10 }}>Sede · por confirmar</div>
-            <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center', gap: 20 }}>
-              <div>
-                <div style={{ fontFamily: 'var(--display)', fontSize: 26, fontWeight: 600 }}>Cali</div>
-                <div style={{ fontSize: 12, color: 'rgba(247,241,230,0.7)' }}>opción A</div>
-              </div>
-              <div style={{ fontFamily: 'var(--acento)', fontSize: 28, color: 'var(--amarillo)', alignSelf: 'center' }}>ó</div>
-              <div>
-                <div style={{ fontFamily: 'var(--display)', fontSize: 26, fontWeight: 600 }}>Tunja</div>
-                <div style={{ fontSize: 12, color: 'rgba(247,241,230,0.7)' }}>opción B</div>
-              </div>
+          <div style={{ background: 'rgba(82,142,113,0.25)', borderRadius: 'var(--r-lg)', padding: 22, backdropFilter: 'blur(8px)', border: '1px solid rgba(82,142,113,0.5)' }}>
+            <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#7ECFAB', marginBottom: 10 }}>Sede · confirmada ✓</div>
+            <div style={{ textAlign: 'center' }}>
+              <div style={{ fontFamily: 'var(--display)', fontSize: 42, fontWeight: 700, color: 'var(--crema)', lineHeight: 1 }}>Cali</div>
+              <div style={{ fontFamily: 'var(--acento)', fontSize: 16, color: '#7ECFAB', marginTop: 4 }}>Valle del Cauca</div>
             </div>
             <div style={{ marginTop: 16, paddingTop: 14, borderTop: '1px solid rgba(255,255,255,0.15)', fontSize: 13, color: 'rgba(247,241,230,0.85)' }}>
-              Yuli decide a más tardar el <strong style={{ color: 'var(--amarillo)' }}>viernes 8 de mayo</strong>, según respuesta de la Gobernación de Boyacá.
+              Confirmada por <strong style={{ color: 'var(--crema)' }}>Yuli Camelo</strong> al cierre del <strong style={{ color: '#7ECFAB' }}>8 de mayo de 2026</strong>. La duda entre Cali y Tunja queda resuelta.
             </div>
           </div>
         </div>
@@ -357,7 +350,7 @@ function Encuentro({ onGoTo }) {
         <h3 className="section-title" style={{ fontSize: 18, marginBottom: 14 }}>Quién hace qué</h3>
         <div className="grid-2">
           {[
-            { id: 'yuli', tarea: 'Decisión de sede · articulación institucional · gestión British Council' },
+            { id: 'yuli', tarea: 'Sede en Cali confirmada · articulación institucional · gestión British Council' },
             { id: 'monica', tarea: 'Documento conceptual · articulación con poblaciones · línea gráfica con Alejandra' },
             { id: 'jeimmy', tarea: 'Convocatoria de organizaciones de la RIJ · CONPES Juventudes' },
             { id: 'mercy', tarea: 'Articulación poblaciones · base de datos para convocatoria' },
