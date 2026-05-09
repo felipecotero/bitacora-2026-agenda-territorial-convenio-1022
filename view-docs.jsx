@@ -279,10 +279,16 @@ function BitacoraEditor({ onGuardar, onCancelar, initialValues, modoEdicion }) {
 }
 
 /* ── Fila de entrada en la Bitácora ── */
-function BitacoraRow({ entry, onEditar }) {
+function BitacoraRow({ entry, onEditar, onBorrar }) {
   const m = getMember(entry.autor);
   const tipoColor = entry.tipo === 'novedad' ? 'amarillo' : 'violeta';
   const [expandido, setExpandido] = useState(false);
+
+  const confirmarBorrado = () => {
+    if (window.confirm(`¿Eliminar la entrada "${entry.titulo}"?\n\nEsta acción se guarda en GitHub y no se puede deshacer desde la página.`)) {
+      onBorrar();
+    }
+  };
 
   return (
     <div style={{ padding: '16px 0', borderBottom: '1px solid var(--hueso)' }}>
@@ -337,18 +343,32 @@ function BitacoraRow({ entry, onEditar }) {
           )}
         </div>
 
-        {/* Botón editar */}
-        {onEditar && (
-          <button onClick={onEditar} title="Editar esta entrada"
-            style={{
-              background: 'none', border: '1px solid var(--lino)', borderRadius: 8,
-              width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'pointer', color: 'var(--tinta-3)', fontSize: 14, flexShrink: 0,
-              transition: 'all 0.15s',
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background='var(--hueso)'; e.currentTarget.style.color='var(--violeta)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background='none'; e.currentTarget.style.color='var(--tinta-3)'; }}
-          >✏️</button>
+        {/* Botones: editar + borrar */}
+        {(onEditar || onBorrar) && (
+          <div style={{ display: 'flex', gap: 4, flexShrink: 0 }}>
+            {onEditar && (
+              <button onClick={onEditar} title="Editar esta entrada"
+                style={{
+                  background: 'none', border: '1px solid var(--lino)', borderRadius: 8,
+                  width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', color: 'var(--tinta-3)', fontSize: 14, transition: 'all 0.15s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background='var(--hueso)'; e.currentTarget.style.color='var(--violeta)'; }}
+                onMouseLeave={e => { e.currentTarget.style.background='none'; e.currentTarget.style.color='var(--tinta-3)'; }}
+              >✏️</button>
+            )}
+            {onBorrar && (
+              <button onClick={confirmarBorrado} title="Eliminar esta entrada"
+                style={{
+                  background: 'none', border: '1px solid var(--lino)', borderRadius: 8,
+                  width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', color: 'var(--tinta-3)', fontSize: 14, transition: 'all 0.15s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background='#FBE6E0'; e.currentTarget.style.color='#C0392B'; e.currentTarget.style.borderColor='#E0A795'; }}
+                onMouseLeave={e => { e.currentTarget.style.background='none'; e.currentTarget.style.color='var(--tinta-3)'; e.currentTarget.style.borderColor='var(--lino)'; }}
+              >🗑️</button>
+            )}
+          </div>
         )}
       </div>
     </div>
@@ -457,6 +477,16 @@ function Bitacora({ agenda, onUpdateAgenda }) {
             key={i}
             entry={b}
             onEditar={ghConfigurado ? () => setEditando({ index: i, entry: b }) : null}
+            onBorrar={ghConfigurado ? () => {
+              const bitacoraActual = agenda?.bitacora || [];
+              const idxReal = bitacoraActual.findIndex(
+                e => e.fecha === b.fecha && e.autor === b.autor && e.titulo === b.titulo
+              );
+              if (idxReal >= 0) {
+                const nueva = bitacoraActual.filter((_, j) => j !== idxReal);
+                onUpdateAgenda({ ...agenda, bitacora: nueva });
+              }
+            } : null}
           />
         ))}
       </div>
