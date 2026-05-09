@@ -155,11 +155,10 @@ const CRONOGRAMA = [
   {
     id: 't-may08',
     fecha: '2026-05-08',
-    titulo: 'Definición de la sede del Encuentro',
-    detalle: 'Confirmar respuesta de Gobernación de Boyacá y decidir entre Cali o Tunja.',
+    titulo: 'Sede del Encuentro RIJ · confirmada Cali ✓',
+    detalle: 'Yuli Camelo confirmó al cierre del día: el Encuentro de la RIJ será en Cali. Decisión comunicada a todo el equipo el 8 de mayo de 2026.',
     responsables: ['yuli'],
-    tipo: 'decision', estado: 'pendiente',
-    alerta: 'Fecha límite',
+    tipo: 'decision', estado: 'hecha',
   },
   {
     id: 't-may11-a',
@@ -215,8 +214,8 @@ const CRONOGRAMA = [
   {
     id: 't-jun24',
     fecha: '2026-06-24', semanaInicio: '2026-06-24', semanaFin: '2026-06-27',
-    titulo: 'Encuentro Red Intercultural Juvenil',
-    detalle: '3 noches · 5 jornadas efectivas · ~40 participantes · sede por confirmar (Cali o Tunja).',
+    titulo: 'Encuentro Red Intercultural Juvenil · Cali',
+    detalle: '3 noches · 5 jornadas efectivas · ~40 participantes · sede: Cali (confirmada el 8 de mayo por Yuli Camelo).',
     responsables: ['yuli', 'monica', 'jeimmy', 'mercy', 'emerson', 'felipe'],
     tipo: 'encuentro', estado: 'pendiente', destacado: true,
   },
@@ -371,6 +370,11 @@ const DOCUMENTOS = [
 // Bitácora — síntesis y novedades
 const BITACORA = [
   {
+    fecha: '2026-05-08', tipo: 'decision', autor: 'yuli',
+    titulo: 'Sede del Encuentro RIJ · Cali confirmada',
+    cuerpo: 'Al cierre del 8 de mayo, Yuli Camelo nos informó a todas y todos: el Encuentro de la Red Intercultural Juvenil será en Cali. La duda entre Cali y Tunja queda resuelta. Se actualiza el cronograma y se retira la alerta de decisión pendiente.',
+  },
+  {
     fecha: '2026-05-07', tipo: 'novedad', autor: 'felipe',
     titulo: 'Ciclo de Formación Puente · entra al sitio en versión propuesta',
     cuerpo: 'Mercy compartió el 5 de mayo una propuesta de 12 sesiones (5 suyas, 5 de Jeimmy, 2 mías). Andrea del Fondo Mixto pidió ajustar fechas y Mercy alertó que el 18 de mayo y el 15 de junio son festivos. Mañana en la tarde nos reunimos las tres para cerrar fechas, horas y días definitivos. Mientras tanto, el calendario queda como propuesta en la sección Ciclo.',
@@ -405,10 +409,10 @@ const ALERTAS = [
     color: '#A8438A',
   },
   {
-    icono: '!',
-    titulo: 'Sede del Encuentro · decisión esta semana',
-    detalle: 'Yuli debe confirmar respuesta de Gobernación de Boyacá y decidir entre Cali o Tunja a más tardar el viernes 8.',
-    color: '#D97B3F',
+    icono: '✓',
+    titulo: 'Sede del Encuentro RIJ · Cali confirmada',
+    detalle: 'Yuli Camelo informó al equipo al cierre del 8 de mayo: el Encuentro de la RIJ será en Cali.',
+    color: '#528E71',
   },
   {
     icono: '✦',
