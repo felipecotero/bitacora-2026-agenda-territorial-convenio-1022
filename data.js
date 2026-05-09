@@ -68,7 +68,7 @@ const TEAM = [
 // Fecha de hoy en ISO local (yyyy-mm-dd) — usa hora local del dispositivo,
 // NO Date.toISOString() que devuelve UTC y puede retrasarse un día en Colombia (UTC-5).
 const _hoy = new Date();
-const HOY_ISO = `${_hoy.getFullYear()}-${String(_hoy.getMonth()+1).padStart(2,'0')}-${String(_hoy.getDate()).padStart(2,'0')}`;
+const HOY_ISO = `${_hoy.getFullYear()}-${String(_hoy.getMonth() + 1).padStart(2, '0')}-${String(_hoy.getDate()).padStart(2, '0')}`;
 
 const CRONOGRAMA = [
   {
@@ -76,7 +76,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-05', hora: '12:00 m.',
     titulo: 'Reunión con Andrea — Fondo Mixto',
     detalle: 'Aclarar cláusula que vincula a las dos organizaciones aliadas y cláusula octava de derechos de autor.',
-    responsables: ['emerson','mercy','jeimmy','yuli'],
+    responsables: ['emerson', 'mercy', 'jeimmy', 'yuli'],
     tipo: 'reunion', estado: 'hecha',
   },
   {
@@ -84,7 +84,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-05',
     titulo: 'Firma de contratos · Ciclo de Formación Puente',
     detalle: 'Ajuste a 5 sesiones por orientadora.',
-    responsables: ['mercy','jeimmy'],
+    responsables: ['mercy', 'jeimmy'],
     tipo: 'entrega', estado: 'hecha',
   },
   {
@@ -100,7 +100,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-06',
     titulo: 'Listado de organizaciones con ubicación',
     detalle: 'Caracterización del Directorio Vivo para costeo de transportes.',
-    responsables: ['felipe','jeimmy','emerson'],
+    responsables: ['felipe', 'jeimmy', 'emerson'],
     tipo: 'entrega', estado: 'hecha',
   },
   {
@@ -108,7 +108,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-08', semanaInicio: '2026-05-05', semanaFin: '2026-05-09',
     titulo: 'Articulación con Dirección de Poblaciones',
     detalle: 'Reunión con Mercy y gestión con Alejandra (línea gráfica encuentro de mujeres).',
-    responsables: ['yuli','monica'],
+    responsables: ['yuli', 'monica'],
     tipo: 'gestion', estado: 'pendiente', semana: true,
   },
   {
@@ -116,7 +116,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-08', semanaInicio: '2026-05-05', semanaFin: '2026-05-09',
     titulo: 'Gestión British Council',
     detalle: 'Definir canal de solicitud por Oficina de Internacionales.',
-    responsables: ['yuli','jeimmy'],
+    responsables: ['yuli', 'jeimmy'],
     tipo: 'gestion', estado: 'pendiente', semana: true,
   },
   {
@@ -124,7 +124,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-08', semanaInicio: '2026-05-05', semanaFin: '2026-05-09',
     titulo: 'Intercambio de bases de datos con poblaciones',
     detalle: 'Para convocatoria del Ciclo de Formación e instructivo.',
-    responsables: ['mercy','emerson'],
+    responsables: ['mercy', 'emerson'],
     tipo: 'gestion', estado: 'pendiente', semana: true,
   },
   {
@@ -132,7 +132,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-08',
     titulo: 'Reunión de coordinación · Ciclo de Formación Puente',
     detalle: 'Cierre de fechas, horas y días con Mercy y Jeimmy. Articula propuesta del 5 de mayo con observaciones de Andrea (Fondo Mixto) y alerta sobre festivos.',
-    responsables: ['felipe','mercy','jeimmy'],
+    responsables: ['felipe', 'mercy', 'jeimmy'],
     tipo: 'reunion', estado: 'pendiente',
     alerta: 'Cierra el ciclo',
   },
@@ -166,7 +166,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-11', hora: '8:00 a 9:00 a.m.',
     titulo: 'Reunión semanal del equipo',
     detalle: 'Primer encuentro de seguimiento. A partir de aquí, todos los lunes.',
-    responsables: ['yuli','monica','jeimmy','mercy','emerson','felipe'],
+    responsables: ['yuli', 'monica', 'jeimmy', 'mercy', 'emerson', 'felipe'],
     tipo: 'reunion', estado: 'pendiente',
     recurrente: 'Cada lunes',
   },
@@ -175,7 +175,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-11', hora: '6:00 p.m.',
     titulo: 'Socialización Ciclo de Formación Puente',
     detalle: 'Con todas las organizaciones del Convenio 1022.',
-    responsables: ['mercy','jeimmy','felipe'],
+    responsables: ['mercy', 'jeimmy', 'felipe'],
     tipo: 'reunion', estado: 'pendiente',
   },
   {
@@ -183,7 +183,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-13', semanaInicio: '2026-05-11', semanaFin: '2026-05-15',
     titulo: 'Cierre virtual de la vigencia 2025',
     detalle: 'Espacio de 2 horas para revisar avances, cierres y alertas.',
-    responsables: ['yuli','monica','jeimmy','mercy','emerson','felipe'],
+    responsables: ['yuli', 'monica', 'jeimmy', 'mercy', 'emerson', 'felipe'],
     tipo: 'reunion', estado: 'pendiente', semana: true,
   },
   {
@@ -191,7 +191,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-15',
     titulo: 'Primer borrador del documento conceptual — Encuentro RIJ',
     detalle: 'Mónica articula. Aporta todo el equipo.',
-    responsables: ['monica','jeimmy','mercy','felipe','yuli'],
+    responsables: ['monica', 'jeimmy', 'mercy', 'felipe', 'yuli'],
     tipo: 'entrega', estado: 'pendiente',
     alerta: 'Entrega borrador',
   },
@@ -200,7 +200,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-19', hora: '6:00 p.m.',
     titulo: 'Socialización del instructivo de costos y gastos',
     detalle: 'Asistencia obligatoria del responsable contable o financiero de cada organización. Sesión grabada.',
-    responsables: ['mercy','jeimmy','felipe','emerson'],
+    responsables: ['mercy', 'jeimmy', 'felipe', 'emerson'],
     tipo: 'reunion', estado: 'pendiente',
   },
   {
@@ -208,7 +208,7 @@ const CRONOGRAMA = [
     fecha: '2026-05-25',
     titulo: 'Documento conceptual consolidado — Encuentro RIJ',
     detalle: 'Versión revisada y lista para diagramación con Felipe.',
-    responsables: ['monica','jeimmy','mercy','felipe'],
+    responsables: ['monica', 'jeimmy', 'mercy', 'felipe'],
     tipo: 'entrega', estado: 'pendiente',
     alerta: 'Documento consolidado',
   },
@@ -217,7 +217,7 @@ const CRONOGRAMA = [
     fecha: '2026-06-24', semanaInicio: '2026-06-24', semanaFin: '2026-06-27',
     titulo: 'Encuentro Red Intercultural Juvenil',
     detalle: '3 noches · 5 jornadas efectivas · ~40 participantes · sede por confirmar (Cali o Tunja).',
-    responsables: ['yuli','monica','jeimmy','mercy','emerson','felipe'],
+    responsables: ['yuli', 'monica', 'jeimmy', 'mercy', 'emerson', 'felipe'],
     tipo: 'encuentro', estado: 'pendiente', destacado: true,
   },
 ];
@@ -226,18 +226,18 @@ const CRONOGRAMA = [
 // Propuesta Mercy del 5 de mayo + ajustes de Andrea (Fondo Mixto) y Mercy sobre festivos
 // CIERRA: reunión de coordinación mañana en la tarde con Mercy y Jeimmy
 const CICLO = [
-  { n: 1,  fecha: '2026-05-13', dia: 'Miércoles', orient: 'mercy',  tipo: 'Saberes financieros',  tema: 'Finanzas Personales',                    estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 2,  fecha: '2026-05-15', dia: 'Viernes',   orient: 'felipe', tipo: 'Comunicaciones',       tema: 'Comunicaciones I',                       estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 3,  fecha: '2026-05-20', dia: 'Miércoles', orient: 'mercy',  tipo: 'Saberes financieros',  tema: 'Presupuesto',                            estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 4,  fecha: '2026-05-22', dia: 'Viernes',   orient: 'felipe', tipo: 'Comunicaciones',       tema: 'Comunicaciones II',                      estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 5,  fecha: '2026-05-25', dia: 'Lunes',     orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Íntimo esencial',                        estado: 'pendiente', estadoCal: 'en-revision', alerta: 'Andrea propone 18 may; Mercy alerta festivo' },
-  { n: 6,  fecha: '2026-05-27', dia: 'Miércoles', orient: 'mercy',  tipo: 'Saberes financieros',  tema: 'Flujo de caja',                          estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 7,  fecha: '2026-05-29', dia: 'Viernes',   orient: 'mercy',  tipo: 'Saberes financieros',  tema: 'Diversificación de ingresos',            estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 8,  fecha: '2026-06-01', dia: 'Lunes',     orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Vínculos Recíprocos',                    estado: 'pendiente', estadoCal: 'en-revision', alerta: 'Andrea propone 1 jun: confirmado' },
-  { n: 9,  fecha: '2026-06-05', dia: 'Viernes',   orient: 'mercy',  tipo: 'Saberes financieros',  tema: 'Indicadores para control financiero',    estado: 'pendiente', estadoCal: 'propuesta' },
-  { n: 10, fecha: '2026-06-12', dia: 'Viernes',   orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Plural Comunitario',                     estado: 'pendiente', estadoCal: 'en-revision' },
-  { n: 11, fecha: '2026-06-19', dia: 'Viernes',   orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Herramientas',                           estado: 'pendiente', estadoCal: 'en-revision' },
-  { n: 12, fecha: '2026-06-22', dia: 'Lunes',     orient: 'jeimmy', tipo: 'Saberes RIJ',          tema: 'Herramientas II',                        estado: 'pendiente', estadoCal: 'en-revision' },
+  { n: 1, fecha: '2026-05-13', dia: 'Miércoles', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Finanzas Personales', estado: 'pendiente', estadoCal: 'propuesta' },
+  { n: 2, fecha: '2026-05-15', dia: 'Viernes', orient: 'felipe', tipo: 'Comunicaciones', tema: 'Comunicaciones I', estado: 'pendiente', estadoCal: 'propuesta' },
+  { n: 3, fecha: '2026-05-20', dia: 'Miércoles', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Presupuesto', estado: 'pendiente', estadoCal: 'propuesta' },
+  { n: 4, fecha: '2026-05-22', dia: 'Viernes', orient: 'felipe', tipo: 'Comunicaciones', tema: 'Comunicaciones II', estado: 'pendiente', estadoCal: 'propuesta' },
+  { n: 5, fecha: '2026-05-25', dia: 'Lunes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Íntimo esencial', estado: 'pendiente', estadoCal: 'en-revision', alerta: 'Andrea propone 18 may; Mercy alerta festivo' },
+  { n: 6, fecha: '2026-05-27', dia: 'Miércoles', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Flujo de caja', estado: 'pendiente', estadoCal: 'propuesta' },
+  { n: 7, fecha: '2026-05-29', dia: 'Viernes', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Diversificación de ingresos', estado: 'pendiente', estadoCal: 'propuesta' },
+  { n: 8, fecha: '2026-06-01', dia: 'Lunes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Vínculos Recíprocos', estado: 'pendiente', estadoCal: 'en-revision', alerta: 'Andrea propone 1 jun: confirmado' },
+  { n: 9, fecha: '2026-06-05', dia: 'Viernes', orient: 'mercy', tipo: 'Saberes financieros', tema: 'Indicadores para control financiero', estado: 'pendiente', estadoCal: 'propuesta' },
+  { n: 10, fecha: '2026-06-12', dia: 'Viernes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Plural Comunitario', estado: 'pendiente', estadoCal: 'en-revision' },
+  { n: 11, fecha: '2026-06-19', dia: 'Viernes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Herramientas', estado: 'pendiente', estadoCal: 'en-revision' },
+  { n: 12, fecha: '2026-06-22', dia: 'Lunes', orient: 'jeimmy', tipo: 'Saberes RIJ', tema: 'Herramientas II', estado: 'pendiente', estadoCal: 'en-revision' },
 ];
 
 // Hilo del ciclo · correo del 5 al 6 de mayo
@@ -424,10 +424,10 @@ const PUENTE = {
   bajada: 'Plataforma de fortalecimiento y agencia de organizaciones en territorio',
   apuesta: ['Menos dependencia institucional', 'Mayor capacidad resolutiva', 'Pensamiento reflexivo y crítico'],
   enfoques: [
-    { n: 'Político',       c: '#5A3680' },
-    { n: 'Cuidado',        c: '#A8438A' },
-    { n: 'Investigativo',  c: '#3D50A8' },
-    { n: 'Formativo',      c: '#D97B3F' },
+    { n: 'Político', c: '#5A3680' },
+    { n: 'Cuidado', c: '#A8438A' },
+    { n: 'Investigativo', c: '#3D50A8' },
+    { n: 'Formativo', c: '#D97B3F' },
     { n: 'Administrativo', c: '#528E71' },
   ],
   rutas: [

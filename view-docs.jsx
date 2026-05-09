@@ -428,7 +428,7 @@ function Bitacora({ agenda, onUpdateAgenda }) {
         </div>
         {!editorVisible && (
           <button className="btn-solido" onClick={() => setEditorAbierto(true)}
-            style={{ background: 'var(--violeta)', alignSelf: 'flex-start' }}>
+            style={{ background: 'var(--violeta)', color: '#fff', borderRadius: 24, alignSelf: 'flex-start', padding: '8px 20px', fontWeight: 600 }}>
             + Nueva entrada
           </button>
         )}
