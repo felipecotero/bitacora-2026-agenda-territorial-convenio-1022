@@ -16,10 +16,27 @@ function semanaActual(hoy) {
   return SEMANAS.find(s => s.inicio <= hoy && hoy <= s.fin) || SEMANAS[1];
 }
 
-function Cronograma({ tasks, onToggle }) {
-  const { HOY_ISO, CICLO } = window.AGENDA;
+function Cronograma({ tasks, onToggle, agenda }) {
+  const { HOY_ISO } = window.AGENDA;
   const [semId, setSemId] = useState(semanaActual(HOY_ISO).id);
   const sem = SEMANAS.find(s => s.id === semId);
+
+  // Derivar sesiones del Ciclo desde data.json (fuente única de verdad)
+  // Si agenda aún no cargó, usa el array estático de data.js como fallback
+  const tipoPorOrient = { mercy: 'Saberes financieros', jeimmy: 'Saberes RIJ', felipe: 'Comunicaciones' };
+  const CICLO_VIVO = (agenda?.eventos || [])
+    .filter(e => e.carril === 'C1')
+    .sort((a, b) => a.fecha.localeCompare(b.fecha))
+    .map((e, i) => ({
+      n: i + 1,
+      fecha: e.fecha,
+      tema: e.titulo,
+      tipo: tipoPorOrient[e.orientadora] || 'Sesión',
+      orient: e.orientadora || '',
+      hora: e.hora || '',
+      lugar: e.lugar || '',
+    }));
+  const CICLO = CICLO_VIVO.length ? CICLO_VIVO : (window.AGENDA.CICLO || []);
 
   const enSemana = tasks.filter(t => t.fecha >= sem.inicio && t.fecha <= sem.fin);
   const sesionesSemana = CICLO.filter(s => s.fecha >= sem.inicio && s.fecha <= sem.fin);
@@ -72,7 +89,10 @@ function Cronograma({ tasks, onToggle }) {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontWeight: 600, fontSize: 14.5, lineHeight: 1.3 }}>{s.tema}</div>
-                <div className="muted" style={{ fontSize: 13 }}>{s.dia} {formatFecha(s.fecha, 'media')} · {s.tipo}</div>
+                <div className="muted" style={{ fontSize: 13 }}>
+                  {formatFecha(s.fecha, 'media')} · {s.tipo}
+                  {s.hora && s.hora !== 'Por confirmar' && ` · ${s.hora}`}
+                </div>
               </div>
             </div>
           ))}

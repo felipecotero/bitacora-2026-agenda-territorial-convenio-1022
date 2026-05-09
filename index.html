@@ -208,7 +208,7 @@ function App() {
         <div className="section-accent-bar"></div>
         <Topbar titulo={tit.t} subtitulo={tit.s} hoy={window.AGENDA.HOY_ISO} />
         {active === 'tablero'    && <Tablero tasks={tasks} onToggle={onToggle} onGoTo={setActive} agenda={agenda} />}
-        {active === 'cronograma' && <Cronograma tasks={tasks} onToggle={onToggle} />}
+        {active === 'cronograma' && <Cronograma tasks={tasks} onToggle={onToggle} agenda={agenda} />}
         {active === 'tareas'     && <Tareas tasks={tasks} onToggle={onToggle} />}
         {active === 'bitacora'   && <Bitacora />}
         {active === 'equipo'     && <Equipo />}
