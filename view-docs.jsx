@@ -96,26 +96,205 @@ function DocumentoModal({ doc, onClose }) {
   );
 }
 
-function Bitacora() {
-  const { BITACORA, TEAM } = window.AGENDA;
+/* ── Editor de entrada de Bitácora ── */
+function BitacoraEditor({ onGuardar, onCancelar }) {
+  const { TEAM } = window.AGENDA;
+  const hoy = new Date();
+  const fechaHoy = `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}-${String(hoy.getDate()).padStart(2,'0')}`;
+
+  const [form, setForm] = useState({
+    tipo: 'novedad',
+    autor: 'felipe',
+    titulo: '',
+    cuerpo: '',
+    fecha: fechaHoy,
+  });
+  const [guardando, setGuardando] = useState(false);
+  const [error, setError] = useState('');
+
+  const update = (k, v) => setForm(p => ({ ...p, [k]: v }));
+  const valido = form.titulo.trim().length > 0 && form.cuerpo.trim().length > 0;
+
+  const guardar = async () => {
+    if (!valido) return;
+    setGuardando(true);
+    setError('');
+    try {
+      await onGuardar({ ...form, titulo: form.titulo.trim(), cuerpo: form.cuerpo.trim() });
+    } catch (e) {
+      setError(e.message || 'Error al guardar');
+      setGuardando(false);
+    }
+  };
+
+  const tiposBtn = [
+    { id: 'novedad',  label: 'Novedad',        color: '#E8C535', bg: 'rgba(232,197,53,0.15)'  },
+    { id: 'sintesis', label: 'Síntesis',        color: '#5A3680', bg: 'rgba(90,54,128,0.12)'   },
+  ];
+
+  return (
+    <div className="card" style={{ border: '2px solid var(--violeta)', background: 'var(--crema)' }}>
+      <div className="eyebrow" style={{ color: 'var(--violeta)', marginBottom: 14 }}>Nueva entrada · Bitácora</div>
+
+      {/* Tipo */}
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 8 }}>Tipo</div>
+        <div className="row gap-sm">
+          {tiposBtn.map(t => (
+            <button key={t.id} onClick={() => update('tipo', t.id)}
+              style={{
+                padding: '6px 16px', borderRadius: 20, fontWeight: 600, fontSize: 13,
+                border: `2px solid ${form.tipo === t.id ? t.color : 'transparent'}`,
+                background: form.tipo === t.id ? t.bg : 'var(--hueso)',
+                color: form.tipo === t.id ? t.color : 'var(--tinta-2)',
+                cursor: 'pointer', transition: 'all 0.15s',
+              }}>
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Autor */}
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 8 }}>Quién escribe</div>
+        <div className="row gap-sm" style={{ flexWrap: 'wrap' }}>
+          {TEAM.map(p => {
+            const sel = form.autor === p.id;
+            return (
+              <button key={p.id} onClick={() => update('autor', p.id)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 8,
+                  padding: '5px 12px 5px 6px', borderRadius: 20,
+                  border: `2px solid ${sel ? p.color : 'transparent'}`,
+                  background: sel ? `${p.color}18` : 'var(--hueso)',
+                  cursor: 'pointer', fontSize: 13, fontWeight: sel ? 600 : 400,
+                  color: sel ? p.color : 'var(--tinta-2)', transition: 'all 0.15s',
+                }}>
+                <Avatar id={p.id} size="sm" />
+                {p.corto}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Título */}
+      <div style={{ marginBottom: 12 }}>
+        <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 6 }}>Título</div>
+        <input
+          className="ed-input"
+          type="text"
+          placeholder="Ej: Reunión de equipo · acuerdos del lunes"
+          value={form.titulo}
+          onChange={e => update('titulo', e.target.value)}
+          style={{ fontSize: 15, fontWeight: 500 }}
+        />
+      </div>
+
+      {/* Cuerpo */}
+      <div style={{ marginBottom: 16 }}>
+        <div style={{ fontSize: 11, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--tinta-3)', marginBottom: 6 }}>Descripción</div>
+        <textarea
+          className="ed-input"
+          placeholder="¿Qué pasó? ¿Qué quedó acordado? ¿Qué hay que tener en cuenta?"
+          value={form.cuerpo}
+          onChange={e => update('cuerpo', e.target.value)}
+          rows={5}
+          style={{ resize: 'vertical', fontSize: 14, lineHeight: 1.6, fontFamily: 'inherit' }}
+        />
+      </div>
+
+      {error && (
+        <div style={{ marginBottom: 12, padding: '8px 12px', background: '#FBE6E0', border: '1px solid #E0A795', borderRadius: 8, fontSize: 13, color: '#7A2A14' }}>
+          {error}
+        </div>
+      )}
+
+      <div className="row gap-sm" style={{ justifyContent: 'flex-end' }}>
+        <button className="btn-fantasma" onClick={onCancelar} disabled={guardando}>Cancelar</button>
+        <button
+          className="btn-solido"
+          onClick={guardar}
+          disabled={!valido || guardando}
+          style={{ background: 'var(--violeta)', opacity: (!valido || guardando) ? 0.5 : 1 }}
+        >
+          {guardando ? 'Guardando en GitHub…' : '↑ Publicar entrada'}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ── Componente principal Bitácora ── */
+function Bitacora({ agenda, onUpdateAgenda }) {
+  const { TEAM } = window.AGENDA;
+
+  // Leer desde agenda.bitacora (data.json GitHub) con fallback a data.js
+  const entradas = (agenda?.bitacora || window.AGENDA.BITACORA || [])
+    .slice()
+    .sort((a, b) => b.fecha.localeCompare(a.fecha));
+
   const [tipo, setTipo] = useState('todo');
-  const filtered = BITACORA.filter(b => tipo === 'todo' || b.tipo === tipo);
+  const [editorAbierto, setEditorAbierto] = useState(false);
+  const filtered = entradas.filter(b => tipo === 'todo' || b.tipo === tipo);
+
+  const ghConfigurado = window.GitHubSync?.estaConfigurado?.() || false;
+
+  const onGuardar = async (entrada) => {
+    const nuevasBitacora = [entrada, ...(agenda?.bitacora || [])];
+    const next = { ...agenda, bitacora: nuevasBitacora };
+    await onUpdateAgenda(next);
+    setEditorAbierto(false);
+  };
 
   return (
     <div className="col gap-lg">
-      <div>
-        <div className="eyebrow">Bitácora</div>
-        <h2 className="section-title" style={{ fontSize: 26 }}>Lo que pasa en el equipo</h2>
-        <p className="section-sub">novedades cuando surjan, síntesis cada lunes</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 12 }}>
+        <div>
+          <div className="eyebrow">Bitácora</div>
+          <h2 className="section-title" style={{ fontSize: 26 }}>Lo que pasa en el equipo</h2>
+          <p className="section-sub">novedades cuando surjan, síntesis cada lunes</p>
+        </div>
+        {!editorAbierto && (
+          <button
+            className="btn-solido"
+            onClick={() => setEditorAbierto(true)}
+            style={{ background: 'var(--violeta)', alignSelf: 'flex-start' }}
+            title={ghConfigurado ? 'Publicar nueva entrada' : 'Configura GitHub primero para guardar entradas'}
+          >
+            + Nueva entrada
+          </button>
+        )}
       </div>
 
+      {editorAbierto && (
+        <BitacoraEditor
+          onGuardar={onGuardar}
+          onCancelar={() => setEditorAbierto(false)}
+        />
+      )}
+
+      {!ghConfigurado && !editorAbierto && (
+        <div style={{ padding: '10px 14px', background: 'rgba(232,197,53,0.15)', border: '1px solid rgba(232,197,53,0.4)', borderRadius: 10, fontSize: 13, color: 'var(--tinta-2)' }}>
+          ℹ️ Para publicar entradas, configura GitHub en el botón de la barra superior.
+        </div>
+      )}
+
       <div className="tabs">
-        <button className={tipo === 'todo' ? 'active' : ''} onClick={() => setTipo('todo')}>Todo</button>
+        <button className={tipo === 'todo' ? 'active' : ''} onClick={() => setTipo('todo')}>
+          Todo <span style={{ opacity: 0.6, fontSize: 12 }}>· {entradas.length}</span>
+        </button>
         <button className={tipo === 'novedad' ? 'active' : ''} onClick={() => setTipo('novedad')}>Novedades</button>
         <button className={tipo === 'sintesis' ? 'active' : ''} onClick={() => setTipo('sintesis')}>Síntesis semanal</button>
       </div>
 
       <div className="card">
+        {filtered.length === 0 && (
+          <p style={{ textAlign: 'center', color: 'var(--tinta-3)', padding: '20px 0', fontFamily: 'var(--acento)', fontSize: 18 }}>
+            sin entradas aún
+          </p>
+        )}
         {filtered.map((b, i) => <BitacoraRow key={i} entry={b} />)}
       </div>
 

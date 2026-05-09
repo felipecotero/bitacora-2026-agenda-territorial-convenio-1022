@@ -316,5 +316,56 @@
       "notas": "Firma por red. Cierre formal del ciclo del primer semestre.",
       "destacado": true
     }
+  ],
+  "bitacora": [
+    {
+      "fecha": "2026-05-08",
+      "tipo": "novedad",
+      "autor": "felipe",
+      "titulo": "Reunion del equipo · sesiones del Ciclo confirmadas",
+      "cuerpo": "Reunion con Mercy y Jeimmy donde se modificaron los nombres de las sesiones, se aclararon los horarios y se establecio como va a ser la presentacion del lunes en la noche. Las sesiones quedaron con nombres mas descriptivos: Comunicaciones I - Desde donde hablamos, Reciprocidad - La Etica de la Corresponsabilidad, Flujo del Ser - La Coherencia Interna, entre otras. Tambien se confirmaron horas para varias sesiones de mayo y junio."
+    },
+    {
+      "fecha": "2026-05-08",
+      "tipo": "novedad",
+      "autor": "felipe",
+      "titulo": "GitHub conectado al Telar · cambios automaticos desde la pagina",
+      "cuerpo": "El calendario Telar ya guarda los cambios directamente en el repositorio de GitHub. Cualquier modificacion en los eventos del calendario queda registrada automaticamente. El sitio tambien lee data.json siempre desde GitHub, no desde el archivo local."
+    },
+    {
+      "fecha": "2026-05-07",
+      "tipo": "novedad",
+      "autor": "felipe",
+      "titulo": "Ciclo de Formacion Puente · entra al sitio en version propuesta",
+      "cuerpo": "Mercy compartio el 5 de mayo una propuesta de 12 sesiones (5 suyas, 5 de Jeimmy, 2 mias). Andrea del Fondo Mixto pidio ajustar fechas y Mercy alerto que el 18 de mayo y el 15 de junio son festivos."
+    },
+    {
+      "fecha": "2026-05-07",
+      "tipo": "novedad",
+      "autor": "felipe",
+      "titulo": "Estrenamos la Bitacora del equipo",
+      "cuerpo": "Este es el primer espacio interno de la Agenda Territorial. Aca vamos a ir consolidando cronograma, tareas y documentos de aqui hasta el cierre del Convenio."
+    },
+    {
+      "fecha": "2026-05-06",
+      "tipo": "sintesis",
+      "autor": "emerson",
+      "titulo": "Avance miercoles",
+      "cuerpo": "Jeimmy remitio borrador CONPES Juventudes a Yuli y Monica. Felipe entrego listado de organizaciones con ubicacion a Jeimmy para que pase a Emerson para costeo de transportes."
+    },
+    {
+      "fecha": "2026-05-05",
+      "tipo": "sintesis",
+      "autor": "emerson",
+      "titulo": "Mesa de sincronizacion · cierre",
+      "cuerpo": "Reunion con Andrea del Fondo Mixto al mediodia. Quedo aclarada la clausula que vincula a las organizaciones aliadas y la clausula octava de derechos de autor. Mercy y Jeimmy firmaron contratos del Ciclo, ajustados a 5 sesiones por orientadora."
+    },
+    {
+      "fecha": "2026-05-04",
+      "tipo": "sintesis",
+      "autor": "yuli",
+      "titulo": "Primera mesa de equipo · 4 de mayo",
+      "cuerpo": "Definimos cronograma de aqui a junio, fechas tope y responsables. Reunion semanal del equipo queda fijada cada lunes 8:00 a 9:00 a.m. arrancando el 11 de mayo."
+    }
   ]
 }

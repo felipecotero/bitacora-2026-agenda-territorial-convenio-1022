@@ -210,7 +210,7 @@ function App() {
         {active === 'tablero'    && <Tablero tasks={tasks} onToggle={onToggle} onGoTo={setActive} agenda={agenda} />}
         {active === 'cronograma' && <Cronograma tasks={tasks} onToggle={onToggle} agenda={agenda} />}
         {active === 'tareas'     && <Tareas tasks={tasks} onToggle={onToggle} />}
-        {active === 'bitacora'   && <Bitacora />}
+        {active === 'bitacora'   && <Bitacora agenda={agenda} onUpdateAgenda={updateAgenda} />}
         {active === 'equipo'     && <Equipo />}
         {active === 'ciclo'      && <Ciclo agenda={agenda} onGoTo={setActive} />}
         {active === 'encuentro'  && <Encuentro onGoTo={setActive} />}
