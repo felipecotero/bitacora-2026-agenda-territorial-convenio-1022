@@ -61,7 +61,7 @@ function Compromisos() {
   // Datos de demo (mientras no está configurado Apps Script)
   const DEMO_DATA = [
     { 'Timestamp': '2026-05-11T10:00:00', 'Organización': 'Colectivo Manigua', 'Red': 'Red Intercultural Juvenil (RIJ)', 'Municipio': 'Santa Marta, Magdalena', 'Representante': 'Ana Torres', 'Correo': 'ana@manigua.org', 'Celular': '+57 300 111 2222', 'Asistentes': 'Ana Torres, Luis Díaz', 'Carril': 'C1 · Saberes Financieros y Vínculos', 'Compromiso firmado': 'SÍ', 'Expectativa': 'Aprender a gestionar mejor los recursos de la organización.', 'Lugar y fecha firma': 'Santa Marta, 11 de mayo de 2026' },
-    { 'Timestamp': '2026-05-11T11:30:00', 'Organización': 'Mujeres Tejedoras', 'Red': 'Red de Mujeres del Magdalena', 'Municipio': 'Ciénaga, Magdalena', 'Representante': 'Clara Rincón', 'Correo': 'clara@tejedoras.co', 'Celular': '+57 310 222 3333', 'Asistentes': 'Clara Rincón', 'Carril': 'C2 · Autonomía Digital', 'Compromiso firmado': 'SÍ', 'Expectativa': 'Mejorar nuestra presencia digital y comunicar mejor nuestra labor.', 'Lugar y fecha firma': 'Ciénaga, 11 de mayo de 2026' },
+    { 'Timestamp': '2026-05-11T11:30:00', 'Organización': 'Mujeres Tejedoras', 'Red': 'Red de Mujeres Sabedoras, Creadoras y Gestoras', 'Municipio': 'Ciénaga, Magdalena', 'Representante': 'Clara Rincón', 'Correo': 'clara@tejedoras.co', 'Celular': '+57 310 222 3333', 'Asistentes': 'Clara Rincón', 'Carril': 'C2 · Autonomía Digital', 'Compromiso firmado': 'SÍ', 'Expectativa': 'Mejorar nuestra presencia digital y comunicar mejor nuestra labor.', 'Lugar y fecha firma': 'Ciénaga, 11 de mayo de 2026' },
   ];
 
   const noConfigurado = !SCRIPT_URL;
@@ -98,7 +98,7 @@ function Compromisos() {
 
   const RED_COLORS = {
     'Red Intercultural Juvenil (RIJ)': { bg: '#EFE8F7', color: '#5A3680' },
-    'Red de Mujeres del Magdalena': { bg: '#F4E1ED', color: '#A8438A' },
+    'Red de Mujeres Sabedoras, Creadoras y Gestoras': { bg: '#F4E1ED', color: '#A8438A' },
     'Otra': { bg: '#E1F0E8', color: '#528E71' },
   };
   const CARRIL_COLORS = {
@@ -258,7 +258,7 @@ function Compromisos() {
                     onMouseEnter={e => e.currentTarget.style.background = 'rgba(90,54,128,0.04)'}
                     onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
                     <td style={{ padding: '12px 14px', fontWeight: 600, color: 'var(--tinta)', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{d['Organización'] || '—'}</td>
-                    <td style={{ padding: '12px 14px' }}><span className="chip" style={{ ...chipRed(d['Red']), fontSize: 11, whiteSpace: 'nowrap' }}>{(d['Red'] || '—').replace('Red Intercultural Juvenil', 'RIJ').replace('Red de Mujeres del Magdalena', 'R. Mujeres')}</span></td>
+                    <td style={{ padding: '12px 14px' }}><span className="chip" style={{ ...chipRed(d['Red']), fontSize: 11, whiteSpace: 'nowrap' }}>{(d['Red'] || '—').replace('Red Intercultural Juvenil (RIJ)', 'RIJ').replace('Red de Mujeres Sabedoras, Creadoras y Gestoras', 'R. Mujeres')}</span></td>
                     <td style={{ padding: '12px 14px', color: 'var(--tinta-2)', whiteSpace: 'nowrap' }}>{d['Municipio'] || '—'}</td>
                     <td style={{ padding: '12px 14px', color: 'var(--tinta-2)' }}>{d['Representante'] || '—'}</td>
                     <td style={{ padding: '12px 14px' }}><span className="chip" style={{ ...chipCarril(d['Carril']), fontSize: 11, whiteSpace: 'nowrap' }}>{(d['Carril'] || '—').replace(' · Saberes Financieros y Vínculos', '').replace(' · Autonomía Digital', '')}</span></td>

@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compromiso · Ciclo Puente · 3 minutos</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body {
+    background:
+      radial-gradient(circle at 0% 0%, rgba(168,67,138,0.05) 0%, transparent 40%),
+      radial-gradient(circle at 100% 100%, rgba(82,142,113,0.05) 0%, transparent 40%),
+      var(--crema);
+    min-height: 100vh;
+  }
+  .form-shell {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 32px 22px 64px;
+  }
+  .top-nav {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 16px 22px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .top-nav a {
+    color: var(--tinta-2);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .top-nav a:hover { color: var(--violeta); }
+  .top-nav .preview-tag {
+    background: var(--amarillo);
+    color: var(--tinta);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    font-family: var(--display);
+  }
+  .form-banner {
+    background: linear-gradient(135deg, var(--violeta) 0%, var(--violeta-d) 100%);
+    color: var(--crema);
+    padding: 28px 28px 24px;
+    border-radius: 14px 14px 0 0;
+    border-bottom: 5px solid var(--amarillo);
+  }
+  .form-banner-eyebrow {
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 10px;
+    opacity: 0.85;
+    font-weight: 600;
+  }
+  .form-banner h1 {
+    font-family: var(--display);
+    font-size: 30px;
+    line-height: 1.1;
+    margin: 6px 0 4px;
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  .form-banner h1 em {
+    font-family: var(--acento);
+    font-style: normal;
+    color: var(--amarillo);
+    font-weight: 400;
+  }
+  .tiempo {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    background: rgba(255,255,255,0.15);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .tiempo::before { content: "⏱"; }
+
+  .form-body {
+    background: var(--carta);
+    border: 1px solid rgba(29,15,46,0.10);
+    border-top: none;
+    padding: 28px;
+    border-radius: 0 0 14px 14px;
+  }
+
+  .preg {
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+    border-bottom: 1px dashed rgba(29,15,46,0.12);
+  }
+  .preg:last-of-type { border-bottom: none; padding-bottom: 0; }
+  .preg-num {
+    font-family: var(--display);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--violeta);
+    font-weight: 700;
+  }
+  .preg-q {
+    font-size: 15px;
+    line-height: 1.45;
+    margin: 4px 0 10px;
+    color: var(--tinta);
+    font-weight: 500;
+  }
+  .preg-q .req { color: #B73E3E; margin-left: 2px; }
+  .input-mock {
+    background: var(--papel);
+    border: 1px solid rgba(29,15,46,0.12);
+    border-radius: 5px;
+    padding: 9px 12px;
+    font-size: 13px;
+    color: var(--lino);
+    font-style: italic;
+    min-height: 18px;
+  }
+  .input-mock.parrafo { min-height: 48px; }
+  .input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .opcion {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--tinta-2);
+  }
+  .opcion::before {
+    content: "";
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--lino);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .compromiso-block {
+    background: linear-gradient(135deg, rgba(168,67,138,0.08), rgba(74,28,115,0.05));
+    border: 2px solid var(--violeta);
+    border-radius: 10px;
+    padding: 18px 18px 18px 18px;
+    margin: 8px 0 14px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .compromiso-cb {
+    width: 22px;
+    height: 22px;
+    border: 2px solid var(--violeta);
+    border-radius: 4px;
+    background: var(--carta);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .compromiso-txt {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--tinta);
+  }
+  .compromiso-txt strong { color: var(--violeta); }
+
+  .submit-row {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .submit-btn {
+    background: var(--violeta);
+    color: var(--crema);
+    border: none;
+    padding: 11px 26px;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(74,28,115,0.25);
+  }
+  .submit-note {
+    font-size: 12px;
+    color: var(--tinta-2);
+    font-style: italic;
+  }
+
+  .versiones {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--tinta-2);
+  }
+  .versiones a {
+    color: var(--violeta);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 520px) {
+    .form-banner { padding: 22px 20px 20px; }
+    .form-banner h1 { font-size: 24px; }
+    .form-body { padding: 22px 18px; }
+    .input-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-nav">
+  <a href="index.html">← Volver a la bitácora</a>
+  <span class="preview-tag">Vista previa · 3 min</span>
+</div>
+
+<div class="form-shell">
+
+  <header class="form-banner">
+    <div class="form-banner-eyebrow">Convenio 1022 de 2025</div>
+    <h1>Compromiso<br><em>Ciclo Puente</em></h1>
+    <span class="tiempo">3 minutos · 10 preguntas</span>
+  </header>
+
+  <section class="form-body">
+
+    <div class="preg">
+      <div class="preg-num">1</div>
+      <div class="preg-q">Nombre de la organización<span class="req">*</span></div>
+      <div class="input-mock">Tu organización…</div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">2</div>
+      <div class="preg-q">¿A qué red pertenecen?<span class="req">*</span></div>
+      <div class="opciones">
+        <div class="opcion">Red Intercultural Juvenil (RIJ)</div>
+        <div class="opcion">Red de Mujeres Sabedoras, Creadoras y Gestoras</div>
+        <div class="opcion">Otra</div>
+      </div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">3</div>
+      <div class="preg-q">Municipio y departamento<span class="req">*</span></div>
+      <div class="input-mock">Santa Marta, Magdalena</div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">4</div>
+      <div class="preg-q">Persona representante · nombre completo<span class="req">*</span></div>
+      <div class="input-mock">Nombre y apellido</div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">5</div>
+      <div class="preg-q">Correo y celular con WhatsApp<span class="req">*</span></div>
+      <div class="input-row">
+        <div class="input-mock"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5d3e322f2f38321d383738302d3132733e3230">[email&#160;protected]</a></div>
+        <div class="input-mock">+57 300 000 0000</div>
+      </div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">6</div>
+      <div class="preg-q">Nombres de quienes asistirán a las sesiones (hasta 3, separados por coma)<span class="req">*</span></div>
+      <div class="input-mock">Ana Pérez, Luisa Gómez…</div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">7</div>
+      <div class="preg-q">¿En qué carril participan?<span class="req">*</span></div>
+      <div class="opciones">
+        <div class="opcion">C1 · Saberes Financieros y Vínculos</div>
+        <div class="opcion">C2 · Autonomía Digital</div>
+        <div class="opcion">Ambos</div>
+      </div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">8 · El compromiso</div>
+      <div class="preg-q">Marquen para firmar:<span class="req">*</span></div>
+      <div class="compromiso-block">
+        <div class="compromiso-cb"></div>
+        <div class="compromiso-txt">
+          Nuestra organización se compromete a:
+          <br>· Asistir al menos al <strong>75 %</strong> de las sesiones del carril
+          <br>· Avisar con <strong>24 horas</strong> cuando no podamos asistir
+          <br>· Aplicar lo aprendido en al menos <strong>una acción concreta</strong> antes del 17 de julio
+        </div>
+      </div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">9</div>
+      <div class="preg-q">¿Qué esperan llevarse del Ciclo? (1-2 frases)<span class="req">*</span></div>
+      <div class="input-mock parrafo"></div>
+    </div>
+
+    <div class="preg">
+      <div class="preg-num">10</div>
+      <div class="preg-q">Lugar y fecha<span class="req">*</span></div>
+      <div class="input-mock">Santa Marta, 8 de mayo de 2026</div>
+    </div>
+
+    <div class="submit-row">
+      <button class="submit-btn">Enviar compromiso</button>
+      <span class="submit-note">Recibes copia en tu correo.</span>
+    </div>
+
+  </section>
+
+  <p class="versiones">
+    ¿Necesitas más detalle? Mira la <a href="compromiso-preview-largo.html">versión extendida</a> con 7 secciones y 43 preguntas.
+  </p>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</html>

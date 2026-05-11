@@ -36,7 +36,7 @@ const TEAM = [
     id: 'mercy',
     nombre: 'Mercy Tatiana Arias',
     corto: 'Mercy',
-    rol: 'Orientadora — Red de Mujeres Sabedoras, Artistas y Gestoras',
+    rol: 'Orientadora — Red de Mujeres Sabedoras, Creadoras y Gestoras',
     area: 'Red de Mujeres',
     color: '#A8438A',
     inicial: 'M',
