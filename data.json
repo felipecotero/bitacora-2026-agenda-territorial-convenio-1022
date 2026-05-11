@@ -11,7 +11,7 @@
       "Jeimmy Johanna Ruiz"
     ]
   },
-  "carriles": {
+  "caminos": {
     "C1": {
       "nombre": "Formación Puente",
       "descripcion": "Saberes financieros · saberes RIJ · comunicaciones",
@@ -44,7 +44,7 @@
   "eventos": [
     {
       "fecha": "2026-05-07",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Minga Circulacion y Divulgación · Autonomía Digital",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -54,7 +54,7 @@
     },
     {
       "fecha": "2026-05-08",
-      "carril": "HITO",
+      "camino": "HITO",
       "titulo": "Reunión de coordinación · cierre del Ciclo",
       "hora": "Tarde",
       "duracion": "1h 30min",
@@ -64,7 +64,7 @@
     },
     {
       "fecha": "2026-05-11",
-      "carril": "HITO",
+      "camino": "HITO",
       "titulo": "Presentación Del Ciclo de Formación Puente",
       "hora": "18:00 - 19:30",
       "duracion": "1h 30min",
@@ -74,7 +74,7 @@
     },
     {
       "fecha": "2026-05-13",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Comunicaciones específicas · equipo RIJ",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -84,7 +84,7 @@
     },
     {
       "fecha": "2026-05-13",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "mercy",
       "titulo": "Finanzas Personales",
       "hora": "Por confirmar",
@@ -95,7 +95,7 @@
     },
     {
       "fecha": "2026-05-14",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Comunicaciones específicas · equipo Red de Mujeres",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -105,7 +105,7 @@
     },
     {
       "fecha": "2026-05-15",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "felipe",
       "titulo": "Comunicaciones I - Desde dónde hablamos",
       "hora": "Por confirmar",
@@ -116,7 +116,7 @@
     },
     {
       "fecha": "2026-05-15",
-      "carril": "C3",
+      "camino": "C3",
       "titulo": "Identidad gráfica · S2",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -125,7 +125,7 @@
     },
     {
       "fecha": "2026-05-19",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "jeimmy",
       "titulo": "Contexto - \"Curar el Entorno\"",
       "hora": "10:00 - 11:30",
@@ -136,7 +136,7 @@
     },
     {
       "fecha": "2026-05-20",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "mercy",
       "titulo": "Presupuesto",
       "hora": "18:30 - 20:00",
@@ -147,7 +147,7 @@
     },
     {
       "fecha": "2026-05-22",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "felipe",
       "titulo": "Comunicaciones II - Decidir qué se dice y qué se cuida",
       "hora": "17:30 - 19:00",
@@ -158,7 +158,7 @@
     },
     {
       "fecha": "2026-05-22",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Sesión técnica · Plataformas",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -167,7 +167,7 @@
     },
     {
       "fecha": "2026-05-25",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "jeimmy",
       "titulo": "Reciprocidad - \"La Ética de la Corresponsabilidad\" ",
       "hora": "18:30 - 20:00",
@@ -178,7 +178,7 @@
     },
     {
       "fecha": "2026-05-27",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "mercy",
       "titulo": "Flujo de caja",
       "hora": "18:30 - 20:00",
@@ -189,7 +189,7 @@
     },
     {
       "fecha": "2026-05-29",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "mercy",
       "titulo": "Diversificación de ingresos",
       "hora": "17:30 - 19:00",
@@ -200,7 +200,7 @@
     },
     {
       "fecha": "2026-06-01",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "jeimmy",
       "titulo": "Flujo del Ser - La Coherencia Interna",
       "hora": "18:30 - 20:00",
@@ -211,7 +211,7 @@
     },
     {
       "fecha": "2026-06-03",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "mercy",
       "titulo": "Indicadores para control financiero",
       "hora": "18:30 - 20:00",
@@ -222,7 +222,7 @@
     },
     {
       "fecha": "2026-06-05",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Sesión técnica · Kit Gráfico",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -231,7 +231,7 @@
     },
     {
       "fecha": "2026-06-05",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "jeimmy",
       "titulo": "Caja de Herramientas I - Lo Político del Cuidado Situado",
       "hora": "17:30 - 19:00",
@@ -242,7 +242,7 @@
     },
     {
       "fecha": "2026-06-12",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Sesión técnica · Plataforma web Mujeres",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -251,7 +251,7 @@
     },
     {
       "fecha": "2026-06-19",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Sesión técnica · Directorio Vivo",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -260,7 +260,7 @@
     },
     {
       "fecha": "2026-06-22",
-      "carril": "C1",
+      "camino": "C1",
       "orientadora": "jeimmy",
       "titulo": "Herramientas II - Lo Politico del Cuidado Situado",
       "hora": "18:30 - 20:00",
@@ -271,7 +271,7 @@
     },
     {
       "fecha": "2026-06-24",
-      "carril": "HITO",
+      "camino": "HITO",
       "titulo": "Encuentro Red Intercultural Juvenil · día 1",
       "hora": "—",
       "duracion": "3 noches · 5 jornadas",
@@ -281,7 +281,7 @@
     },
     {
       "fecha": "2026-06-26",
-      "carril": "HITO",
+      "camino": "HITO",
       "titulo": "Cierre componente junio",
       "hora": "—",
       "duracion": "—",
@@ -290,7 +290,7 @@
     },
     {
       "fecha": "2026-07-03",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Sesión técnica · Video y audio",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -299,7 +299,7 @@
     },
     {
       "fecha": "2026-07-10",
-      "carril": "C2",
+      "camino": "C2",
       "titulo": "Sesión técnica · Cierre y mantenimiento",
       "hora": "Por confirmar",
       "duracion": "1h 30min",
@@ -308,7 +308,7 @@
     },
     {
       "fecha": "2026-07-17",
-      "carril": "HITO",
+      "camino": "HITO",
       "titulo": "Acta de Transferencia",
       "hora": "Por confirmar",
       "duracion": "Variable",

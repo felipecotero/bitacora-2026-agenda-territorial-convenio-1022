@@ -25,7 +25,7 @@ function Cronograma({ tasks, onToggle, agenda }) {
   // Si agenda aún no cargó, usa el array estático de data.js como fallback
   const tipoPorOrient = { mercy: 'Saberes financieros', jeimmy: 'Saberes RIJ', felipe: 'Comunicaciones' };
   const CICLO_VIVO = (agenda?.eventos || [])
-    .filter(e => e.carril === 'C1')
+    .filter(e => e.camino === 'C1')
     .sort((a, b) => a.fecha.localeCompare(b.fecha))
     .map((e, i) => ({
       n: i + 1,

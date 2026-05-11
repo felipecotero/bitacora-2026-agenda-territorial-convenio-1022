@@ -9,7 +9,7 @@ const MESES_TELAR = [
 ];
 const DIAS_CORTO = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
 
-function carrilColor(c) {
+function caminoColor(c) {
   return ({
     C1: '#A8438A',
     C2: '#5A3680',
@@ -17,7 +17,7 @@ function carrilColor(c) {
     HITO: '#528E71',
   })[c] || '#5A3680';
 }
-function carrilNombre(c) {
+function caminoNombre(c) {
   return ({
     C1: 'Formación Puente',
     C2: 'Autonomía Digital',
@@ -54,7 +54,7 @@ function EditorEvento({ eventoIdx, evento, onClose, onSave, onDelete }) {
   const isNew = eventoIdx == null;
   const [form, setForm] = tUseState({
     fecha: evento?.fecha || '',
-    carril: evento?.carril || 'C1',
+    camino: evento?.camino || 'C1',
     orientadora: evento?.orientadora || '',
     titulo: evento?.titulo || '',
     hora: evento?.hora || 'Por confirmar',
@@ -69,7 +69,7 @@ function EditorEvento({ eventoIdx, evento, onClose, onSave, onDelete }) {
 
   const guardar = () => {
     const limpio = { ...form };
-    if (limpio.carril !== 'C1') delete limpio.orientadora;
+    if (limpio.camino !== 'C1') delete limpio.orientadora;
     if (!limpio.orientadora) delete limpio.orientadora;
     if (!limpio.estadoCal) delete limpio.estadoCal;
     if (!limpio.destacado) delete limpio.destacado;
@@ -80,7 +80,7 @@ function EditorEvento({ eventoIdx, evento, onClose, onSave, onDelete }) {
     <div className="telar-modal-overlay" onClick={onClose}>
       <div className="telar-modal" onClick={e => e.stopPropagation()}>
         <div className="telar-modal-head">
-          <div className="eyebrow" style={{ color: carrilColor(form.carril) }}>
+          <div className="eyebrow" style={{ color: caminoColor(form.camino) }}>
             {isNew ? 'Nueva sesión' : 'Editar sesión'}
           </div>
           <h3 style={{ fontFamily: 'var(--display)', margin: '4px 0 0', fontSize: 26, fontWeight: 600 }}>
@@ -112,15 +112,15 @@ function EditorEvento({ eventoIdx, evento, onClose, onSave, onDelete }) {
 
           <div className="telar-form-row">
             <label>
-              <span>Carril</span>
-              <select value={form.carril} onChange={e => update('carril', e.target.value)}>
+              <span>Camino</span>
+              <select value={form.camino} onChange={e => update('camino', e.target.value)}>
                 <option value="C1">C1 · Formación Puente</option>
                 <option value="C2">C2 · Autonomía Digital</option>
                 <option value="C3">C3 · Identidad Mujeres</option>
                 <option value="HITO">HITO</option>
               </select>
             </label>
-            {form.carril === 'C1' && (
+            {form.camino === 'C1' && (
               <label>
                 <span>Orientadora</span>
                 <select value={form.orientadora} onChange={e => update('orientadora', e.target.value)}>
@@ -131,7 +131,7 @@ function EditorEvento({ eventoIdx, evento, onClose, onSave, onDelete }) {
                 </select>
               </label>
             )}
-            {form.carril === 'C1' && (
+            {form.camino === 'C1' && (
               <label>
                 <span>Estado</span>
                 <select value={form.estadoCal} onChange={e => update('estadoCal', e.target.value)}>
@@ -167,7 +167,7 @@ function EditorEvento({ eventoIdx, evento, onClose, onSave, onDelete }) {
           )}
           <div style={{ flex: 1 }}></div>
           <button className="btn-fantasma" onClick={onClose}>Cancelar</button>
-          <button className="btn-solido" onClick={guardar} style={{ background: carrilColor(form.carril) }}>
+          <button className="btn-solido" onClick={guardar} style={{ background: caminoColor(form.camino) }}>
             {isNew ? 'Crear sesión' : 'Guardar cambios'}
           </button>
         </div>
@@ -178,7 +178,7 @@ function EditorEvento({ eventoIdx, evento, onClose, onSave, onDelete }) {
 
 /* ===== Card de evento dentro de un día ===== */
 function ChipEvento({ ev, idx, onClick }) {
-  const color = carrilColor(ev.carril);
+  const color = caminoColor(ev.camino);
   return (
     <button
       className={`telar-chip ${ev.destacado ? 'destacado' : ''}`}
@@ -186,7 +186,7 @@ function ChipEvento({ ev, idx, onClick }) {
       onClick={() => onClick(idx)}
       title={`${ev.titulo} · ${ev.hora}`}
     >
-      <span className="telar-chip-carril" style={{ background: color }}>{ev.carril}</span>
+      <span className="telar-chip-camino" style={{ background: color }}>{ev.camino}</span>
       <span className="telar-chip-titulo">{ev.titulo}</span>
       {ev.hora && ev.hora !== 'Por confirmar' && <span className="telar-chip-hora">{ev.hora}</span>}
     </button>
@@ -196,7 +196,7 @@ function ChipEvento({ ev, idx, onClick }) {
 /* ===== Vista principal ===== */
 function Telar({ agenda, onUpdateAgenda }) {
   const [editing, setEditing] = tUseState(null); // { idx, evento } | { idx: null, evento: {fecha} }
-  const [filtroCarril, setFiltroCarril] = tUseState('todos');
+  const [filtroCamino, setFiltroCamino] = tUseState('todos');
   const [showConfig, setShowConfig] = tUseState(false);
   const [mesActivo, setMesActivo] = tUseState(0); // 0=may, 1=jun, 2=jul
   const fileInputRef = tUseRef(null);
@@ -208,15 +208,15 @@ function Telar({ agenda, onUpdateAgenda }) {
     eventos.forEach((ev, idx) => {
       const f = ev.fecha;
       if (!m[f]) m[f] = [];
-      if (filtroCarril === 'todos' || ev.carril === filtroCarril) {
+      if (filtroCamino === 'todos' || ev.camino === filtroCamino) {
         m[f].push({ ...ev, _idx: idx });
       }
     });
     return m;
-  }, [eventos, filtroCarril]);
+  }, [eventos, filtroCamino]);
 
   const onEditEv = (idx) => setEditing({ idx, evento: eventos[idx] });
-  const onNewEv = (fecha) => setEditing({ idx: null, evento: { fecha, carril: 'C1' } });
+  const onNewEv = (fecha) => setEditing({ idx: null, evento: { fecha, camino: 'C1' } });
 
   const onSaveEv = (idx, datos) => {
     const next = { ...agenda, eventos: [...eventos] };
@@ -263,11 +263,11 @@ function Telar({ agenda, onUpdateAgenda }) {
     reader.readAsText(file);
   };
 
-  const carriles = ['todos', 'C1', 'C2', 'C3', 'HITO'];
+  const caminos = ['todos', 'C1', 'C2', 'C3', 'HITO'];
   const totalSemestre = eventos.length;
-  const conteoCarriles = ['C1', 'C2', 'C3', 'HITO'].map(c => ({
+  const conteoCaminos = ['C1', 'C2', 'C3', 'HITO'].map(c => ({
     c,
-    n: eventos.filter(e => e.carril === c).length,
+    n: eventos.filter(e => e.camino === c).length,
   }));
 
   if (!agenda) {
@@ -289,7 +289,7 @@ function Telar({ agenda, onUpdateAgenda }) {
               {agenda.meta?.subtitulo || 'Mayo · Junio · Julio · 2026'}
             </h2>
             <p style={{ fontFamily: 'var(--acento)', fontSize: 22, color: 'var(--violeta)', margin: 0, lineHeight: 1.1 }}>
-              tres carriles tejidos · una sola fuente
+              tres caminos tejidos · una sola fuente
             </p>
             <p className="muted" style={{ marginTop: 10, fontSize: 14 }}>
               Última actualización: {agenda.meta?.ultimaActualizacion || '—'} · {totalSemestre} sesiones · edita haciendo clic en cualquier sesión
@@ -322,11 +322,11 @@ function Telar({ agenda, onUpdateAgenda }) {
         </div>
 
         <div className="telar-leyenda">
-          {conteoCarriles.map(({ c, n }) => (
+          {conteoCaminos.map(({ c, n }) => (
             <span key={c} className="telar-leyenda-item">
-              <span className="telar-leyenda-dot" style={{ background: carrilColor(c) }}></span>
+              <span className="telar-leyenda-dot" style={{ background: caminoColor(c) }}></span>
               <strong>{c}</strong>
-              <span className="muted"> · {carrilNombre(c)} · {n}</span>
+              <span className="muted"> · {caminoNombre(c)} · {n}</span>
             </span>
           ))}
         </div>
@@ -348,12 +348,12 @@ function Telar({ agenda, onUpdateAgenda }) {
         </div>
         <div className="telar-filtros">
           <span className="muted" style={{ fontSize: 13 }}>Filtrar:</span>
-          {carriles.map(c => (
+          {caminos.map(c => (
             <button
               key={c}
-              className={`telar-filtro ${filtroCarril === c ? 'activo' : ''}`}
-              onClick={() => setFiltroCarril(c)}
-              style={filtroCarril === c && c !== 'todos' ? { background: carrilColor(c), color: '#fff', borderColor: carrilColor(c) } : {}}
+              className={`telar-filtro ${filtroCamino === c ? 'activo' : ''}`}
+              onClick={() => setFiltroCamino(c)}
+              style={filtroCamino === c && c !== 'todos' ? { background: caminoColor(c), color: '#fff', borderColor: caminoColor(c) } : {}}
             >
               {c === 'todos' ? 'Todos' : c}
             </button>

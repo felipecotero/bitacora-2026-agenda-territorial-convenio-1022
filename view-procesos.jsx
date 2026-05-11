@@ -14,7 +14,7 @@ function Ciclo({ agenda, onGoTo }) {
       felipe: 'Comunicaciones',
     };
     return agenda.eventos
-      .filter(e => e.carril === 'C1')
+      .filter(e => e.camino === 'C1')
       .sort((a, b) => a.fecha.localeCompare(b.fecha))
       .map((e, i) => {
         const d = parseISO(e.fecha);

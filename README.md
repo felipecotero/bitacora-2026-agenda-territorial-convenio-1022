@@ -80,7 +80,7 @@ al repositorio.
 
 > Cualquier duda, Felipe acompaña en la primera edición.
 
-## Carriles del Telar
+## Caminos del Telar
 
 | Sigla | Línea                | Conducen                                |
 | :--:  | -----                | --------                                |

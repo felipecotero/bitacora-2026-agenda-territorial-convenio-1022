@@ -6,7 +6,7 @@ function Tablero({ tasks, onToggle, onGoTo, agenda }) {
 
   // Próxima sesión del Ciclo · prefiere data.json si está disponible
   const sesionesC1 = (agenda?.eventos || [])
-    .filter(e => e.carril === 'C1')
+    .filter(e => e.camino === 'C1')
     .sort((a, b) => a.fecha.localeCompare(b.fecha));
   const tipoPorOrient = { mercy: 'Saberes financieros', jeimmy: 'Saberes RIJ', felipe: 'Comunicaciones' };
   const CICLO = sesionesC1.length

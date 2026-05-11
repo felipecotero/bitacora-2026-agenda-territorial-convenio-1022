@@ -977,7 +977,7 @@ a { color: inherit; }
   background: linear-gradient(180deg, #FAF6E7 0%, #FFF 100%);
   box-shadow: 0 0 0 1px var(--amarillo) inset, var(--shadow-1);
 }
-.telar-chip-carril {
+.telar-chip-camino {
   font-family: var(--display);
   font-weight: 700;
   font-size: 9px;
@@ -1225,7 +1225,7 @@ a { color: inherit; }
   .telar-chip { padding: 3px 5px; font-size: 10px; }
   .telar-chip-titulo { font-size: 10.5px; }
   .telar-chip-hora { display: none; }
-  .telar-chip-carril { font-size: 8px; padding: 1px 3px; }
+  .telar-chip-camino { font-size: 8px; padding: 1px 3px; }
 }
 
 /* ============================================================
