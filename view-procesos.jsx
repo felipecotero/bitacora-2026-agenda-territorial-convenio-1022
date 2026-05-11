@@ -59,10 +59,15 @@ function Ciclo({ agenda, onGoTo }) {
 
   return (
     <div className="col gap-lg">
-      <div>
-        <div className="eyebrow">Ciclo de Formación Puente</div>
-        <h2 className="section-title" style={{ fontSize: 28 }}>Saberes que se entretejen</h2>
-        <p className="section-sub">finanzas · RIJ · comunicaciones — 12 sesiones</p>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
+        <div>
+          <div className="eyebrow">Ciclo de Formación Puente</div>
+          <h2 className="section-title" style={{ fontSize: 28 }}>Saberes que se entretejen</h2>
+          <p className="section-sub">finanzas · RIJ · comunicaciones — 12 sesiones</p>
+        </div>
+        <a href="ciclo.html" target="_blank" className="btn btn-primary" style={{ textDecoration: 'none' }}>
+          Abrir vista pública para participantes ↗
+        </a>
       </div>
 
       {/* Banda de estado · cierra mañana */}

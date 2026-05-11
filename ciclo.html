@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ciclo de Formación Puente · Agenda Territorial</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: var(--crema); }
+    .hero-ciclo {
+      background: var(--tinta);
+      color: var(--crema);
+      padding: 60px 40px;
+      border-bottom: 4px solid var(--naranja);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-ciclo::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: url('img/bg-onda.jpg');
+      background-size: cover; background-position: top right;
+      opacity: 0.2; pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 40px; }
+    .hero-logos { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
+    .logo-mincultura { 
+      font-family: var(--display); font-weight: 600; font-size: 15px; color: var(--crema); 
+      opacity: 0.9; max-width: 220px; line-height: 1.25; 
+      border-left: 2px solid var(--violeta-l); padding-left: 16px; 
+    }
+    
+    .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
+    .month-section { margin-bottom: 60px; }
+    .month-title { 
+      font-family: var(--display); font-size: 32px; color: var(--tinta); 
+      border-bottom: 2px solid var(--lino); padding-bottom: 10px; margin-bottom: 30px; 
+      display: inline-block; 
+    }
+    .grid-sesiones { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+    
+    .sesion-card { 
+      background: var(--carta); border-radius: var(--r-lg); padding: 24px; 
+      border: 1px solid rgba(29,15,46,0.08); box-shadow: var(--shadow-1); 
+      display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .sesion-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
+    .sesion-header { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; }
+    
+    /* Reutilizando .date-pill del styles.css */
+    .sesion-card .date-pill { width: 70px; min-height: 85px; }
+    
+    .sesion-info { flex: 1; }
+    .s-tipo { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .s-tema { font-family: var(--display); font-size: 18px; font-weight: 600; color: var(--tinta); line-height: 1.25; margin-bottom: 8px; }
+    .s-meta { font-size: 13.5px; color: var(--tinta-2); }
+    
+    .sesion-actions { margin-top: auto; padding-top: 16px; border-top: 1px dashed var(--lino); display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn-reunion { display: inline-flex; align-items: center; gap: 8px; background: var(--violeta); color: var(--crema); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .btn-reunion:hover { background: var(--violeta-d); }
+    .btn-grabacion { display: inline-flex; align-items: center; gap: 8px; background: var(--hueso); color: var(--tinta-2); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .btn-grabacion:hover { background: var(--lino); color: var(--tinta); }
+    
+    /* Colores por orientador */
+    .orient-mercy .s-tipo { color: var(--magenta); }
+    .orient-mercy .dp-month { background: var(--magenta); color: var(--crema); }
+    .orient-jeimmy .s-tipo { color: var(--naranja); }
+    .orient-jeimmy .dp-month { background: var(--naranja); color: var(--crema); }
+    .orient-felipe .s-tipo { color: var(--amarillo); }
+    .orient-felipe .dp-month { background: var(--amarillo); color: var(--tinta) !important; }
+    .orient-yuli .s-tipo { color: var(--violeta); }
+    .orient-yuli .dp-month { background: var(--violeta); color: var(--crema); }
+    
+    @media (max-width: 600px) {
+      .hero-content { flex-direction: column; align-items: flex-start; }
+      .container { padding: 20px; }
+      .grid-sesiones { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero-ciclo">
+    <div class="hero-content">
+      <div>
+        <h1 style="font-family: var(--display); font-size: 42px; margin: 0 0 4px; line-height: 1.1">Ciclo de Formación Puente</h1>
+        <p style="font-family: var(--acento); font-size: 28px; color: var(--amarillo); margin: 0">Camino Uno — Sesiones virtuales</p>
+      </div>
+      <div class="hero-logos">
+        <img src="img/puente-logo-blanco.svg" alt="PUENTE" style="max-width: 140px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4))">
+        <!-- Placeholder para logo de MinCulturas (como texto) -->
+        <div class="logo-mincultura">Ministerio de las Culturas, las Artes y los Saberes</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="app-ciclo"></div>
+  </main>
+
+  <script src="data.js"></script>
+  <script>
+    function parseDate(isoString) {
+      const parts = isoString.split('-');
+      return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+    function shortMonth(d) { return d.toLocaleDateString('es-CO', { month: 'short' }).replace('.', '').toUpperCase(); }
+    
+    const sortedCiclo = [...CICLO].sort((a,b) => parseDate(a.fecha) - parseDate(b.fecha));
+    
+    // Agrupar por mes
+    const porMes = { 4: [], 5: [] }; // 4=Mayo, 5=Junio
+    sortedCiclo.forEach(item => {
+      const d = parseDate(item.fecha);
+      if(porMes[d.getMonth()]) porMes[d.getMonth()].push(item);
+    });
+
+    const app = document.getElementById('app-ciclo');
+    
+    function renderCard(item) {
+      const d = parseDate(item.fecha);
+      const orientadorObj = TEAM.find(t => t.id === item.orient) || {};
+      const orientNombre = orientadorObj.corto || item.orient;
+      
+      let botones = '';
+      if (item.enlaceSesion) {
+        botones += `<a href="${item.enlaceSesion}" target="_blank" class="btn-reunion">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.6 11.6L22 7v10l-6.4-4.5v-1zM4 5h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2z"/></svg>
+          Unirse a la reunión
+        </a>`;
+      }
+      if (item.enlaceGrabacion) {
+        botones += `<a href="${item.enlaceGrabacion}" target="_blank" class="btn-grabacion">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>
+          Ver grabación
+        </a>`;
+      }
+      if (!botones) {
+        botones = `<span style="font-size: 12.5px; color: var(--tinta-3); font-style: italic">Enlaces disponibles próximamente</span>`;
+      }
+
+      return \`
+        <div class="sesion-card orient-\${item.orient}">
+          <div class="sesion-header">
+            <div class="date-pill">
+              <div class="dp-month">\${shortMonth(d)}</div>
+              <div class="dp-day">\${d.getDate()}</div>
+              <div class="dp-dow">\${item.dia}</div>
+            </div>
+            <div class="sesion-info">
+              <div class="s-tipo">\${item.tipo}</div>
+              <div class="s-tema">\${item.tema}</div>
+              <div class="s-meta"><strong>\${orientNombre}</strong> · \${item.hora}</div>
+            </div>
+          </div>
+          <div class="sesion-actions">
+            \${botones}
+          </div>
+        </div>
+      \`;
+    }
+
+    let html = '';
+    
+    // Render Mayo
+    if (porMes[4] && porMes[4].length > 0) {
+      html += \`
+        <div class="month-section">
+          <h2 class="month-title" style="border-color: var(--violeta)">Mayo</h2>
+          <div class="grid-sesiones">\${porMes[4].map(renderCard).join('')}</div>
+        </div>
+      \`;
+    }
+    
+    // Render Junio
+    if (porMes[5] && porMes[5].length > 0) {
+      html += \`
+        <div class="month-section">
+          <h2 class="month-title" style="border-color: var(--verde)">Junio</h2>
+          <div class="grid-sesiones">\${porMes[5].map(renderCard).join('')}</div>
+        </div>
+      \`;
+    }
+    
+    app.innerHTML = html;
+  </script>
+</body>
+</html>
