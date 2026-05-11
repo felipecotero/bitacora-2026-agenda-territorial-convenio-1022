@@ -4,8 +4,8 @@ function Compromisos() {
   // ============================================================
   // CONFIGURACIÓN — pega aquí las URLs de tu Google Apps Script y Sheet
   // ============================================================
-  const SCRIPT_URL = ''; // URL del Apps Script Web App
-  const SHEET_URL  = ''; // URL del Google Sheet (para el botón "Abrir en Sheets")
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaPWfTzIcOoV-OdDtGJb9dQk66AjvN65fzh9JEW5fbEUeV3gBqL5-DmBxb04GzAbun/exec';
+  const SHEET_URL  = 'https://docs.google.com/spreadsheets/d/1bD1UR2Hq34XsPrICc4ZU-KMrjfztDcsvi4XJ1ltaY_s/edit?usp=sharing';
   // ============================================================
 
   const [datos, setDatos] = React.useState([]);
