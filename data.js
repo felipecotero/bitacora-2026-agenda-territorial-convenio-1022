@@ -158,8 +158,7 @@ const CRONOGRAMA = [
     titulo: 'Carta de compromiso institucional · versión depurada',
     detalle: 'Felipe redacta y envía al equipo la carta de compromiso para las organizaciones. Versión más corta que el borrador de Claudia. Las organizaciones la devuelven firmada después de la presentación del 11 de mayo.',
     responsables: ['felipe'],
-    tipo: 'entrega', estado: 'pendiente',
-    alerta: 'Circula hoy',
+    tipo: 'entrega', estado: 'hecha',
   },
   {
     id: 't-may09-c5',
@@ -167,8 +166,7 @@ const CRONOGRAMA = [
     titulo: 'Correo de invitación a organizaciones · presentación del 11 de mayo',
     detalle: 'Felipe (con apoyo de M.) envía invitación por correo a todas las organizaciones para la sesión inaugural del Ciclo del 11 de mayo, 18:00–19:30. Con copia a agenda territorial. Sin pieza gráfica en esta convocatoria.',
     responsables: ['felipe'],
-    tipo: 'entrega', estado: 'pendiente',
-    alerta: 'Sale hoy sábado',
+    tipo: 'entrega', estado: 'hecha',
   },
   {
     id: 't-may09-c1',
@@ -553,12 +551,6 @@ const BITACORA = [
 ];
 
 const ALERTAS = [
-  {
-    icono: '!',
-    titulo: 'Hoy sábado 9 · Correo de invitación y carta de compromiso',
-    detalle: 'Felipe envía correo de invitación a organizaciones para el 11 de mayo y la carta de compromiso depurada. Mercy y Jeimmy confirman que pudieron abrir la presentación en Canva.',
-    color: '#D97B3F',
-  },
   {
     icono: '!',
     titulo: 'Lunes 11 · Gestión British Council y Fondo Mixto',
