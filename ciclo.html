@@ -88,8 +88,7 @@
       </div>
       <div class="hero-logos">
         <img src="img/puente-logo-blanco.svg" alt="PUENTE" style="max-width: 140px; filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.4))">
-        <!-- Placeholder para logo de MinCulturas (como texto) -->
-        <div class="logo-mincultura">Ministerio de las Culturas, las Artes y los Saberes</div>
+        <img src="img/minculturas-logo.png" alt="Ministerio de las Culturas" style="height: 60px; object-fit: contain; filter: brightness(0) invert(1);">
       </div>
     </div>
   </header>
@@ -150,25 +149,25 @@
         botones = `<span style="font-size: 12.5px; color: var(--tinta-3); font-style: italic">Enlaces disponibles próximamente</span>`;
       }
 
-      return \`
-        <div class="sesion-card orient-\${item.orient}">
+      return `
+        <div class="sesion-card orient-${item.orient}">
           <div class="sesion-header">
             <div class="date-pill">
-              <div class="dp-month">\${shortMonth(d)}</div>
-              <div class="dp-day">\${d.getDate()}</div>
-              <div class="dp-dow">\${item.dia}</div>
+              <div class="dp-month">${shortMonth(d)}</div>
+              <div class="dp-day">${d.getDate()}</div>
+              <div class="dp-dow">${item.dia}</div>
             </div>
             <div class="sesion-info">
-              <div class="s-tipo">\${item.tipo}</div>
-              <div class="s-tema">\${item.tema}</div>
-              <div class="s-meta"><strong>\${orientNombre}</strong> · \${item.hora}</div>
+              <div class="s-tipo">${item.tipo}</div>
+              <div class="s-tema">${item.tema}</div>
+              <div class="s-meta"><strong>${orientNombre}</strong> · ${item.hora}</div>
             </div>
           </div>
           <div class="sesion-actions">
-            \${botones}
+            ${botones}
           </div>
         </div>
-      \`;
+      `;
     }
 
     let html = '';
@@ -182,12 +181,12 @@
       const mName = nombreMes(d);
       const color = colorPorMes[index % colorPorMes.length];
       
-      html += \`
+      html += `
         <div class="month-section">
-          <h2 class="month-title" style="border-color: \${color}">\${mName}</h2>
-          <div class="grid-sesiones">\${items.map(renderCard).join('')}</div>
+          <h2 class="month-title" style="border-color: ${color}">${mName}</h2>
+          <div class="grid-sesiones">${items.map(renderCard).join('')}</div>
         </div>
-      \`;
+      `;
     });
     
     app.innerHTML = html;
