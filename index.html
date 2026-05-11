@@ -24,6 +24,7 @@
 <script type="text/babel" src="view-docs.jsx"></script>
 <script type="text/babel" src="github-sync.jsx"></script>
 <script type="text/babel" src="view-telar.jsx"></script>
+<script type="text/babel" src="view-compromisos.jsx"></script>
 
 <script type="text/babel">
 const { useState, useEffect } = React;
@@ -187,6 +188,7 @@ function App() {
     encuentro:  { t: 'Encuentro RIJ', s: '24 al 27 de junio · presencial' },
     telar:      { t: 'El Telar', s: 'Calendario editable · única fuente de verdad' },
     documentos: { t: 'Documentos', s: 'Materiales del Convenio 1022' },
+    compromisos: { t: 'Compromisos', s: 'Firmas del Ciclo Puente · matriz de participantes' },
   };
   const tit = titulos[active];
 
@@ -215,7 +217,8 @@ function App() {
         {active === 'ciclo'      && <Ciclo agenda={agenda} onGoTo={setActive} />}
         {active === 'encuentro'  && <Encuentro onGoTo={setActive} />}
         {active === 'telar'      && <Telar agenda={agenda} onUpdateAgenda={updateAgenda} />}
-        {active === 'documentos' && <Documentos />}
+        {active === 'documentos'  && <Documentos />}
+        {active === 'compromisos' && <Compromisos />}
       </main>
       {toast && (
         <div className="toast" key={toast.id}>

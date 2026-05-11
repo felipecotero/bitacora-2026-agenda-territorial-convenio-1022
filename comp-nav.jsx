@@ -9,7 +9,8 @@ const SECTION_COLORS = {
   ciclo:      { color: '#7E5BA4', accent: '#E8C535' }, // violeta claro + amarillo
   encuentro:  { color: '#1D0F2E', accent: '#D97B3F' }, // tinta + naranja
   telar:      { color: '#3D2058', accent: '#E8C535' }, // tinta violeta + amarillo
-  documentos: { color: '#6E5B0D', accent: '#E8C535' }, // ocre + amarillo
+  documentos:  { color: '#6E5B0D', accent: '#E8C535' }, // ocre + amarillo
+  compromisos: { color: '#8C1A5C', accent: '#E8C535' }, // magenta oscuro + amarillo
 };
 window.SECTION_COLORS = SECTION_COLORS;
 
@@ -22,8 +23,9 @@ function Sidebar({ active, onChange, counts }) {
     { id: 'equipo',    label: 'Equipo',            section: 'Personas' },
     { id: 'ciclo',     label: 'Ciclo de Formación',section: 'Procesos' },
     { id: 'telar',     label: 'El Telar',          section: 'Procesos' },
-    { id: 'encuentro', label: 'Encuentro RIJ',     section: 'Procesos' },
-    { id: 'documentos',label: 'Documentos',        section: 'Materiales' },
+    { id: 'encuentro',  label: 'Encuentro RIJ',     section: 'Procesos' },
+    { id: 'compromisos',label: 'Compromisos',       section: 'Procesos' },
+    { id: 'documentos', label: 'Documentos',        section: 'Materiales' },
   ];
   const sections = [...new Set(items.map(i => i.section))];
 

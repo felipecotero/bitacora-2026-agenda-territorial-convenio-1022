@@ -1227,3 +1227,64 @@ a { color: inherit; }
   .telar-chip-hora { display: none; }
   .telar-chip-carril { font-size: 8px; padding: 1px 3px; }
 }
+
+/* ============================================================
+   COMPROMISOS — formulario funcional + vista interna
+   ============================================================ */
+
+/* Tabla matriz de compromisos */
+.comp-matriz-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.comp-matriz-table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--tinta-3);
+  background: var(--papel);
+  border-bottom: 2px solid var(--lino);
+  white-space: nowrap;
+}
+.comp-matriz-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--hueso);
+  vertical-align: middle;
+}
+.comp-matriz-table tr:hover td {
+  background: rgba(90,54,128,0.04);
+}
+.comp-matriz-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* Pantalla de éxito del formulario standalone */
+.comp-success {
+  text-align: center;
+  padding: 56px 28px;
+  animation: slideUp .4s ease-out;
+}
+.comp-success-icon { font-size: 60px; margin-bottom: 18px; }
+.comp-success-title {
+  font-family: var(--display);
+  font-size: 28px; font-weight: 700;
+  color: var(--tinta); margin: 0 0 6px;
+}
+.comp-success-sub {
+  font-family: var(--acento);
+  font-size: 24px;
+  color: var(--verde);
+  margin: 0 0 16px;
+}
+.comp-success-body {
+  font-size: 14px;
+  color: var(--tinta-2);
+  line-height: 1.65;
+  max-width: 380px;
+  margin: 0 auto;
+}
