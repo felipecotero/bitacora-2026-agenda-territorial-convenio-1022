@@ -190,11 +190,11 @@ const CRONOGRAMA = [
   {
     id: 't-may11-c7',
     fecha: '2026-05-11',
-    titulo: 'Presionar Fondo Mixto · certificación del Ciclo',
-    detalle: 'Antes de la presentación del 11 de mayo, el equipo presiona a Andrea (Fondo Mixto) para obtener respuesta sobre si emitirá certificación oficial por las sesiones. Consulta previa sin respuesta.',
-    responsables: ['yuli', 'mercy', 'jeimmy', 'felipe'],
+    titulo: 'Gestión con Fondo Mixto · certificación del Ciclo',
+    detalle: 'Yuli precisa con el gerente del Fondo Mixto (Dr. Juan Carlos) la emisión del certificado oficial de las sesiones del Ciclo, antes de la presentación inaugural.',
+    responsables: ['yuli'],
     tipo: 'gestion', estado: 'pendiente',
-    alerta: 'Antes de las 18:00',
+    alerta: 'Gestión prioritaria',
   },
   {
     id: 't-may11-c9',
@@ -308,9 +308,57 @@ const CRONOGRAMA = [
     id: 't-jun24',
     fecha: '2026-06-24', semanaInicio: '2026-06-24', semanaFin: '2026-06-27',
     titulo: 'Encuentro Red Intercultural Juvenil · Cali',
-    detalle: '3 noches · 5 jornadas efectivas · ~40 participantes · sede: Cali (confirmada el 8 de mayo por Yuli Camelo).',
+    detalle: '3 noches · 5 jornadas efectivas · ~50 participantes · sede: Cali. Llegada 24 jun, salida 27 jun.',
     responsables: ['yuli', 'monica', 'jeimmy', 'mercy', 'emerson', 'felipe'],
     tipo: 'encuentro', estado: 'pendiente', destacado: true,
+  },
+  {
+    id: 't-may11-catering',
+    fecha: '2026-05-11',
+    titulo: 'Gestión de alimentación y apoyos · Encuentro RIJ',
+    detalle: 'Yuli gestiona apoyo del British Council. Emerson cotiza alimentación para 50 personas con el proveedor de Cali.',
+    responsables: ['yuli', 'emerson'],
+    tipo: 'gestion', estado: 'pendiente',
+  },
+  {
+    id: 't-may11-hiphop',
+    fecha: '2026-05-11',
+    titulo: 'Invitación a Red de Hip Hop como información abierta',
+    detalle: 'Emerson envía la pieza gráfica de la sesión inaugural al grupo de WhatsApp de la Red de Hip Hop, sin compromiso frente a su continuidad.',
+    responsables: ['emerson'],
+    tipo: 'entrega', estado: 'pendiente',
+  },
+  {
+    id: 't-may11-agenda',
+    fecha: '2026-05-11',
+    titulo: 'Borrador agenda metodológica sesión inaugural',
+    detalle: 'Felipe comparte con Mónica y Yuli el borrador tras concretarlo con Mercy y Jeimmy.',
+    responsables: ['felipe'],
+    tipo: 'entrega', estado: 'pendiente',
+  },
+  {
+    id: 't-jun24-grafica',
+    fecha: '2026-06-24',
+    titulo: 'Producción gráfica y branding · Encuentro RIJ',
+    detalle: 'Felipe coordina propuesta de screen stencil/estampado, asegura branding de la agenda y avanza en posible diseño de camiseta.',
+    responsables: ['felipe'],
+    tipo: 'entrega', estado: 'pendiente',
+  },
+  {
+    id: 't-jun24-conpes',
+    fecha: '2026-06-24',
+    titulo: 'Articulación día CONPES en Encuentro RIJ',
+    detalle: 'Jeimmy define el día específico. Yuli solicita a Poblaciones presencia de delegado y viáticos.',
+    responsables: ['jeimmy', 'yuli'],
+    tipo: 'gestion', estado: 'pendiente',
+  },
+  {
+    id: 't-jun24-vuelos',
+    fecha: '2026-06-24',
+    titulo: 'Vuelos y acomodación · Encuentro RIJ',
+    detalle: 'Emerson cuadra vuelos (llegada 24 jun tarde, salida 27 jun tarde). Equipo anuncia acomodación doble a organizaciones.',
+    responsables: ['emerson', 'yuli', 'monica', 'jeimmy', 'mercy', 'felipe'],
+    tipo: 'gestion', estado: 'pendiente',
   },
 ];
 
@@ -463,6 +511,11 @@ const DOCUMENTOS = [
 // Bitácora — síntesis y novedades
 const BITACORA = [
   {
+    fecha: '2026-05-11', tipo: 'sintesis', autor: 'felipe',
+    titulo: 'Reunión semanal de equipo · 11 de mayo',
+    cuerpo: 'Revisión del Ciclo de Formación Puente y logística del Encuentro RIJ. La carta de compromiso operará como inscripción formal. Para Cali (24–27 de junio), se proyectan 50 asistentes en acomodación doble; Yuli gestionará apoyo del British Council para alimentación y Emerson cotizará catering. Se definió invitar a la Red de Hip Hop "como información abierta" a la sesión inaugural. Felipe liderará el branding del encuentro y propondrá una estación de estampado (stencil) en Cali. Jeimmy definirá el espacio para el componente CONPES con Poblaciones.',
+  },
+  {
     fecha: '2026-05-08', tipo: 'decision', autor: 'yuli',
     titulo: 'Sede del Encuentro RIJ · Cali confirmada',
     cuerpo: 'Al cierre del 8 de mayo, Yuli Camelo nos informó a todas y todos: el Encuentro de la Red Intercultural Juvenil será en Cali. La duda entre Cali y Tunja queda resuelta. Se actualiza el cronograma y se retira la alerta de decisión pendiente.',
@@ -508,8 +561,8 @@ const ALERTAS = [
   },
   {
     icono: '!',
-    titulo: 'Lunes 11 · antes de las 18:00 — Certificación Fondo Mixto',
-    detalle: 'Presionar a Andrea (Fondo Mixto) para obtener respuesta sobre si emitirá certificación oficial de las sesiones del Ciclo.',
+    titulo: 'Lunes 11 · Gestión British Council y Fondo Mixto',
+    detalle: 'Yuli envía correo para apoyo de alimentación en Cali y precisa emisión de certificados del Ciclo con el gerente del Fondo Mixto.',
     color: '#3D50A8',
   },
   {
