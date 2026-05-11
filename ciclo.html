@@ -104,22 +104,33 @@
       const parts = isoString.split('-');
       return new Date(parts[0], parts[1] - 1, parts[2]);
     }
+    
     function shortMonth(d) { return d.toLocaleDateString('es-CO', { month: 'short' }).replace('.', '').toUpperCase(); }
+    function nombreMes(d) { 
+      const n = d.toLocaleDateString('es-CO', { month: 'long' }); 
+      return n.charAt(0).toUpperCase() + n.slice(1);
+    }
     
-    const sortedCiclo = [...CICLO].sort((a,b) => parseDate(a.fecha) - parseDate(b.fecha));
+    // Obtener datos de window.AGENDA por seguridad (evita errores de scope)
+    const cicloData = (window.AGENDA && window.AGENDA.CICLO) ? window.AGENDA.CICLO : (typeof CICLO !== 'undefined' ? CICLO : []);
+    const teamData = (window.AGENDA && window.AGENDA.TEAM) ? window.AGENDA.TEAM : (typeof TEAM !== 'undefined' ? TEAM : []);
+
+    const sortedCiclo = [...cicloData].sort((a,b) => parseDate(a.fecha) - parseDate(b.fecha));
     
-    // Agrupar por mes
-    const porMes = { 4: [], 5: [] }; // 4=Mayo, 5=Junio
+    // Agrupar por mes dinámicamente para no fallar si hay meses nuevos
+    const porMes = {}; 
     sortedCiclo.forEach(item => {
       const d = parseDate(item.fecha);
-      if(porMes[d.getMonth()]) porMes[d.getMonth()].push(item);
+      const m = d.getMonth();
+      if(!porMes[m]) porMes[m] = [];
+      porMes[m].push(item);
     });
 
     const app = document.getElementById('app-ciclo');
     
     function renderCard(item) {
       const d = parseDate(item.fecha);
-      const orientadorObj = TEAM.find(t => t.id === item.orient) || {};
+      const orientadorObj = teamData.find(t => t.id === item.orient) || {};
       const orientNombre = orientadorObj.corto || item.orient;
       
       let botones = '';
@@ -162,25 +173,22 @@
 
     let html = '';
     
-    // Render Mayo
-    if (porMes[4] && porMes[4].length > 0) {
-      html += \`
-        <div class="month-section">
-          <h2 class="month-title" style="border-color: var(--violeta)">Mayo</h2>
-          <div class="grid-sesiones">\${porMes[4].map(renderCard).join('')}</div>
-        </div>
-      \`;
-    }
+    // Render dinámico para cada mes encontrado
+    const colorPorMes = ['var(--violeta)', 'var(--verde)', 'var(--naranja)', 'var(--magenta)', 'var(--amarillo)', 'var(--azul)'];
     
-    // Render Junio
-    if (porMes[5] && porMes[5].length > 0) {
+    Object.keys(porMes).sort((a,b) => parseInt(a) - parseInt(b)).forEach((mesNum, index) => {
+      const items = porMes[mesNum];
+      const d = parseDate(items[0].fecha);
+      const mName = nombreMes(d);
+      const color = colorPorMes[index % colorPorMes.length];
+      
       html += \`
         <div class="month-section">
-          <h2 class="month-title" style="border-color: var(--verde)">Junio</h2>
-          <div class="grid-sesiones">\${porMes[5].map(renderCard).join('')}</div>
+          <h2 class="month-title" style="border-color: \${color}">\${mName}</h2>
+          <div class="grid-sesiones">\${items.map(renderCard).join('')}</div>
         </div>
       \`;
-    }
+    });
     
     app.innerHTML = html;
   </script>
