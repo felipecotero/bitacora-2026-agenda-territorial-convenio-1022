@@ -16,13 +16,13 @@
     }
 
     .form-shell {
-      max-width: 620px;
+      max-width: 660px;
       margin: 0 auto;
       padding: 32px 22px 64px;
     }
 
     .top-nav {
-      max-width: 620px;
+      max-width: 660px;
       margin: 0 auto;
       padding: 16px 22px 0;
       display: flex;
@@ -218,24 +218,57 @@
       font-weight: 500;
     }
 
-    .compromiso-block {
+    /* Compromiso extendido */
+    .compromiso-acta {
+      background: var(--papel);
+      border: 1.5px solid rgba(29, 15, 46, 0.14);
+      border-left: 5px solid var(--violeta);
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin: 8px 0 14px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--tinta);
+    }
+
+    .compromiso-acta h3 {
+      font-family: var(--display);
+      font-size: 17px;
+      color: var(--violeta);
+      margin: 0 0 12px;
+      font-weight: 600;
+    }
+
+    .compromiso-acta p {
+      margin: 0 0 12px;
+    }
+
+    .compromiso-acta strong {
+      color: var(--violeta-d);
+    }
+
+    .compromiso-acta ul {
+      margin: 8px 0 14px;
+      padding-left: 20px;
+    }
+
+    .compromiso-acta li {
+      margin-bottom: 6px;
+    }
+
+    .firma-cb {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px 16px;
       background: linear-gradient(135deg, rgba(168, 67, 138, 0.08), rgba(74, 28, 115, 0.05));
       border: 2px solid var(--violeta);
       border-radius: 10px;
-      padding: 18px;
-      margin: 8px 0 14px;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
+      margin-top: 14px;
       cursor: pointer;
-      transition: background .15s;
     }
 
-    .compromiso-block:hover {
-      background: rgba(90, 54, 128, 0.1);
-    }
-
-    .compromiso-block input[type="checkbox"] {
+    .firma-cb input[type="checkbox"] {
       accent-color: var(--violeta);
       width: 20px;
       height: 20px;
@@ -244,14 +277,10 @@
       cursor: pointer;
     }
 
-    .compromiso-txt {
+    .firma-cb-txt {
       font-size: 14px;
-      line-height: 1.55;
+      font-weight: 500;
       color: var(--tinta);
-    }
-
-    .compromiso-txt strong {
-      color: var(--violeta);
     }
 
     .submit-row {
@@ -434,12 +463,12 @@
       </svg>
       Convenio 1022 de 2025
     </div>
-    <span class="tiempo-tag">3 min · 10 preguntas</span>
+    <span class="tiempo-tag">3 min · 9 preguntas</span>
   </div>
 
   <div class="form-shell">
 
-    <!-- Banner de configuración pendiente (se oculta cuando SCRIPT_URL está configurada) -->
+    <!-- Banner de configuración pendiente -->
     <div class="config-banner" id="configBanner">
       ⚙️ <strong>Modo demo:</strong> El formulario aún no está conectado a Google Sheets. Configura
       <code>SCRIPT_URL</code> en el código para activar el envío real.
@@ -450,7 +479,7 @@
         <div>
           <div class="form-banner-eyebrow">Convenio 1022 de 2025</div>
           <h1>Compromiso<br><em>Ciclo Puente</em></h1>
-          <span class="tiempo">3 minutos · 10 preguntas</span>
+          <span class="tiempo">3 minutos · 9 preguntas</span>
         </div>
         <img src="img/puente-logo-blanco.svg" alt="Ciclo de Formación Puente"
           style="width:220px; height:auto; opacity:0.92; flex-shrink:0; filter:invert(1) brightness(2);">
@@ -506,48 +535,84 @@
 
         <div class="preg">
           <div class="preg-num">6</div>
-          <div class="preg-q">Nombres de quienes asistirán a las sesiones (hasta 3, separados por coma)<span
-              class="req">*</span></div>
-          <input class="form-input" type="text" id="asistentes" name="asistentes" placeholder="Ana Pérez, Luisa Gómez…"
-            required>
-        </div>
-
-        <div class="preg">
-          <div class="preg-num">7</div>
-          <div class="preg-q">¿En qué carril participan?<span class="req">*</span></div>
-          <div class="radio-group" id="carrilGroup">
-            <label class="radio-label"><input type="radio" name="carril" value="C1 · Saberes Financieros y Vínculos"
+          <div class="preg-q">¿En qué camino participan?<span class="req">*</span></div>
+          <div class="radio-group" id="caminoGroup">
+            <label class="radio-label"><input type="radio" name="camino" value="C1 · Saberes Financieros y Vínculos"
                 required> C1 · Saberes Financieros y Vínculos</label>
-            <label class="radio-label"><input type="radio" name="carril" value="C2 · Autonomía Digital"> C2 · Autonomía
+            <label class="radio-label"><input type="radio" name="camino" value="C2 · Autonomía Digital"> C2 · Autonomía
               Digital</label>
-            <label class="radio-label"><input type="radio" name="carril" value="Ambos carriles"> Ambos</label>
+            <label class="radio-label"><input type="radio" name="camino" value="Ambos caminos"> Ambos caminos</label>
           </div>
         </div>
 
         <div class="preg">
-          <div class="preg-num">8 · El compromiso</div>
-          <div class="preg-q">Marquen para firmar:<span class="req">*</span></div>
-          <label class="compromiso-block" for="compromisoCheck">
+          <div class="preg-num">7 · El compromiso</div>
+          <div class="preg-q">Lean con calma y marquen la casilla al final para firmar:<span class="req">*</span></div>
+
+          <div class="compromiso-acta">
+            <h3>Compromiso de participación</h3>
+
+            <p>
+              Por medio del presente compromiso, la organización manifiesta su interés y disposición para
+              participar activamente en el <strong>Ciclo de Formación Puente</strong>, entendiendo este espacio
+              como una oportunidad de fortalecimiento, intercambio de experiencias y construcción colectiva
+              entre organizaciones culturales de distintos territorios.
+            </p>
+
+            <p>
+              En este sentido, la organización se compromete a garantizar una participación constante y
+              responsable en las sesiones programadas, cumpliendo con una <strong>asistencia mínima del setenta y
+              cinco por ciento (75 %)</strong> del total de encuentros establecidos durante el ciclo. Este
+              porcentaje de participación será tenido en cuenta para efectos de certificación y para
+              asegurar el adecuado desarrollo metodológico y colaborativo del proceso.
+            </p>
+
+            <p>
+              Con el fin de facilitar la continuidad de la participación, la organización podrá designar una
+              o varias personas representantes para asistir a las sesiones. En caso de que diferentes
+              integrantes participen en distintos encuentros, será responsabilidad de la organización
+              asegurar el seguimiento interno de los contenidos, acuerdos y actividades desarrolladas, de
+              manera que exista continuidad y apropiación del proceso al interior del equipo.
+            </p>
+
+            <p>Asimismo, la organización se compromete a:</p>
+
+            <ul>
+              <li>Participar de manera respetuosa, puntual y colaborativa en las actividades propuestas.</li>
+              <li>Contribuir activamente a los espacios de diálogo, construcción colectiva e intercambio de
+                saberes.</li>
+              <li>Dar seguimiento a las tareas, ejercicios o compromisos acordados durante el proceso
+                formativo.</li>
+              <li>Compartir los aprendizajes y herramientas adquiridas con otras personas de su organización
+                o comunidad, fortaleciendo así el impacto territorial del ciclo de formación.</li>
+              <li>Firmar la lista de asistencia al final de cada sesión.</li>
+            </ul>
+
+            <p>
+              Este compromiso busca favorecer la construcción de relaciones de confianza, la sostenibilidad
+              de los procesos colectivos y el aprovechamiento integral de este espacio por parte de todas las
+              organizaciones participantes.
+            </p>
+          </div>
+
+          <label class="firma-cb" for="compromisoCheck">
             <input type="checkbox" id="compromisoCheck" name="compromisoFirmado" required>
-            <div class="compromiso-txt">
-              Nuestra organización se compromete a:
-              <br>· Asistir al menos al <strong>75 %</strong> de las sesiones del carril
-              <br>· Avisar con <strong>24 horas</strong> cuando no podamos asistir
-              <br>· Aplicar lo aprendido en al menos <strong>una acción concreta</strong> antes del 17 de julio
-            </div>
+            <span class="firma-cb-txt">
+              En constancia, firmo y acepto los términos del presente compromiso en nombre de la organización.
+            </span>
           </label>
         </div>
 
         <div class="preg">
-          <div class="preg-num">9</div>
+          <div class="preg-num">8</div>
           <div class="preg-q">¿Qué esperan llevarse del Ciclo? (1-2 frases)<span class="req">*</span></div>
           <textarea class="form-input textarea" id="expectativa" name="expectativa" placeholder="Escribe aquí…"
             required></textarea>
         </div>
 
         <div class="preg">
-          <div class="preg-num">10</div>
-          <div class="preg-q">Lugar y fecha<span class="req">*</span></div>
+          <div class="preg-num">9</div>
+          <div class="preg-q">Lugar y fecha de firma<span class="req">*</span></div>
           <input class="form-input" type="text" id="lugarFecha" name="lugarFecha"
             placeholder="Santa Marta, 11 de mayo de 2026" required>
         </div>
@@ -572,8 +637,8 @@
       <h2 class="success-title">¡Compromiso registrado!</h2>
       <p class="success-sub">seguimos tejiendo</p>
       <p class="success-body">
-        Tu compromiso quedó guardado en la matriz del Ciclo Puente.
-        Nos vemos en la primera sesión. ¡Gracias por hacer parte de esto!
+        El compromiso quedó guardado en la matriz del Ciclo Puente.
+        Nos vemos en la primera sesión. Gracias por hacer parte de esto.
       </p>
     </div>
 
@@ -581,13 +646,11 @@
 
   <script>
     // ============================================================
-    // CONFIGURACIÓN — pega aquí la URL de tu Google Apps Script
+    // CONFIGURACIÓN — URL del Google Apps Script
     // ============================================================
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaPWfTzIcOoV-OdDtGJb9dQk66AjvN65fzh9JEW5fbEUeV3gBqL5-DmBxb04GzAbun/exec'; // REEMPLAZA CON TU URL DE APPS SCRIPT
-    // Ejemplo: 'https://script.google.com/macros/s/AKfycb.../exec'
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaPWfTzIcOoV-OdDtGJb9dQk66AjvN65fzh9JEW5fbEUeV3gBqL5-DmBxb04GzAbun/exec';
     // ============================================================
 
-    // Mostrar banner si no está configurado
     if (!SCRIPT_URL) {
       document.getElementById('configBanner').classList.add('visible');
     }
@@ -608,13 +671,11 @@
       const label = document.getElementById('submitLabel');
       const errorDiv = document.getElementById('formError');
 
-      // Validación básica
       if (!form.checkValidity()) {
         form.reportValidity();
         return;
       }
 
-      // Datos del formulario
       const payload = {
         organizacion: form.organizacion.value.trim(),
         red: form.red.value,
@@ -622,27 +683,22 @@
         representante: form.representante.value.trim(),
         correo: form.correo.value.trim(),
         celular: form.celular.value.trim(),
-        asistentes: form.asistentes.value.trim(),
-        carril: form.carril.value,
+        camino: form.camino.value,
         compromisoFirmado: form.compromisoFirmado.checked,
         expectativa: form.expectativa.value.trim(),
         lugarFecha: form.lugarFecha.value.trim(),
       };
 
-      // Estado carga
       btn.disabled = true;
       label.innerHTML = '<span class="spinner"></span> Enviando…';
       errorDiv.classList.remove('visible');
 
-      // Enviar con no-cors (evita bloqueos CORS de Apps Script)
-      // Los datos SÍ llegan al Sheet — solo no podemos leer la respuesta
       fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         body: JSON.stringify(payload),
       }).catch(err => console.warn('Fetch error (no-cors):', err));
 
-      // Mostrar éxito de forma optimista después de 1.2s
       setTimeout(mostrarExito, 1200);
     });
 
