@@ -616,8 +616,10 @@
         <div class="preg">
           <div class="preg-num">9</div>
           <div class="preg-q">Lugar y fecha de firma<span class="req">*</span></div>
-          <input class="form-input" type="text" id="lugarFecha" name="lugarFecha"
-            placeholder="Santa Marta, 11 de mayo de 2026" required>
+          <div class="input-row">
+            <input class="form-input" type="text" id="lugar" name="lugar" placeholder="Lugar (ej. Santa Marta)" required>
+            <input class="form-input" type="date" id="fecha" name="fecha" required>
+          </div>
         </div>
 
         <div id="formError" class="form-error">
@@ -658,6 +660,9 @@
       document.getElementById('configBanner').classList.add('visible');
     }
 
+    // Fecha por defecto: hoy
+    document.getElementById('fecha').valueAsDate = new Date();
+
     // Mostrar/ocultar campo "Otra red"
     document.getElementById('redGroup').addEventListener('change', e => {
       if (e.target.name === 'red') {
@@ -691,6 +696,11 @@
         return;
       }
 
+      // Formatear lugar y fecha para mantener la estructura de la matriz
+      const fechaObj = new Date(form.fecha.value + 'T12:00:00');
+      const fechaFormateada = fechaObj.toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' });
+      const lugarFechaVal = `${form.lugar.value.trim()}, ${fechaFormateada}`;
+
       const payload = {
         organizacion: form.organizacion.value.trim(),
         red: form.red.value === 'Otra' && form.red_otra && form.red_otra.value.trim() !== '' 
@@ -704,7 +714,7 @@
         camino: form.camino.value,
         compromisoFirmado: form.compromisoFirmado.checked,
         expectativa: form.expectativa.value.trim(),
-        lugarFecha: form.lugarFecha.value.trim(),
+        lugarFecha: lugarFechaVal,
       };
 
       btn.disabled = true;
