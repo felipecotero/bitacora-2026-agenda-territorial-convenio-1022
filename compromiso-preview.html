@@ -504,7 +504,10 @@
               Red Intercultural Juvenil (RIJ)</label>
             <label class="radio-label"><input type="radio" name="red" value="Red de Mujeres Sabedoras, Creadoras y Gestoras"> Red de
               Mujeres Sabedoras, Creadoras y Gestoras</label>
-            <label class="radio-label"><input type="radio" name="red" value="Otra"> Otra</label>
+            <label class="radio-label"><input type="radio" name="red" value="Otra"> Otra, ¿cuál?</label>
+          </div>
+          <div id="redOtraContainer" style="display: none; margin-top: 10px;">
+            <input class="form-input" type="text" id="red_otra" name="red_otra" placeholder="Escribe aquí si perteneces a otra red…">
           </div>
         </div>
 
@@ -655,6 +658,18 @@
       document.getElementById('configBanner').classList.add('visible');
     }
 
+    // Mostrar/ocultar campo "Otra red"
+    document.getElementById('redGroup').addEventListener('change', e => {
+      if (e.target.name === 'red') {
+        const container = document.getElementById('redOtraContainer');
+        if (e.target.value === 'Otra') {
+          container.style.display = 'block';
+        } else {
+          container.style.display = 'none';
+        }
+      }
+    });
+
     // Estilo dinámico en radios al seleccionar
     document.querySelectorAll('.radio-group').forEach(group => {
       group.addEventListener('change', e => {
@@ -678,7 +693,10 @@
 
       const payload = {
         organizacion: form.organizacion.value.trim(),
-        red: form.red.value,
+        red: form.red.value === 'Otra' && form.red_otra && form.red_otra.value.trim() !== '' 
+              ? 'Otra: ' + form.red_otra.value.trim() 
+              : form.red.value,
+        red_otra: form.red_otra ? form.red_otra.value.trim() : '',
         municipio: form.municipio.value.trim(),
         representante: form.representante.value.trim(),
         correo: form.correo.value.trim(),
