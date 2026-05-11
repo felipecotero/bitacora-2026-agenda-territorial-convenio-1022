@@ -1,364 +1,651 @@
 <!doctype html>
 <html lang="es">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Compromiso · Ciclo Puente · Convenio 1022</title>
-<link rel="stylesheet" href="styles.css">
-<style>
-  body {
-    background:
-      radial-gradient(circle at 0% 0%, rgba(168,67,138,0.05) 0%, transparent 40%),
-      radial-gradient(circle at 100% 100%, rgba(82,142,113,0.05) 0%, transparent 40%),
-      var(--crema);
-    min-height: 100vh;
-  }
-  .form-shell { max-width: 620px; margin: 0 auto; padding: 32px 22px 64px; }
-  .top-nav {
-    max-width: 620px; margin: 0 auto; padding: 16px 22px 0;
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-  }
-  .top-nav .brand-tag {
-    font-family: var(--display); font-size: 13px; font-weight: 600;
-    color: var(--tinta-2); display: flex; align-items: center; gap: 8px;
-  }
-  .top-nav .tiempo-tag {
-    background: var(--violeta); color: var(--crema);
-    padding: 4px 12px; border-radius: 999px; font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;
-    font-family: var(--display);
-  }
-  .form-banner {
-    background: linear-gradient(135deg, var(--violeta) 0%, var(--violeta-d) 100%);
-    color: var(--crema); padding: 28px 28px 24px;
-    border-radius: 14px 14px 0 0; border-bottom: 5px solid var(--amarillo);
-  }
-  .form-banner-eyebrow {
-    font-family: var(--display); text-transform: uppercase;
-    letter-spacing: 0.1em; font-size: 10px; opacity: 0.85; font-weight: 600;
-  }
-  .form-banner h1 {
-    font-family: var(--display); font-size: 30px; line-height: 1.1;
-    margin: 6px 0 4px; letter-spacing: -0.02em; font-weight: 600;
-  }
-  .form-banner h1 em { font-family: var(--acento); font-style: normal; color: var(--amarillo); font-weight: 400; }
-  .tiempo { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
-    background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 500; }
-  .tiempo::before { content: "⏱"; }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compromiso · Ciclo Puente · Convenio 1022</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      background:
+        radial-gradient(circle at 0% 0%, rgba(168, 67, 138, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 100% 100%, rgba(82, 142, 113, 0.05) 0%, transparent 40%),
+        var(--crema);
+      min-height: 100vh;
+    }
 
-  .form-body {
-    background: var(--carta); border: 1px solid rgba(29,15,46,0.10);
-    border-top: none; padding: 28px; border-radius: 0 0 14px 14px;
-  }
-  .preg { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px dashed rgba(29,15,46,0.12); }
-  .preg:last-of-type { border-bottom: none; padding-bottom: 0; }
-  .preg-num { font-family: var(--display); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--violeta); font-weight: 700; }
-  .preg-q { font-size: 15px; line-height: 1.45; margin: 4px 0 10px; color: var(--tinta); font-weight: 500; }
-  .preg-q .req { color: #B73E3E; margin-left: 2px; }
+    .form-shell {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 32px 22px 64px;
+    }
 
-  /* Inputs reales */
-  .form-input {
-    width: 100%; padding: 10px 13px; font-family: var(--sans); font-size: 14px;
-    background: var(--papel); border: 1.5px solid rgba(29,15,46,0.18); border-radius: 7px;
-    color: var(--tinta); transition: border-color .15s, box-shadow .15s;
-    box-sizing: border-box; outline: none;
-  }
-  .form-input:focus { border-color: var(--violeta); box-shadow: 0 0 0 3px rgba(90,54,128,0.12); }
-  .form-input::placeholder { color: var(--lino); }
-  .form-input.textarea { min-height: 80px; resize: vertical; }
-  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .top-nav {
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 16px 22px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
-  .radio-group { display: flex; flex-direction: column; gap: 8px; }
-  .radio-label {
-    display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--tinta-2);
-    padding: 9px 12px; border-radius: 8px; border: 1.5px solid rgba(29,15,46,0.12);
-    background: var(--papel); cursor: pointer; transition: all .15s;
-  }
-  .radio-label:hover { border-color: var(--violeta); background: rgba(90,54,128,0.04); }
-  .radio-label input[type="radio"] { accent-color: var(--violeta); width: 16px; height: 16px; flex-shrink: 0; }
-  .radio-label.selected { border-color: var(--violeta); background: rgba(90,54,128,0.07); color: var(--tinta); font-weight: 500; }
+    .top-nav .brand-tag {
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tinta-2);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-  .compromiso-block {
-    background: linear-gradient(135deg, rgba(168,67,138,0.08), rgba(74,28,115,0.05));
-    border: 2px solid var(--violeta); border-radius: 10px; padding: 18px;
-    margin: 8px 0 14px; display: flex; gap: 14px; align-items: flex-start; cursor: pointer;
-    transition: background .15s;
-  }
-  .compromiso-block:hover { background: rgba(90,54,128,0.1); }
-  .compromiso-block input[type="checkbox"] { accent-color: var(--violeta); width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; cursor: pointer; }
-  .compromiso-txt { font-size: 14px; line-height: 1.55; color: var(--tinta); }
-  .compromiso-txt strong { color: var(--violeta); }
+    .top-nav .tiempo-tag {
+      background: var(--violeta);
+      color: var(--crema);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      font-family: var(--display);
+    }
 
-  .submit-row { margin-top: 24px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-  .submit-btn {
-    background: var(--violeta); color: var(--crema); border: none; padding: 12px 28px;
-    border-radius: 999px; font-family: var(--sans); font-size: 14px; font-weight: 600;
-    cursor: pointer; box-shadow: 0 4px 14px rgba(74,28,115,0.25);
-    transition: background .15s, transform .1s, opacity .15s; display: flex; align-items: center; gap: 8px;
-  }
-  .submit-btn:hover { background: var(--violeta-d); transform: translateY(-1px); }
-  .submit-btn:active { transform: translateY(0); }
-  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-  .submit-note { font-size: 12px; color: var(--tinta-2); font-style: italic; }
+    .form-banner {
+      background: linear-gradient(135deg, var(--violeta) 0%, var(--violeta-d) 100%);
+      color: var(--crema);
+      padding: 28px 28px 24px;
+      border-radius: 14px 14px 0 0;
+      border-bottom: 5px solid var(--amarillo);
+    }
 
-  /* Spinner */
-  .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3); border-top-color: #fff; border-radius: 50%; animation: spin .6s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+    .form-banner-eyebrow {
+      font-family: var(--display);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 10px;
+      opacity: 0.85;
+      font-weight: 600;
+    }
 
-  /* Pantalla de éxito */
-  .success-screen {
-    display: none; text-align: center; padding: 48px 28px; background: var(--carta);
-    border: 1px solid rgba(29,15,46,0.10); border-radius: 14px; animation: fadeUp .4s ease-out;
-  }
-  .success-screen.visible { display: block; }
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
-  .success-icon { font-size: 56px; margin-bottom: 18px; }
-  .success-title { font-family: var(--display); font-size: 26px; font-weight: 600; color: var(--tinta); margin: 0 0 8px; }
-  .success-sub { font-family: var(--acento); font-size: 22px; color: var(--verde); margin: 0 0 16px; }
-  .success-body { font-size: 14px; color: var(--tinta-2); line-height: 1.6; max-width: 380px; margin: 0 auto; }
+    .form-banner h1 {
+      font-family: var(--display);
+      font-size: 30px;
+      line-height: 1.1;
+      margin: 6px 0 4px;
+      letter-spacing: -0.02em;
+      font-weight: 600;
+    }
 
-  /* Error de red */
-  .form-error {
-    background: #FDE8E8; border: 1px solid #E57373; border-radius: 8px;
-    padding: 12px 14px; font-size: 13px; color: #8B1A1A; margin-top: 12px; display: none;
-  }
-  .form-error.visible { display: block; }
+    .form-banner h1 em {
+      font-family: var(--acento);
+      font-style: normal;
+      color: var(--amarillo);
+      font-weight: 400;
+    }
 
-  /* Config pendiente */
-  .config-banner {
-    background: var(--amarillo); color: var(--tinta); border-radius: 10px;
-    padding: 14px 18px; font-size: 13px; margin-bottom: 20px; border-left: 5px solid var(--naranja);
-    display: none;
-  }
-  .config-banner.visible { display: block; }
+    .tiempo {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
 
-  @media (max-width: 520px) {
-    .form-banner { padding: 22px 20px 20px; }
-    .form-banner h1 { font-size: 24px; }
-    .form-body { padding: 22px 18px; }
-    .input-row { grid-template-columns: 1fr; }
-  }
-</style>
+    .tiempo::before {
+      content: "⏱";
+    }
+
+    .form-body {
+      background: var(--carta);
+      border: 1px solid rgba(29, 15, 46, 0.10);
+      border-top: none;
+      padding: 28px;
+      border-radius: 0 0 14px 14px;
+    }
+
+    .preg {
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px dashed rgba(29, 15, 46, 0.12);
+    }
+
+    .preg:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .preg-num {
+      font-family: var(--display);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--violeta);
+      font-weight: 700;
+    }
+
+    .preg-q {
+      font-size: 15px;
+      line-height: 1.45;
+      margin: 4px 0 10px;
+      color: var(--tinta);
+      font-weight: 500;
+    }
+
+    .preg-q .req {
+      color: #B73E3E;
+      margin-left: 2px;
+    }
+
+    /* Inputs reales */
+    .form-input {
+      width: 100%;
+      padding: 10px 13px;
+      font-family: var(--sans);
+      font-size: 14px;
+      background: var(--papel);
+      border: 1.5px solid rgba(29, 15, 46, 0.18);
+      border-radius: 7px;
+      color: var(--tinta);
+      transition: border-color .15s, box-shadow .15s;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .form-input:focus {
+      border-color: var(--violeta);
+      box-shadow: 0 0 0 3px rgba(90, 54, 128, 0.12);
+    }
+
+    .form-input::placeholder {
+      color: var(--lino);
+    }
+
+    .form-input.textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .radio-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--tinta-2);
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1.5px solid rgba(29, 15, 46, 0.12);
+      background: var(--papel);
+      cursor: pointer;
+      transition: all .15s;
+    }
+
+    .radio-label:hover {
+      border-color: var(--violeta);
+      background: rgba(90, 54, 128, 0.04);
+    }
+
+    .radio-label input[type="radio"] {
+      accent-color: var(--violeta);
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .radio-label.selected {
+      border-color: var(--violeta);
+      background: rgba(90, 54, 128, 0.07);
+      color: var(--tinta);
+      font-weight: 500;
+    }
+
+    .compromiso-block {
+      background: linear-gradient(135deg, rgba(168, 67, 138, 0.08), rgba(74, 28, 115, 0.05));
+      border: 2px solid var(--violeta);
+      border-radius: 10px;
+      padding: 18px;
+      margin: 8px 0 14px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .compromiso-block:hover {
+      background: rgba(90, 54, 128, 0.1);
+    }
+
+    .compromiso-block input[type="checkbox"] {
+      accent-color: var(--violeta);
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      cursor: pointer;
+    }
+
+    .compromiso-txt {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--tinta);
+    }
+
+    .compromiso-txt strong {
+      color: var(--violeta);
+    }
+
+    .submit-row {
+      margin-top: 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .submit-btn {
+      background: var(--violeta);
+      color: var(--crema);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 999px;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(74, 28, 115, 0.25);
+      transition: background .15s, transform .1s, opacity .15s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .submit-btn:hover {
+      background: var(--violeta-d);
+      transform: translateY(-1px);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .submit-note {
+      font-size: 12px;
+      color: var(--tinta-2);
+      font-style: italic;
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Pantalla de éxito */
+    .success-screen {
+      display: none;
+      text-align: center;
+      padding: 48px 28px;
+      background: var(--carta);
+      border: 1px solid rgba(29, 15, 46, 0.10);
+      border-radius: 14px;
+      animation: fadeUp .4s ease-out;
+    }
+
+    .success-screen.visible {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .success-icon {
+      font-size: 56px;
+      margin-bottom: 18px;
+    }
+
+    .success-title {
+      font-family: var(--display);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--tinta);
+      margin: 0 0 8px;
+    }
+
+    .success-sub {
+      font-family: var(--acento);
+      font-size: 22px;
+      color: var(--verde);
+      margin: 0 0 16px;
+    }
+
+    .success-body {
+      font-size: 14px;
+      color: var(--tinta-2);
+      line-height: 1.6;
+      max-width: 380px;
+      margin: 0 auto;
+    }
+
+    /* Error de red */
+    .form-error {
+      background: #FDE8E8;
+      border: 1px solid #E57373;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #8B1A1A;
+      margin-top: 12px;
+      display: none;
+    }
+
+    .form-error.visible {
+      display: block;
+    }
+
+    /* Config pendiente */
+    .config-banner {
+      background: var(--amarillo);
+      color: var(--tinta);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      border-left: 5px solid var(--naranja);
+      display: none;
+    }
+
+    .config-banner.visible {
+      display: block;
+    }
+
+    @media (max-width: 520px) {
+      .form-banner {
+        padding: 22px 20px 20px;
+      }
+
+      .form-banner h1 {
+        font-size: 24px;
+      }
+
+      .form-body {
+        padding: 22px 18px;
+      }
+
+      .input-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="top-nav">
-  <div class="brand-tag">
-    <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
-      <circle cx="20" cy="20" r="18" stroke="#5A3680" stroke-width="2.5"/>
-      <path d="M20 8 C24 14, 32 14, 32 20 C32 26, 24 26, 20 32 C16 26, 8 26, 8 20 C8 14, 16 14, 20 8Z" fill="none" stroke="#E8C535" stroke-width="2"/>
-    </svg>
-    Convenio 1022 de 2025
-  </div>
-  <span class="tiempo-tag">3 min · 10 preguntas</span>
-</div>
-
-<div class="form-shell">
-
-  <!-- Banner de configuración pendiente (se oculta cuando SCRIPT_URL está configurada) -->
-  <div class="config-banner" id="configBanner">
-    ⚙️ <strong>Modo demo:</strong> El formulario aún no está conectado a Google Sheets. Configura <code>SCRIPT_URL</code> en el código para activar el envío real.
+  <div class="top-nav">
+    <div class="brand-tag">
+      <svg width="20" height="20" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" stroke="#5A3680" stroke-width="2.5" />
+        <path d="M20 8 C24 14, 32 14, 32 20 C32 26, 24 26, 20 32 C16 26, 8 26, 8 20 C8 14, 16 14, 20 8Z" fill="none"
+          stroke="#E8C535" stroke-width="2" />
+      </svg>
+      Convenio 1022 de 2025
+    </div>
+    <span class="tiempo-tag">3 min · 10 preguntas</span>
   </div>
 
-  <header class="form-banner">
-    <div class="form-banner-eyebrow">Convenio 1022 de 2025</div>
-    <h1>Compromiso<br><em>Ciclo Puente</em></h1>
-    <span class="tiempo">3 minutos · 10 preguntas</span>
-  </header>
+  <div class="form-shell">
 
-  <section class="form-body" id="formSection">
-    <form id="compromisoForm" novalidate>
+    <!-- Banner de configuración pendiente (se oculta cuando SCRIPT_URL está configurada) -->
+    <div class="config-banner" id="configBanner">
+      ⚙️ <strong>Modo demo:</strong> El formulario aún no está conectado a Google Sheets. Configura
+      <code>SCRIPT_URL</code> en el código para activar el envío real.
+    </div>
 
-      <div class="preg">
-        <div class="preg-num">1</div>
-        <div class="preg-q">Nombre de la organización<span class="req">*</span></div>
-        <input class="form-input" type="text" id="organizacion" name="organizacion" placeholder="Tu organización…" required autocomplete="organization">
-      </div>
+    <header class="form-banner">
+      <div class="form-banner-eyebrow">Convenio 1022 de 2025</div>
+      <h1>Compromiso<br><em>Ciclo Puente</em></h1>
+      <span class="tiempo">3 minutos · 10 preguntas</span>
+    </header>
 
-      <div class="preg">
-        <div class="preg-num">2</div>
-        <div class="preg-q">¿A qué red pertenecen?<span class="req">*</span></div>
-        <div class="radio-group" id="redGroup">
-          <label class="radio-label"><input type="radio" name="red" value="Red Intercultural Juvenil (RIJ)" required> Red Intercultural Juvenil (RIJ)</label>
-          <label class="radio-label"><input type="radio" name="red" value="Red de Mujeres del Magdalena"> Red de Mujeres del Magdalena</label>
-          <label class="radio-label"><input type="radio" name="red" value="Otra"> Otra</label>
+    <section class="form-body" id="formSection">
+      <form id="compromisoForm" novalidate>
+
+        <div class="preg">
+          <div class="preg-num">1</div>
+          <div class="preg-q">Nombre de la organización<span class="req">*</span></div>
+          <input class="form-input" type="text" id="organizacion" name="organizacion" placeholder="Tu organización…"
+            required autocomplete="organization">
         </div>
-      </div>
 
-      <div class="preg">
-        <div class="preg-num">3</div>
-        <div class="preg-q">Municipio y departamento<span class="req">*</span></div>
-        <input class="form-input" type="text" id="municipio" name="municipio" placeholder="Santa Marta, Magdalena" required>
-      </div>
-
-      <div class="preg">
-        <div class="preg-num">4</div>
-        <div class="preg-q">Persona representante · nombre completo<span class="req">*</span></div>
-        <input class="form-input" type="text" id="representante" name="representante" placeholder="Nombre y apellido" required autocomplete="name">
-      </div>
-
-      <div class="preg">
-        <div class="preg-num">5</div>
-        <div class="preg-q">Correo y celular con WhatsApp<span class="req">*</span></div>
-        <div class="input-row">
-          <input class="form-input" type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required autocomplete="email">
-          <input class="form-input" type="tel" id="celular" name="celular" placeholder="+57 300 000 0000" required autocomplete="tel">
-        </div>
-      </div>
-
-      <div class="preg">
-        <div class="preg-num">6</div>
-        <div class="preg-q">Nombres de quienes asistirán a las sesiones (hasta 3, separados por coma)<span class="req">*</span></div>
-        <input class="form-input" type="text" id="asistentes" name="asistentes" placeholder="Ana Pérez, Luisa Gómez…" required>
-      </div>
-
-      <div class="preg">
-        <div class="preg-num">7</div>
-        <div class="preg-q">¿En qué carril participan?<span class="req">*</span></div>
-        <div class="radio-group" id="carrilGroup">
-          <label class="radio-label"><input type="radio" name="carril" value="C1 · Saberes Financieros y Vínculos" required> C1 · Saberes Financieros y Vínculos</label>
-          <label class="radio-label"><input type="radio" name="carril" value="C2 · Autonomía Digital"> C2 · Autonomía Digital</label>
-          <label class="radio-label"><input type="radio" name="carril" value="Ambos carriles"> Ambos</label>
-        </div>
-      </div>
-
-      <div class="preg">
-        <div class="preg-num">8 · El compromiso</div>
-        <div class="preg-q">Marquen para firmar:<span class="req">*</span></div>
-        <label class="compromiso-block" for="compromisoCheck">
-          <input type="checkbox" id="compromisoCheck" name="compromisoFirmado" required>
-          <div class="compromiso-txt">
-            Nuestra organización se compromete a:
-            <br>· Asistir al menos al <strong>75 %</strong> de las sesiones del carril
-            <br>· Avisar con <strong>24 horas</strong> cuando no podamos asistir
-            <br>· Aplicar lo aprendido en al menos <strong>una acción concreta</strong> antes del 17 de julio
+        <div class="preg">
+          <div class="preg-num">2</div>
+          <div class="preg-q">¿A qué red pertenecen?<span class="req">*</span></div>
+          <div class="radio-group" id="redGroup">
+            <label class="radio-label"><input type="radio" name="red" value="Red Intercultural Juvenil (RIJ)" required>
+              Red Intercultural Juvenil (RIJ)</label>
+            <label class="radio-label"><input type="radio" name="red" value="Red de Mujeres del Magdalena"> Red de
+              Mujeres del Magdalena</label>
+            <label class="radio-label"><input type="radio" name="red" value="Otra"> Otra</label>
           </div>
-        </label>
-      </div>
+        </div>
 
-      <div class="preg">
-        <div class="preg-num">9</div>
-        <div class="preg-q">¿Qué esperan llevarse del Ciclo? (1-2 frases)<span class="req">*</span></div>
-        <textarea class="form-input textarea" id="expectativa" name="expectativa" placeholder="Escribe aquí…" required></textarea>
-      </div>
+        <div class="preg">
+          <div class="preg-num">3</div>
+          <div class="preg-q">Municipio y departamento<span class="req">*</span></div>
+          <input class="form-input" type="text" id="municipio" name="municipio" placeholder="Santa Marta, Magdalena"
+            required>
+        </div>
 
-      <div class="preg">
-        <div class="preg-num">10</div>
-        <div class="preg-q">Lugar y fecha<span class="req">*</span></div>
-        <input class="form-input" type="text" id="lugarFecha" name="lugarFecha" placeholder="Santa Marta, 11 de mayo de 2026" required>
-      </div>
+        <div class="preg">
+          <div class="preg-num">4</div>
+          <div class="preg-q">Persona representante · nombre completo<span class="req">*</span></div>
+          <input class="form-input" type="text" id="representante" name="representante" placeholder="Nombre y apellido"
+            required autocomplete="name">
+        </div>
 
-      <div id="formError" class="form-error">
-        ⚠️ Hubo un problema al enviar. Verifica tu conexión e intenta de nuevo.
-      </div>
+        <div class="preg">
+          <div class="preg-num">5</div>
+          <div class="preg-q">Correo y celular con WhatsApp<span class="req">*</span></div>
+          <div class="input-row">
+            <input class="form-input" type="email" id="correo" name="correo" placeholder="correo@ejemplo.com" required
+              autocomplete="email">
+            <input class="form-input" type="tel" id="celular" name="celular" placeholder="+57 300 000 0000" required
+              autocomplete="tel">
+          </div>
+        </div>
 
-      <div class="submit-row">
-        <button class="submit-btn" type="submit" id="submitBtn">
-          <span id="submitLabel">Enviar compromiso</span>
-        </button>
-        <span class="submit-note">Recibes copia en tu correo.</span>
-      </div>
+        <div class="preg">
+          <div class="preg-num">6</div>
+          <div class="preg-q">Nombres de quienes asistirán a las sesiones (hasta 3, separados por coma)<span
+              class="req">*</span></div>
+          <input class="form-input" type="text" id="asistentes" name="asistentes" placeholder="Ana Pérez, Luisa Gómez…"
+            required>
+        </div>
 
-    </form>
-  </section>
+        <div class="preg">
+          <div class="preg-num">7</div>
+          <div class="preg-q">¿En qué carril participan?<span class="req">*</span></div>
+          <div class="radio-group" id="carrilGroup">
+            <label class="radio-label"><input type="radio" name="carril" value="C1 · Saberes Financieros y Vínculos"
+                required> C1 · Saberes Financieros y Vínculos</label>
+            <label class="radio-label"><input type="radio" name="carril" value="C2 · Autonomía Digital"> C2 · Autonomía
+              Digital</label>
+            <label class="radio-label"><input type="radio" name="carril" value="Ambos carriles"> Ambos</label>
+          </div>
+        </div>
 
-  <!-- Pantalla de éxito -->
-  <div class="success-screen" id="successScreen">
-    <div class="success-icon">✅</div>
-    <h2 class="success-title">¡Compromiso registrado!</h2>
-    <p class="success-sub">seguimos tejiendo</p>
-    <p class="success-body">
-      Tu compromiso quedó guardado en la matriz del Ciclo Puente.
-      Nos vemos en la primera sesión. ¡Gracias por hacer parte de esto!
-    </p>
+        <div class="preg">
+          <div class="preg-num">8 · El compromiso</div>
+          <div class="preg-q">Marquen para firmar:<span class="req">*</span></div>
+          <label class="compromiso-block" for="compromisoCheck">
+            <input type="checkbox" id="compromisoCheck" name="compromisoFirmado" required>
+            <div class="compromiso-txt">
+              Nuestra organización se compromete a:
+              <br>· Asistir al menos al <strong>75 %</strong> de las sesiones del carril
+              <br>· Avisar con <strong>24 horas</strong> cuando no podamos asistir
+              <br>· Aplicar lo aprendido en al menos <strong>una acción concreta</strong> antes del 17 de julio
+            </div>
+          </label>
+        </div>
+
+        <div class="preg">
+          <div class="preg-num">9</div>
+          <div class="preg-q">¿Qué esperan llevarse del Ciclo? (1-2 frases)<span class="req">*</span></div>
+          <textarea class="form-input textarea" id="expectativa" name="expectativa" placeholder="Escribe aquí…"
+            required></textarea>
+        </div>
+
+        <div class="preg">
+          <div class="preg-num">10</div>
+          <div class="preg-q">Lugar y fecha<span class="req">*</span></div>
+          <input class="form-input" type="text" id="lugarFecha" name="lugarFecha"
+            placeholder="Santa Marta, 11 de mayo de 2026" required>
+        </div>
+
+        <div id="formError" class="form-error">
+          ⚠️ Hubo un problema al enviar. Verifica tu conexión e intenta de nuevo.
+        </div>
+
+        <div class="submit-row">
+          <button class="submit-btn" type="submit" id="submitBtn">
+            <span id="submitLabel">Enviar compromiso</span>
+          </button>
+          <span class="submit-note">Recibes copia en tu correo.</span>
+        </div>
+
+      </form>
+    </section>
+
+    <!-- Pantalla de éxito -->
+    <div class="success-screen" id="successScreen">
+      <div class="success-icon">✅</div>
+      <h2 class="success-title">¡Compromiso registrado!</h2>
+      <p class="success-sub">seguimos tejiendo</p>
+      <p class="success-body">
+        Tu compromiso quedó guardado en la matriz del Ciclo Puente.
+        Nos vemos en la primera sesión. ¡Gracias por hacer parte de esto!
+      </p>
+    </div>
+
   </div>
 
-</div>
+  <script>
+    // ============================================================
+    // CONFIGURACIÓN — pega aquí la URL de tu Google Apps Script
+    // ============================================================
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaPWfTzIcOoV-OdDtGJb9dQk66AjvN65fzh9JEW5fbEUeV3gBqL5-DmBxb04GzAbun/exec'; // REEMPLAZA CON TU URL DE APPS SCRIPT
+    // Ejemplo: 'https://script.google.com/macros/s/AKfycb.../exec'
+    // ============================================================
 
-<script>
-// ============================================================
-// CONFIGURACIÓN — pega aquí la URL de tu Google Apps Script
-// ============================================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaPWfTzIcOoV-OdDtGJb9dQk66AjvN65fzh9JEW5fbEUeV3gBqL5-DmBxb04GzAbun/exec';
-// ============================================================
-
-// Mostrar banner si no está configurado
-if (!SCRIPT_URL) {
-  document.getElementById('configBanner').classList.add('visible');
-}
-
-// Estilo dinámico en radios al seleccionar
-document.querySelectorAll('.radio-group').forEach(group => {
-  group.addEventListener('change', e => {
-    group.querySelectorAll('.radio-label').forEach(l => l.classList.remove('selected'));
-    if (e.target.checked) e.target.closest('.radio-label').classList.add('selected');
-  });
-});
-
-// Envío del formulario
-document.getElementById('compromisoForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const form = e.target;
-  const btn = document.getElementById('submitBtn');
-  const label = document.getElementById('submitLabel');
-  const errorDiv = document.getElementById('formError');
-
-  // Validación básica
-  if (!form.checkValidity()) {
-    form.reportValidity();
-    return;
-  }
-
-  // Datos del formulario
-  const payload = {
-    organizacion:      form.organizacion.value.trim(),
-    red:               form.red.value,
-    municipio:         form.municipio.value.trim(),
-    representante:     form.representante.value.trim(),
-    correo:            form.correo.value.trim(),
-    celular:           form.celular.value.trim(),
-    asistentes:        form.asistentes.value.trim(),
-    carril:            form.carril.value,
-    compromisoFirmado: form.compromisoFirmado.checked,
-    expectativa:       form.expectativa.value.trim(),
-    lugarFecha:        form.lugarFecha.value.trim(),
-  };
-
-  // Estado carga
-  btn.disabled = true;
-  label.innerHTML = '<span class="spinner"></span> Enviando…';
-  errorDiv.classList.remove('visible');
-
-  // Si no hay URL configurada → modo demo (simular éxito)
-  if (!SCRIPT_URL) {
-    setTimeout(() => mostrarExito(), 1200);
-    return;
-  }
-
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    });
-    const json = await res.json();
-    if (json.ok) {
-      mostrarExito();
-    } else {
-      throw new Error(json.error || 'Error desconocido');
+    // Mostrar banner si no está configurado
+    if (!SCRIPT_URL) {
+      document.getElementById('configBanner').classList.add('visible');
     }
-  } catch (err) {
-    console.error('Error de envío:', err);
-    btn.disabled = false;
-    label.textContent = 'Enviar compromiso';
-    errorDiv.classList.add('visible');
-  }
-});
 
-function mostrarExito() {
-  document.getElementById('formSection').style.display = 'none';
-  document.getElementById('successScreen').classList.add('visible');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-</script>
+    // Estilo dinámico en radios al seleccionar
+    document.querySelectorAll('.radio-group').forEach(group => {
+      group.addEventListener('change', e => {
+        group.querySelectorAll('.radio-label').forEach(l => l.classList.remove('selected'));
+        if (e.target.checked) e.target.closest('.radio-label').classList.add('selected');
+      });
+    });
+
+    // Envío del formulario
+    document.getElementById('compromisoForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = document.getElementById('submitBtn');
+      const label = document.getElementById('submitLabel');
+      const errorDiv = document.getElementById('formError');
+
+      // Validación básica
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Datos del formulario
+      const payload = {
+        organizacion: form.organizacion.value.trim(),
+        red: form.red.value,
+        municipio: form.municipio.value.trim(),
+        representante: form.representante.value.trim(),
+        correo: form.correo.value.trim(),
+        celular: form.celular.value.trim(),
+        asistentes: form.asistentes.value.trim(),
+        carril: form.carril.value,
+        compromisoFirmado: form.compromisoFirmado.checked,
+        expectativa: form.expectativa.value.trim(),
+        lugarFecha: form.lugarFecha.value.trim(),
+      };
+
+      // Estado carga
+      btn.disabled = true;
+      label.innerHTML = '<span class="spinner"></span> Enviando…';
+      errorDiv.classList.remove('visible');
+
+      // Enviar con no-cors (evita bloqueos CORS de Apps Script)
+      // Los datos SÍ llegan al Sheet — solo no podemos leer la respuesta
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(payload),
+      }).catch(err => console.warn('Fetch error (no-cors):', err));
+
+      // Mostrar éxito de forma optimista después de 1.2s
+      setTimeout(mostrarExito, 1200);
+    });
+
+    function mostrarExito() {
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('successScreen').classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
 </body>
+
 </html>

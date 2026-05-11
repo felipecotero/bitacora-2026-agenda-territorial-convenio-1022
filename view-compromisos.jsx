@@ -6,6 +6,8 @@ function Compromisos() {
   // ============================================================
   const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwaPWfTzIcOoV-OdDtGJb9dQk66AjvN65fzh9JEW5fbEUeV3gBqL5-DmBxb04GzAbun/exec';
   const SHEET_URL  = 'https://docs.google.com/spreadsheets/d/1bD1UR2Hq34XsPrICc4ZU-KMrjfztDcsvi4XJ1ltaY_s/edit?usp=sharing';
+  // URL de exportación CSV (sin CORS issues — requiere que el Sheet sea público)
+  const CSV_URL    = 'https://docs.google.com/spreadsheets/d/1bD1UR2Hq34XsPrICc4ZU-KMrjfztDcsvi4XJ1ltaY_s/export?format=csv&sheet=Compromisos';
   // ============================================================
 
   const [datos, setDatos] = React.useState([]);
@@ -15,20 +17,44 @@ function Compromisos() {
   const [filtroCarril, setFiltroCarril] = React.useState('Todos');
   const [modalDato, setModalDato] = React.useState(null);
 
-  // Cargar datos desde Apps Script
+  // Cargar datos desde Google Sheets CSV (evita problemas CORS con Apps Script)
+  function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    if (lines.length < 2) return [];
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+    return lines.slice(1).filter(l => l.trim()).map(line => {
+      // Manejar campos con comas dentro de comillas
+      const values = [];
+      let cur = '', inQ = false;
+      for (let i = 0; i < line.length; i++) {
+        const c = line[i];
+        if (c === '"') { inQ = !inQ; }
+        else if (c === ',' && !inQ) { values.push(cur.trim()); cur = ''; }
+        else { cur += c; }
+      }
+      values.push(cur.trim());
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = (values[i] || '').replace(/^"|"$/g, ''); });
+      return obj;
+    });
+  }
+
   React.useEffect(() => {
-    if (!SCRIPT_URL) {
-      setDatos(DEMO_DATA);
-      setCargando(false);
-      return;
-    }
-    fetch(SCRIPT_URL)
-      .then(r => r.json())
-      .then(json => {
-        if (json.ok) setDatos(json.data || []);
-        else setError('No se pudieron cargar los datos.');
+    fetch(CSV_URL)
+      .then(r => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.text();
       })
-      .catch(() => setError('Error de conexión. Verifica la URL del Apps Script.'))
+      .then(text => {
+        const parsed = parseCSV(text);
+        // Filtrar fila de encabezados si viene duplicada
+        const datos = parsed.filter(d => d['Organización'] && d['Organización'] !== 'Organización');
+        setDatos(datos);
+      })
+      .catch(err => {
+        console.warn('CSV fetch error:', err);
+        setError('No se pudo conectar con el Google Sheet. Verifica que el Sheet esté compartido públicamente (cualquiera con el link puede ver).');
+      })
       .finally(() => setCargando(false));
   }, []);
 
@@ -62,23 +88,23 @@ function Compromisos() {
 
   // Exportar CSV
   function exportarCSV() {
-    const cols = ['Timestamp','Organización','Red','Municipio','Representante','Correo','Celular','Asistentes','Carril','Compromiso firmado','Expectativa','Lugar y fecha firma'];
+    const cols = ['Timestamp', 'Organización', 'Red', 'Municipio', 'Representante', 'Correo', 'Celular', 'Asistentes', 'Carril', 'Compromiso firmado', 'Expectativa', 'Lugar y fecha firma'];
     const filas = [cols.join(','), ...filtrados.map(d => cols.map(c => `"${(d[c] || '').toString().replace(/"/g, '""')}"`).join(','))];
     const blob = new Blob([filas.join('\n')], { type: 'text/csv;charset=utf-8;' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-    a.download = `compromisos-ciclo-puente-${new Date().toISOString().slice(0,10)}.csv`;
+    a.download = `compromisos-ciclo-puente-${new Date().toISOString().slice(0, 10)}.csv`;
     a.click();
   }
 
   const RED_COLORS = {
     'Red Intercultural Juvenil (RIJ)': { bg: '#EFE8F7', color: '#5A3680' },
-    'Red de Mujeres del Magdalena':    { bg: '#F4E1ED', color: '#A8438A' },
+    'Red de Mujeres del Magdalena': { bg: '#F4E1ED', color: '#A8438A' },
     'Otra': { bg: '#E1F0E8', color: '#528E71' },
   };
   const CARRIL_COLORS = {
     'C1 · Saberes Financieros y Vínculos': { bg: '#FBF1C7', color: '#6E5B0D' },
-    'C2 · Autonomía Digital':              { bg: '#E2E7F4', color: '#3D50A8' },
-    'Ambos carriles':                      { bg: '#F4E1ED', color: '#A8438A' },
+    'C2 · Autonomía Digital': { bg: '#E2E7F4', color: '#3D50A8' },
+    'Ambos carriles': { bg: '#F4E1ED', color: '#A8438A' },
   };
 
   function chipRed(red) {
@@ -128,7 +154,7 @@ function Compromisos() {
           <div className="col gap-sm">
             {Object.entries(porRed).map(([r, n]) => (
               <div key={r} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span className="chip" style={chipRed(r)}>{r.length > 28 ? r.slice(0,28)+'…' : r}</span>
+                <span className="chip" style={chipRed(r)}>{r.length > 28 ? r.slice(0, 28) + '…' : r}</span>
                 <span style={{ fontFamily: 'var(--display)', fontWeight: 700, fontSize: 18, color: 'var(--tinta)' }}>{n}</span>
               </div>
             ))}
@@ -140,7 +166,7 @@ function Compromisos() {
           <div className="col gap-sm">
             {Object.entries(porCarril).map(([c, n]) => (
               <div key={c} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span className="chip" style={chipCarril(c)}>{c.length > 22 ? c.slice(0,22)+'…' : c}</span>
+                <span className="chip" style={chipCarril(c)}>{c.length > 22 ? c.slice(0, 22) + '…' : c}</span>
                 <span style={{ fontFamily: 'var(--display)', fontWeight: 700, fontSize: 18, color: 'var(--tinta)' }}>{n}</span>
               </div>
             ))}
@@ -213,7 +239,7 @@ function Compromisos() {
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
               <thead>
                 <tr style={{ background: 'var(--papel)', borderBottom: '2px solid var(--lino)' }}>
-                  {['Organización','Red','Municipio','Representante','Carril','Firmó','Fecha'].map(h => (
+                  {['Organización', 'Red', 'Municipio', 'Representante', 'Carril', 'Firmó', 'Fecha'].map(h => (
                     <th key={h} style={{ padding: '10px 14px', textAlign: 'left', fontFamily: 'var(--display)', fontWeight: 600, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--tinta-3)', whiteSpace: 'nowrap' }}>{h}</th>
                   ))}
                 </tr>
@@ -235,7 +261,7 @@ function Compromisos() {
                     <td style={{ padding: '12px 14px' }}><span className="chip" style={{ ...chipRed(d['Red']), fontSize: 11, whiteSpace: 'nowrap' }}>{(d['Red'] || '—').replace('Red Intercultural Juvenil', 'RIJ').replace('Red de Mujeres del Magdalena', 'R. Mujeres')}</span></td>
                     <td style={{ padding: '12px 14px', color: 'var(--tinta-2)', whiteSpace: 'nowrap' }}>{d['Municipio'] || '—'}</td>
                     <td style={{ padding: '12px 14px', color: 'var(--tinta-2)' }}>{d['Representante'] || '—'}</td>
-                    <td style={{ padding: '12px 14px' }}><span className="chip" style={{ ...chipCarril(d['Carril']), fontSize: 11, whiteSpace: 'nowrap' }}>{(d['Carril'] || '—').replace(' · Saberes Financieros y Vínculos','').replace(' · Autonomía Digital','')}</span></td>
+                    <td style={{ padding: '12px 14px' }}><span className="chip" style={{ ...chipCarril(d['Carril']), fontSize: 11, whiteSpace: 'nowrap' }}>{(d['Carril'] || '—').replace(' · Saberes Financieros y Vínculos', '').replace(' · Autonomía Digital', '')}</span></td>
                     <td style={{ padding: '12px 14px', textAlign: 'center' }}>
                       {d['Compromiso firmado'] === 'SÍ'
                         ? <span style={{ color: '#2C5A47', fontWeight: 700 }}>✓</span>
@@ -259,7 +285,7 @@ function Compromisos() {
               Comparte solo este enlace con las organizaciones
             </div>
             <code style={{ fontSize: 12, color: 'rgba(247,241,230,0.7)', marginTop: 6, display: 'block' }}>
-              {window.location.origin}{window.location.pathname.replace('index.html','') || '/'}compromiso.html
+              {window.location.origin}{window.location.pathname.replace('index.html', '') || '/'}compromiso.html
             </code>
           </div>
           <a href="compromiso.html" target="_blank" className="btn" style={{ background: 'var(--amarillo)', color: 'var(--tinta)', textDecoration: 'none', flexShrink: 0 }}>
