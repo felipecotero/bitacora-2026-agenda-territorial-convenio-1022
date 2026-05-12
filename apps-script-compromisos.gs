@@ -59,7 +59,7 @@ function doPost(e) {
       data.municipio || '',
       data.representante || '',
       data.correo || '',
-      data.celular || '',
+      data.celular ? `'${data.celular}` : '',
       data.camino || '',
       data.compromisoFirmado ? 'SÍ' : 'NO',
       data.expectativa || '',
