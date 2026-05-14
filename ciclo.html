@@ -75,25 +75,93 @@
       opacity: 0.85;
     }
 
-    /* ── BANNER INFORMATIVO ── */
-    .info-banner {
-      background: linear-gradient(135deg, #2a1045 0%, #1d0f2e 100%);
-      border-bottom: 3px solid var(--naranja);
+    /* ── WIDGET FLOTANTE DE INSTRUCCIONES ── */
+
+    /* Botón disparador (visible solo en portrait/móvil) */
+    #info-trigger {
+      display: none; /* se activa via JS cuando orientation es portrait */
+      position: fixed;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 200;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      background: var(--tinta);
+      border: 2px solid var(--violeta-l, #7b5ea7);
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+      align-items: center; justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+      flex-direction: column;
+      gap: 1px;
     }
-    .info-banner-inner {
-      max-width: 1100px; margin: 0 auto;
-      padding: 28px 20px 32px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 20px;
+    #info-trigger:hover { background: var(--violeta); transform: translateY(-50%) scale(1.08); }
+    #info-trigger svg { flex-shrink: 0; }
+    #info-trigger .trig-label {
+      font-size: 8px; font-weight: 700; letter-spacing: 0.04em;
+      text-transform: uppercase; line-height: 1;
+      color: rgba(255,255,255,0.7);
     }
+
+    /* Panel lateral flotante */
+    #info-panel {
+      position: fixed;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 190;
+      width: 260px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: #1d0f2e;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      padding: 20px 18px 24px;
+      transition: opacity 0.25s, transform 0.3s;
+    }
+    /* Estado colapsado (solo en portrait) */
+    #info-panel.collapsed {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-50%) translateX(-110%);
+    }
+
+    .info-panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .info-panel-header h3 {
+      font-family: var(--display);
+      font-size: 13px; font-weight: 700;
+      color: var(--amarillo);
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    #info-close {
+      display: none; /* solo en portrait */
+      background: none; border: none;
+      color: rgba(255,255,255,0.5); cursor: pointer;
+      padding: 2px; line-height: 1;
+      border-radius: 4px;
+      transition: color 0.15s;
+    }
+    #info-close:hover { color: #fff; }
+
     .info-item {
-      display: flex; gap: 14px; align-items: flex-start;
+      display: flex; gap: 12px; align-items: flex-start;
+      margin-bottom: 16px;
     }
+    .info-item:last-child { margin-bottom: 0; }
     .info-icon {
-      width: 40px; height: 40px; border-radius: 10px;
+      width: 34px; height: 34px; border-radius: 8px;
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; font-size: 18px;
+      flex-shrink: 0;
     }
     .info-icon.ic-compromiso { background: rgba(232,197,53,0.18); color: var(--amarillo); }
     .info-icon.ic-grabacion  { background: rgba(168,67,138,0.18); color: var(--magenta); }
@@ -103,21 +171,32 @@
     .info-texto strong {
       display: block;
       font-family: var(--display);
-      font-size: 13.5px;
-      font-weight: 700;
-      color: #fff;
-      margin-bottom: 4px;
+      font-size: 12.5px; font-weight: 700;
+      color: #fff; margin-bottom: 3px;
     }
     .info-texto p {
-      font-size: 12.5px;
-      color: rgba(255,255,255,0.62);
-      line-height: 1.5;
-      margin: 0;
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.5; margin: 0;
     }
     .info-texto a {
       color: var(--amarillo);
-      text-decoration: underline;
-      font-weight: 600;
+      text-decoration: underline; font-weight: 600;
+    }
+
+    /* ── PORTRAIT: botón visible, panel colapsado por defecto ── */
+    @media (orientation: portrait), (max-width: 899px) {
+      #info-trigger { display: flex; }
+      #info-close   { display: block; }
+    }
+    /* ── LANDSCAPE / DESKTOP: panel siempre visible, botón oculto ── */
+    @media (orientation: landscape) and (min-width: 900px) {
+      #info-trigger { display: none !important; }
+      #info-panel.collapsed {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(-50%) translateX(0);
+      }
     }
 
     /* ── MAIN CONTENT ── */
@@ -197,7 +276,6 @@
       .hero-subtitulo p { font-size: 18px; }
       .container { padding: 20px; }
       .grid-sesiones { grid-template-columns: 1fr; }
-      .info-banner-inner { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -221,52 +299,65 @@
     </div>
   </header>
 
-  <!-- BANNER INFORMATIVO -->
-  <section class="info-banner" aria-label="Información general del Ciclo">
-    <div class="info-banner-inner">
+  <!-- WIDGET FLOTANTE DE INSTRUCCIONES -->
+  <!-- Botón disparador (solo portrait/móvil) -->
+  <button id="info-trigger" aria-label="Ver instrucciones del Ciclo" aria-expanded="false" aria-controls="info-panel">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span class="trig-label">Info</span>
+  </button>
 
-      <div class="info-item">
-        <div class="info-icon ic-compromiso">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
-        </div>
-        <div class="info-texto">
-          <strong>Carta de compromiso obligatoria</strong>
-          <p>Para participar en las sesiones, tu organización debe diligenciar el <a href="compromiso.html" target="_blank">formulario de carta de compromiso</a> antes de ingresar al ciclo.</p>
-        </div>
-      </div>
-
-      <div class="info-item">
-        <div class="info-icon ic-grabacion">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>
-        </div>
-        <div class="info-texto">
-          <strong>Todas las sesiones serán grabadas</strong>
-          <p>Cada sesión quedará disponible como grabación en este calendario para las organizaciones del Convenio 1022.</p>
-        </div>
-      </div>
-
-      <div class="info-item">
-        <div class="info-icon ic-cert">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-        </div>
-        <div class="info-texto">
-          <strong>Certificado de participación · 75%</strong>
-          <p>El certificado se otorga a la <strong style="color:#fff">organización</strong>, no a la persona. Distintas personas pueden representarla en cada sesión — lo que importa es que la organización complete el 75% de asistencia (≥ 10 de 13 sesiones).</p>
-        </div>
-      </div>
-
-      <div class="info-item">
-        <div class="info-icon ic-asinc">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div class="info-texto">
-          <strong>Modalidad sincrónica o asincrónica</strong>
-          <p>Puedes asistir en vivo según el horario del calendario, o ver la grabación de forma asincrónica. En ambos casos es obligatorio completar el <em>punto de control</em> de cada sesión antes del <strong style="color:#fff">22 de junio de 2026</strong>.</p>
-        </div>
-      </div>
-
+  <!-- Panel de instrucciones -->
+  <aside id="info-panel" class="collapsed" role="complementary" aria-label="Instrucciones del Ciclo">
+    <div class="info-panel-header">
+      <h3>💡 Cómo participar</h3>
+      <button id="info-close" aria-label="Cerrar panel">✕</button>
     </div>
-  </section>
+
+    <div class="info-item">
+      <div class="info-icon ic-compromiso">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
+      </div>
+      <div class="info-texto">
+        <strong>Carta de compromiso</strong>
+        <p>Obligatoria antes de ingresar al ciclo. <a href="compromiso.html" target="_blank">Diligenciarla aquí →</a></p>
+      </div>
+    </div>
+
+    <div class="info-item">
+      <div class="info-icon ic-grabacion">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>
+      </div>
+      <div class="info-texto">
+        <strong>Sesiones grabadas</strong>
+        <p>Todas las sesiones quedan disponibles como grabación para las organizaciones del Convenio 1022.</p>
+      </div>
+    </div>
+
+    <div class="info-item">
+      <div class="info-icon ic-cert">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      </div>
+      <div class="info-texto">
+        <strong>Certificado · 75% de asistencia</strong>
+        <p>El certificado es para la <strong style="color:#fff">organización</strong>. Distintas personas pueden representarla — lo que cuenta es que la organización acumule ≥ 10 de 13 sesiones.</p>
+      </div>
+    </div>
+
+    <div class="info-item">
+      <div class="info-icon ic-asinc">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="info-texto">
+        <strong>Sincrónico o asincrónico</strong>
+        <p>Asiste en vivo o ve la grabación. En ambos casos completa el <em>punto de control</em> antes del <strong style="color:#fff">22 de jun 2026</strong>.</p>
+      </div>
+    </div>
+
+  </aside>
 
   <!-- CALENDARIO DE SESIONES -->
   <main class="container">
@@ -379,6 +470,47 @@
     });
 
     app.innerHTML = html;
+  </script>
+
+  <script>
+    /* ── Widget flotante de instrucciones ── */
+    const panel   = document.getElementById('info-panel');
+    const trigger = document.getElementById('info-trigger');
+    const close   = document.getElementById('info-close');
+
+    function isLandscapeDesktop() {
+      return window.innerWidth >= 900 && window.innerWidth > window.innerHeight;
+    }
+
+    function applyOrientation() {
+      if (isLandscapeDesktop()) {
+        // Desktop landscape: panel siempre abierto, botón oculto
+        panel.classList.remove('collapsed');
+        trigger.style.display = 'none';
+        trigger.setAttribute('aria-expanded', 'true');
+      } else {
+        // Portrait / móvil: panel colapsado, botón visible
+        panel.classList.add('collapsed');
+        trigger.style.display = 'flex';
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    trigger.addEventListener('click', () => {
+      const open = !panel.classList.contains('collapsed');
+      panel.classList.toggle('collapsed', open);
+      trigger.setAttribute('aria-expanded', String(!open));
+    });
+
+    close.addEventListener('click', () => {
+      panel.classList.add('collapsed');
+      trigger.setAttribute('aria-expanded', 'false');
+    });
+
+    // Aplicar al cargar y al cambiar tamaño / rotación
+    applyOrientation();
+    window.addEventListener('resize', applyOrientation);
+    window.addEventListener('orientationchange', () => setTimeout(applyOrientation, 100));
   </script>
 </body>
 </html>
