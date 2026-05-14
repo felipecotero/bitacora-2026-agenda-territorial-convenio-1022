@@ -4,98 +4,271 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ciclo de Formación Puente · Agenda Territorial</title>
+  <meta name="description" content="Calendario de sesiones del Ciclo de Formación Puente — Convenio 1022. Saberes financieros, RIJ y comunicaciones. 13 sesiones virtuales, mayo–junio 2026.">
   <link rel="stylesheet" href="styles.css">
   <style>
     body { background: var(--crema); }
+
+    /* ── HERO ── */
     .hero-ciclo {
       background: var(--tinta);
       color: var(--crema);
-      padding: 60px 40px;
+      padding: 52px 40px 44px;
       border-bottom: 4px solid var(--naranja);
       position: relative;
       overflow: hidden;
     }
+    /* Imagen de fondo: mostramos el área derecha donde está el dibujo de la onda */
     .hero-ciclo::before {
       content: '';
       position: absolute; inset: 0;
       background-image: url('img/bg-onda.jpg');
-      background-size: cover; background-position: top right;
-      opacity: 0.25; pointer-events: none;
-      mask-image: linear-gradient(225deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
-      -webkit-mask-image: linear-gradient(225deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);
-      mix-blend-mode: overlay;
+      background-size: 75%;
+      background-position: right center;
+      background-repeat: no-repeat;
+      opacity: 0.18;
+      pointer-events: none;
+      mask-image: linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 70%);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 70%);
     }
-    .hero-content { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 40px; }
-    .hero-logos { display: flex; align-items: center; gap: 30px; flex-wrap: wrap; }
-    .logo-mincultura { 
-      font-family: var(--display); font-weight: 600; font-size: 15px; color: var(--crema); 
-      opacity: 0.9; max-width: 220px; line-height: 1.25; 
-      border-left: 2px solid var(--violeta-l); padding-left: 16px; 
+
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 1100px; margin: 0 auto;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 32px;
     }
-    
+
+    /* Logo principal a la izquierda, grande */
+    .hero-logo-principal {
+      display: flex; align-items: center; gap: 28px;
+    }
+    .hero-logo-principal img.puente-logo {
+      width: 220px;
+      filter: brightness(0) invert(1) drop-shadow(0 2px 12px rgba(0,0,0,0.35));
+      flex-shrink: 0;
+    }
+    .hero-subtitulo {
+      border-left: 2px solid rgba(255,255,255,0.25);
+      padding-left: 24px;
+    }
+    .hero-subtitulo p {
+      font-family: var(--acento);
+      font-size: 22px;
+      color: var(--amarillo);
+      margin: 0 0 6px;
+      line-height: 1.2;
+    }
+    .hero-subtitulo span {
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      font-family: var(--display);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Logo mincultura a la derecha */
+    .hero-mincultura img {
+      height: 54px;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.85;
+    }
+
+    /* ── BANNER INFORMATIVO ── */
+    .info-banner {
+      background: linear-gradient(135deg, #2a1045 0%, #1d0f2e 100%);
+      border-bottom: 3px solid var(--naranja);
+    }
+    .info-banner-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 28px 20px 32px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+    .info-item {
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .info-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 18px;
+    }
+    .info-icon.ic-compromiso { background: rgba(232,197,53,0.18); color: var(--amarillo); }
+    .info-icon.ic-grabacion  { background: rgba(168,67,138,0.18); color: var(--magenta); }
+    .info-icon.ic-cert        { background: rgba(82,142,113,0.18); color: var(--verde); }
+    .info-icon.ic-asinc       { background: rgba(61,80,168,0.18);  color: #7b8fff; }
+
+    .info-texto strong {
+      display: block;
+      font-family: var(--display);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .info-texto p {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .info-texto a {
+      color: var(--amarillo);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    /* ── MAIN CONTENT ── */
     .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
     .month-section { margin-bottom: 60px; }
-    .month-title { 
-      font-family: var(--display); font-size: 32px; color: var(--tinta); 
-      border-bottom: 2px solid var(--lino); padding-bottom: 10px; margin-bottom: 30px; 
-      display: inline-block; 
+    .month-title {
+      font-family: var(--display); font-size: 32px; color: var(--tinta);
+      border-bottom: 2px solid var(--lino); padding-bottom: 10px; margin-bottom: 30px;
+      display: inline-block;
     }
     .grid-sesiones { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-    
-    .sesion-card { 
-      background: var(--carta); border-radius: var(--r-lg); padding: 24px; 
-      border: 1px solid rgba(29,15,46,0.08); box-shadow: var(--shadow-1); 
+
+    /* ── CARDS ── */
+    .sesion-card {
+      background: var(--carta); border-radius: var(--r-lg); padding: 24px;
+      border: 1px solid rgba(29,15,46,0.08); box-shadow: var(--shadow-1);
       display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s;
     }
     .sesion-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-2); }
     .sesion-header { display: flex; gap: 16px; margin-bottom: 16px; align-items: flex-start; }
-    
-    /* Reutilizando .date-pill del styles.css */
     .sesion-card .date-pill { width: 70px; min-height: 85px; }
-    
     .sesion-info { flex: 1; }
     .s-tipo { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
     .s-tema { font-family: var(--display); font-size: 18px; font-weight: 600; color: var(--tinta); line-height: 1.25; margin-bottom: 8px; }
     .s-meta { font-size: 13.5px; color: var(--tinta-2); }
-    
+
+    /* ── BOTONES ── */
     .sesion-actions { margin-top: auto; padding-top: 16px; border-top: 1px dashed var(--lino); display: flex; gap: 10px; flex-wrap: wrap; }
-    .btn-reunion { display: inline-flex; align-items: center; gap: 8px; background: var(--violeta); color: var(--crema); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .btn-reunion {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--violeta); color: var(--crema);
+      padding: 8px 16px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: background 0.15s;
+    }
     .btn-reunion:hover { background: var(--violeta-d); }
-    .btn-grabacion { display: inline-flex; align-items: center; gap: 8px; background: var(--hueso); color: var(--tinta-2); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s; }
+    .btn-grabacion {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--hueso); color: var(--tinta-2);
+      padding: 8px 16px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: background 0.15s;
+    }
     .btn-grabacion:hover { background: var(--lino); color: var(--tinta); }
-    
-    /* Colores por orientador */
-    .orient-mercy .s-tipo { color: var(--magenta); }
+    .btn-compromiso {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--amarillo); color: var(--tinta);
+      padding: 8px 16px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-compromiso:hover { opacity: 0.85; }
+    .btn-control {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--naranja); color: var(--crema);
+      padding: 8px 16px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-control:hover { opacity: 0.85; }
+
+    /* ── COLORES POR ORIENTADOR ── */
+    .orient-mercy .s-tipo  { color: var(--magenta); }
     .orient-mercy .dp-month { background: var(--magenta); color: var(--crema); }
     .orient-jeimmy .s-tipo { color: var(--naranja); }
     .orient-jeimmy .dp-month { background: var(--naranja); color: var(--crema); }
     .orient-felipe .s-tipo { color: var(--amarillo); }
     .orient-felipe .dp-month { background: var(--amarillo); color: var(--tinta) !important; }
-    .orient-yuli .s-tipo { color: var(--violeta); }
+    .orient-yuli .s-tipo   { color: var(--violeta); }
     .orient-yuli .dp-month { background: var(--violeta); color: var(--crema); }
-    
-    @media (max-width: 600px) {
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
       .hero-content { flex-direction: column; align-items: flex-start; }
+      .hero-logo-principal { flex-direction: row; }
+      .hero-logo-principal img.puente-logo { width: 160px; }
+      .hero-subtitulo p { font-size: 18px; }
       .container { padding: 20px; }
       .grid-sesiones { grid-template-columns: 1fr; }
+      .info-banner-inner { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
+  <!-- ENCABEZADO -->
   <header class="hero-ciclo">
     <div class="hero-content">
-      <div>
-        <h1 style="font-family: var(--display); font-size: 42px; margin: 0 0 4px; line-height: 1.1">Ciclo de Formación Puente</h1>
-        <p style="font-family: var(--acento); font-size: 28px; color: var(--amarillo); margin: 0">Camino Uno — Sesiones virtuales</p>
+      <!-- Logo grande a la izquierda -->
+      <div class="hero-logo-principal">
+        <img src="img/puente-logo-blanco.svg" alt="Ciclo de Formación Puente" class="puente-logo">
+        <div class="hero-subtitulo">
+          <p>Camino Uno</p>
+          <span>Sesiones virtuales · Mayo – Junio 2026</span>
+        </div>
       </div>
-      <div class="hero-logos">
-        <img src="img/puente-logo-blanco.svg" alt="PUENTE" style="max-width: 140px; filter: brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.4))">
-        <img src="img/minculturas-logo.png" alt="Ministerio de las Culturas" style="height: 60px; object-fit: contain; filter: brightness(0) invert(1);">
+      <!-- Logo Mincultura a la derecha -->
+      <div class="hero-mincultura">
+        <img src="img/minculturas-logo.png" alt="Ministerio de las Culturas, las Artes y los Saberes">
       </div>
     </div>
   </header>
 
+  <!-- BANNER INFORMATIVO -->
+  <section class="info-banner" aria-label="Información general del Ciclo">
+    <div class="info-banner-inner">
+
+      <div class="info-item">
+        <div class="info-icon ic-compromiso">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
+        </div>
+        <div class="info-texto">
+          <strong>Carta de compromiso obligatoria</strong>
+          <p>Para participar en las sesiones, tu organización debe diligenciar el <a href="compromiso.html" target="_blank">formulario de carta de compromiso</a> antes de ingresar al ciclo.</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon ic-grabacion">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>
+        </div>
+        <div class="info-texto">
+          <strong>Todas las sesiones serán grabadas</strong>
+          <p>Cada sesión quedará disponible como grabación en este calendario para las organizaciones del Convenio 1022.</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon ic-cert">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div class="info-texto">
+          <strong>Certificado de participación · 75%</strong>
+          <p>El certificado se otorga a la <strong style="color:#fff">organización</strong>, no a la persona. Distintas personas pueden representarla en cada sesión — lo que importa es que la organización complete el 75% de asistencia (≥ 10 de 13 sesiones).</p>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon ic-asinc">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="info-texto">
+          <strong>Modalidad sincrónica o asincrónica</strong>
+          <p>Puedes asistir en vivo según el horario del calendario, o ver la grabación de forma asincrónica. En ambos casos es obligatorio completar el <em>punto de control</em> de cada sesión antes del <strong style="color:#fff">22 de junio de 2026</strong>.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CALENDARIO DE SESIONES -->
   <main class="container">
     <div id="app-ciclo"></div>
   </main>
@@ -106,60 +279,63 @@
       const parts = isoString.split('-');
       return new Date(parts[0], parts[1] - 1, parts[2]);
     }
-    
+
     function shortMonth(d) { return d.toLocaleDateString('es-CO', { month: 'short' }).replace('.', '').toUpperCase(); }
-    function nombreMes(d) { 
-      const n = d.toLocaleDateString('es-CO', { month: 'long' }); 
+    function nombreMes(d) {
+      const n = d.toLocaleDateString('es-CO', { month: 'long' });
       return n.charAt(0).toUpperCase() + n.slice(1);
     }
-    
-    // Obtener datos de window.AGENDA por seguridad (evita errores de scope)
+
     const cicloData = (window.AGENDA && window.AGENDA.CICLO) ? window.AGENDA.CICLO : (typeof CICLO !== 'undefined' ? CICLO : []);
-    const teamData = (window.AGENDA && window.AGENDA.TEAM) ? window.AGENDA.TEAM : (typeof TEAM !== 'undefined' ? TEAM : []);
+    const teamData  = (window.AGENDA && window.AGENDA.TEAM)  ? window.AGENDA.TEAM  : (typeof TEAM  !== 'undefined' ? TEAM  : []);
 
     const sortedCiclo = [...cicloData].sort((a,b) => parseDate(a.fecha) - parseDate(b.fecha));
-    
-    // Agrupar por mes dinámicamente para no fallar si hay meses nuevos
-    const porMes = {}; 
+
+    const porMes = {};
     sortedCiclo.forEach(item => {
       const d = parseDate(item.fecha);
       const m = d.getMonth();
-      if(!porMes[m]) porMes[m] = [];
+      if (!porMes[m]) porMes[m] = [];
       porMes[m].push(item);
     });
 
     const app = document.getElementById('app-ciclo');
-    
+
     function renderCard(item) {
       const d = parseDate(item.fecha);
       const orientadorObj = teamData.find(t => t.id === item.orient) || {};
       const orientNombre = orientadorObj.corto || item.orient;
-      
+
       let botones = '';
+
       if (item.enlaceSesion) {
         botones += `<a href="${item.enlaceSesion}" target="_blank" class="btn-reunion">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.6 11.6L22 7v10l-6.4-4.5v-1zM4 5h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2z"/></svg>
           Unirse a la reunión
         </a>`;
       }
+
       if (item.enlaceGrabacion) {
         botones += `<a href="${item.enlaceGrabacion}" target="_blank" class="btn-grabacion">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>
           Ver grabación
         </a>`;
       }
+
       if (item.enlaceCompromiso) {
-        botones += `<a href="${item.enlaceCompromiso}" target="_blank" class="btn-compromiso" style="display: inline-flex; align-items: center; gap: 8px; background: var(--amarillo); color: var(--tinta); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s;">
+        botones += `<a href="${item.enlaceCompromiso}" target="_blank" class="btn-compromiso">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/><path d="M14 3v5h5M16 13H8M16 17H8M10 9H8"/></svg>
           Firmar compromiso
         </a>`;
       }
+
       if (item.enlacePuntoControl) {
-        botones += `<a href="${item.enlacePuntoControl}" target="_blank" class="btn-control" style="display: inline-flex; align-items: center; gap: 8px; background: var(--naranja); color: var(--crema); padding: 8px 16px; border-radius: 999px; font-size: 13px; font-weight: 600; text-decoration: none; transition: background 0.15s;">
+        botones += `<a href="${item.enlacePuntoControl}" target="_blank" class="btn-control">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           Punto de control
         </a>`;
       }
+
       if (!botones) {
         botones = `<span style="font-size: 12.5px; color: var(--tinta-3); font-style: italic">Enlaces disponibles próximamente</span>`;
       }
@@ -186,16 +362,14 @@
     }
 
     let html = '';
-    
-    // Render dinámico para cada mes encontrado
     const colorPorMes = ['var(--violeta)', 'var(--verde)', 'var(--naranja)', 'var(--magenta)', 'var(--amarillo)', 'var(--azul)'];
-    
+
     Object.keys(porMes).sort((a,b) => parseInt(a) - parseInt(b)).forEach((mesNum, index) => {
       const items = porMes[mesNum];
       const d = parseDate(items[0].fecha);
       const mName = nombreMes(d);
       const color = colorPorMes[index % colorPorMes.length];
-      
+
       html += `
         <div class="month-section">
           <h2 class="month-title" style="border-color: ${color}">${mName}</h2>
@@ -203,7 +377,7 @@
         </div>
       `;
     });
-    
+
     app.innerHTML = html;
   </script>
 </body>
