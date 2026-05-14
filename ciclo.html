@@ -77,56 +77,58 @@
 
     /* ── WIDGET FLOTANTE DE INSTRUCCIONES ── */
 
-    /* Botón disparador (visible solo en portrait/móvil) */
+    /* Botón disparador — fijo en la esquina inferior izquierda, solo en móvil/portrait */
     #info-trigger {
-      display: none; /* se activa via JS cuando orientation es portrait */
+      display: none;
       position: fixed;
       left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 80px;            /* lejos de las cards, encima del nav del browser */
       z-index: 200;
-      width: 46px; height: 46px;
+      width: 50px; height: 50px;
       border-radius: 50%;
       background: var(--tinta);
       border: 2px solid var(--violeta-l, #7b5ea7);
       color: #fff;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
       align-items: center; justify-content: center;
-      transition: background 0.2s, transform 0.2s;
       flex-direction: column;
-      gap: 1px;
+      gap: 2px;
+      transition: background 0.2s, box-shadow 0.2s;
     }
-    #info-trigger:hover { background: var(--violeta); transform: translateY(-50%) scale(1.08); }
+    #info-trigger:hover { background: var(--violeta); box-shadow: 0 6px 24px rgba(90,54,128,0.5); }
     #info-trigger svg { flex-shrink: 0; }
     #info-trigger .trig-label {
-      font-size: 8px; font-weight: 700; letter-spacing: 0.04em;
+      font-size: 7.5px; font-weight: 700; letter-spacing: 0.05em;
       text-transform: uppercase; line-height: 1;
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.65);
     }
 
     /* Panel lateral flotante */
     #info-panel {
       position: fixed;
       left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
+      bottom: 142px;           /* arriba del botón trigger */
       z-index: 190;
-      width: 260px;
-      max-height: 90vh;
+      width: 272px;
+      max-height: 70vh;
       overflow-y: auto;
       background: #1d0f2e;
-      border: 1px solid rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.45);
       padding: 20px 18px 24px;
-      transition: opacity 0.25s, transform 0.3s;
-    }
-    /* Estado colapsado (solo en portrait) */
-    #info-panel.collapsed {
+      /* Ocultamiento con display:none en móvil para evitar ghost text en Chrome Android */
+      display: none;
       opacity: 0;
-      pointer-events: none;
-      transform: translateY(-50%) translateX(-110%);
+      transform: translateY(12px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    /* Estado visible en móvil (JS añade .panel-open) */
+    #info-panel.panel-open {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .info-panel-header {
@@ -184,18 +186,20 @@
       text-decoration: underline; font-weight: 600;
     }
 
-    /* ── PORTRAIT: botón visible, panel colapsado por defecto ── */
+    /* ── PORTRAIT / MÓVIL: botón visible ── */
     @media (orientation: portrait), (max-width: 899px) {
       #info-trigger { display: flex; }
       #info-close   { display: block; }
     }
-    /* ── LANDSCAPE / DESKTOP: panel siempre visible, botón oculto ── */
+    /* ── LANDSCAPE DESKTOP (≥900px): panel siempre visible, posición centrada, botón oculto ── */
     @media (orientation: landscape) and (min-width: 900px) {
       #info-trigger { display: none !important; }
-      #info-panel.collapsed {
-        opacity: 1;
-        pointer-events: auto;
-        transform: translateY(-50%) translateX(0);
+      #info-panel {
+        display: block !important;
+        opacity: 1 !important;
+        top: 50%;
+        bottom: auto;
+        transform: translateY(-50%) !important;
       }
     }
 
@@ -270,10 +274,23 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 700px) {
-      .hero-content { flex-direction: column; align-items: flex-start; }
-      .hero-logo-principal { flex-direction: row; }
-      .hero-logo-principal img.puente-logo { width: 160px; }
-      .hero-subtitulo p { font-size: 18px; }
+      /* Hero: apilar logo + subtítulo verticalmente en portrait */
+      .hero-ciclo { padding: 28px 20px 24px; }
+      .hero-content { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .hero-logo-principal { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .hero-logo-principal img.puente-logo { width: 130px; }
+      /* Subtítulo: quitar borde lateral, usar borde superior */
+      .hero-subtitulo {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid rgba(255,255,255,0.18);
+        padding-top: 10px;
+      }
+      .hero-subtitulo p { font-size: 17px; }
+      .hero-subtitulo span { font-size: 11px; }
+      /* Logo Mincultura más pequeño */
+      .hero-mincultura img { height: 40px; }
+      /* Grid y container */
       .container { padding: 20px; }
       .grid-sesiones { grid-template-columns: 1fr; }
     }
@@ -476,41 +493,57 @@
     /* ── Widget flotante de instrucciones ── */
     const panel   = document.getElementById('info-panel');
     const trigger = document.getElementById('info-trigger');
-    const close   = document.getElementById('info-close');
+    const closeBtn = document.getElementById('info-close');
 
     function isLandscapeDesktop() {
       return window.innerWidth >= 900 && window.innerWidth > window.innerHeight;
     }
 
+    /* Aplica el estado correcto según el contexto de pantalla */
     function applyOrientation() {
       if (isLandscapeDesktop()) {
-        // Desktop landscape: panel siempre abierto, botón oculto
-        panel.classList.remove('collapsed');
-        trigger.style.display = 'none';
+        // Desktop: panel siempre visible via CSS (no necesita JS)
+        panel.classList.remove('panel-open');
         trigger.setAttribute('aria-expanded', 'true');
       } else {
-        // Portrait / móvil: panel colapsado, botón visible
-        panel.classList.add('collapsed');
-        trigger.style.display = 'flex';
+        // Móvil/portrait: asegura que el panel esté cerrado al rotar/redimensionar
+        panel.classList.remove('panel-open');
         trigger.setAttribute('aria-expanded', 'false');
       }
     }
 
+    /* Abrir/cerrar con el botón trigger */
     trigger.addEventListener('click', () => {
-      const open = !panel.classList.contains('collapsed');
-      panel.classList.toggle('collapsed', open);
-      trigger.setAttribute('aria-expanded', String(!open));
+      const isOpen = panel.classList.contains('panel-open');
+      if (isOpen) {
+        panel.classList.remove('panel-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      } else {
+        panel.classList.add('panel-open');
+        trigger.setAttribute('aria-expanded', 'true');
+      }
     });
 
-    close.addEventListener('click', () => {
-      panel.classList.add('collapsed');
+    /* Cerrar con la X */
+    closeBtn.addEventListener('click', () => {
+      panel.classList.remove('panel-open');
       trigger.setAttribute('aria-expanded', 'false');
     });
 
-    // Aplicar al cargar y al cambiar tamaño / rotación
+    /* Cerrar al hacer clic fuera del panel en móvil */
+    document.addEventListener('click', (e) => {
+      if (!isLandscapeDesktop() &&
+          !panel.contains(e.target) &&
+          e.target !== trigger &&
+          !trigger.contains(e.target)) {
+        panel.classList.remove('panel-open');
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+
     applyOrientation();
     window.addEventListener('resize', applyOrientation);
-    window.addEventListener('orientationchange', () => setTimeout(applyOrientation, 100));
+    window.addEventListener('orientationchange', () => setTimeout(applyOrientation, 150));
   </script>
 </body>
 </html>
