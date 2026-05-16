@@ -77,9 +77,9 @@
 
     /* ── WIDGET FLOTANTE DE INSTRUCCIONES ── */
 
-    /* Botón disparador — fijo en la esquina inferior izquierda, solo en móvil/portrait */
+    /* Botón disparador — fijo en la esquina inferior izquierda */
     #info-trigger {
-      display: none;
+      display: none;            /* JS lo muestra cuando el panel está cerrado */
       position: fixed;
       left: 16px;
       bottom: 80px;            /* lejos de las cards, encima del nav del browser */
@@ -146,7 +146,7 @@
       letter-spacing: 0.06em;
     }
     #info-close {
-      display: none; /* solo en portrait */
+      display: none; /* JS lo controla según contexto */
       background: none; border: none;
       color: rgba(255,255,255,0.5); cursor: pointer;
       padding: 2px; line-height: 1;
@@ -186,20 +186,19 @@
       text-decoration: underline; font-weight: 600;
     }
 
-    /* ── PORTRAIT / MÓVIL: botón visible ── */
+    /* ── PORTRAIT / MÓVIL: trigger arranca visible (panel cerrado) ── */
     @media (orientation: portrait), (max-width: 899px) {
       #info-trigger { display: flex; }
       #info-close   { display: block; }
     }
-    /* ── LANDSCAPE DESKTOP (≥900px): panel siempre visible, posición centrada, botón oculto ── */
+    /* ── LANDSCAPE DESKTOP (≥900px): panel centrado verticalmente ── */
     @media (orientation: landscape) and (min-width: 900px) {
-      #info-trigger { display: none !important; }
-      #info-panel {
-        display: block !important;
-        opacity: 1 !important;
+      #info-panel.desktop-open {
+        display: block;
+        opacity: 1;
         top: 50%;
         bottom: auto;
-        transform: translateY(-50%) !important;
+        transform: translateY(-50%);
       }
     }
 
@@ -491,58 +490,93 @@
 
   <script>
     /* ── Widget flotante de instrucciones ── */
-    const panel   = document.getElementById('info-panel');
-    const trigger = document.getElementById('info-trigger');
+    const panel    = document.getElementById('info-panel');
+    const trigger  = document.getElementById('info-trigger');
     const closeBtn = document.getElementById('info-close');
 
     function isLandscapeDesktop() {
       return window.innerWidth >= 900 && window.innerWidth > window.innerHeight;
     }
 
-    /* Aplica el estado correcto según el contexto de pantalla */
+    /* Abre el panel (funciona tanto en móvil como en desktop) */
+    function openPanel() {
+      if (isLandscapeDesktop()) {
+        panel.classList.add('desktop-open');
+        panel.style.display = '';
+      } else {
+        panel.classList.add('panel-open');
+      }
+      closeBtn.style.display = 'block';
+      trigger.style.display  = 'none';
+      trigger.setAttribute('aria-expanded', 'true');
+    }
+
+    /* Cierra el panel y muestra el botón trigger */
+    function closePanel() {
+      panel.classList.remove('panel-open', 'desktop-open');
+      if (!isLandscapeDesktop()) {
+        /* en móvil el panel se oculta via CSS al quitar .panel-open */
+      } else {
+        panel.style.display = 'none';
+      }
+      trigger.style.display  = 'flex';
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    /* Aplica el estado correcto al cambiar orientación/tamaño */
     function applyOrientation() {
       if (isLandscapeDesktop()) {
-        // Desktop: panel siempre visible via CSS (no necesita JS)
-        panel.classList.remove('panel-open');
-        trigger.setAttribute('aria-expanded', 'true');
+        /* En desktop: si el trigger se está mostrando, respetar estado cerrado;
+           si no, abrir el panel */
+        if (trigger.style.display === 'flex') {
+          /* el usuario lo cerró; mantenerlo cerrado */
+          panel.classList.remove('panel-open', 'desktop-open');
+          panel.style.display = 'none';
+          closeBtn.style.display = 'none';
+        } else {
+          /* primera vez o viene de portrait → abrir */
+          panel.style.display = '';
+          panel.classList.add('desktop-open');
+          panel.classList.remove('panel-open');
+          closeBtn.style.display = 'block';
+          trigger.style.display  = 'none';
+          trigger.setAttribute('aria-expanded', 'true');
+        }
       } else {
-        // Móvil/portrait: asegura que el panel esté cerrado al rotar/redimensionar
+        /* Móvil/portrait: limpiar clases desktop, resetear estilos en línea */
+        panel.classList.remove('desktop-open');
+        panel.style.display = '';
+        trigger.style.display = '';   /* deja que el CSS @media lo controle */
+        closeBtn.style.display = '';  /* deja que el CSS @media lo controle */
+        /* Asegurar panel cerrado al girar */
         panel.classList.remove('panel-open');
         trigger.setAttribute('aria-expanded', 'false');
       }
     }
 
-    /* Abrir/cerrar con el botón trigger */
+    /* Abrir/cerrar con el botón trigger (portrait y desktop si está cerrado) */
     trigger.addEventListener('click', () => {
-      const isOpen = panel.classList.contains('panel-open');
-      if (isOpen) {
-        panel.classList.remove('panel-open');
-        trigger.setAttribute('aria-expanded', 'false');
-      } else {
-        panel.classList.add('panel-open');
-        trigger.setAttribute('aria-expanded', 'true');
-      }
+      openPanel();
     });
 
     /* Cerrar con la X */
     closeBtn.addEventListener('click', () => {
-      panel.classList.remove('panel-open');
-      trigger.setAttribute('aria-expanded', 'false');
+      closePanel();
     });
 
     /* Cerrar al hacer clic fuera del panel en móvil */
     document.addEventListener('click', (e) => {
       if (!isLandscapeDesktop() &&
+          panel.classList.contains('panel-open') &&
           !panel.contains(e.target) &&
           e.target !== trigger &&
           !trigger.contains(e.target)) {
-        panel.classList.remove('panel-open');
-        trigger.setAttribute('aria-expanded', 'false');
+        closePanel();
       }
     });
 
     applyOrientation();
-    window.addEventListener('resize', applyOrientation);
+    window.addEventListener('resize', () => applyOrientation());
     window.addEventListener('orientationchange', () => setTimeout(applyOrientation, 150));
   </script>
 </body>
