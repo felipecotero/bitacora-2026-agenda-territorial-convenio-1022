@@ -43,16 +43,6 @@
   },
   "eventos": [
     {
-      "fecha": "2026-05-07",
-      "camino": "C2",
-      "titulo": "Minga Circulacion y Divulgación · Autonomía Digital",
-      "hora": "Por confirmar",
-      "duracion": "1h 30min",
-      "lugar": "Microsoft Teams",
-      "notas": "Apertura del Ciclo de Autonomía Digital. Encuadre + Mapa de las Llaves. Esta sesión se mueve — no arrancamos este viernes; probablemente miércoles 13 de la semana entrante. Se cierra mañana en la tarde.",
-      "estadoCal": "en-revision"
-    },
-    {
       "fecha": "2026-05-08",
       "camino": "HITO",
       "titulo": "Reunión de coordinación · cierre del Ciclo",
@@ -105,13 +95,14 @@
       "estadoCal": "propuesta"
     },
     {
-      "fecha": "2026-05-15",
-      "camino": "C3",
-      "titulo": "Identidad gráfica · S2",
-      "hora": "Por confirmar",
+      "fecha": "2026-05-19",
+      "camino": "C2",
+      "titulo": "Minga Circulacion y Divulgación · Autonomía Digital",
+      "hora": "8:00 am a 9:00 am",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
-      "notas": "Texturas del territorio."
+      "notas": "Apertura del Ciclo de Autonomía Digital. Encuadre + Mapa de las Llaves. Esta sesión se mueve — no arrancamos este viernes; probablemente miércoles 13 de la semana entrante. Se cierra mañana en la tarde.",
+      "estadoCal": "en-revision"
     },
     {
       "fecha": "2026-05-19",
