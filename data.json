@@ -74,16 +74,6 @@
       "estadoCal": "propuesta"
     },
     {
-      "fecha": "2026-05-14",
-      "camino": "C2",
-      "titulo": "Comunicaciones específicas · equipo Red de Mujeres",
-      "hora": "Por confirmar",
-      "duracion": "1h 30min",
-      "lugar": "Microsoft Teams",
-      "notas": "Sesión específica con el equipo de comunicaciones de la Red de Mujeres. Fecha tentativa — se cierra mañana en la reunión de coordinación.",
-      "estadoCal": "en-revision"
-    },
-    {
       "fecha": "2026-05-15",
       "camino": "C1",
       "orientadora": "felipe",
@@ -136,15 +126,6 @@
       "lugar": "Microsoft Teams",
       "notas": "Sesión 4 · Línea Comunicaciones (Felipe).",
       "estadoCal": "propuesta"
-    },
-    {
-      "fecha": "2026-05-22",
-      "camino": "C2",
-      "titulo": "Sesión técnica · Plataformas",
-      "hora": "Por confirmar",
-      "duracion": "1h 30min",
-      "lugar": "Microsoft Teams",
-      "notas": "Cierre del Mapa de las Llaves + plataformas web."
     },
     {
       "fecha": "2026-05-25",
@@ -200,15 +181,6 @@
       "lugar": "Microsoft Teams",
       "notas": "Sesión 9 · Cierre línea Saberes financieros.",
       "estadoCal": "propuesta"
-    },
-    {
-      "fecha": "2026-06-05",
-      "camino": "C2",
-      "titulo": "Sesión técnica · Kit Gráfico",
-      "hora": "Por confirmar",
-      "duracion": "1h 30min",
-      "lugar": "Microsoft Teams",
-      "notas": "Manual vivo, plantillas, paleta y tipografía."
     },
     {
       "fecha": "2026-06-05",
