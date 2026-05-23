@@ -179,7 +179,7 @@ mayo_events = [
     {'mes': 'MAY', 'dia': '13', 'dow': 'Mié', 'orient': 'mercy', 'tipo': 'Saberes financieros', 'tema': 'Finanzas personales', 'hora': '18:30–20:00'},
     {'mes': 'MAY', 'dia': '15', 'dow': 'Vie', 'orient': 'felipe', 'tipo': 'Comunicaciones', 'tema': 'Desde dónde hablamos — Comunicaciones 1', 'hora': '17:30–19:00'},
     {'mes': 'MAY', 'dia': '19', 'dow': 'Mar', 'orient': 'jeimmy', 'tipo': 'Saberes RIJ', 'tema': 'Contexto: curar el entorno', 'hora': '10:00–11:30'},
-    {'mes': 'MAY', 'dia': '22', 'dow': 'Vie', 'orient': 'felipe', 'tipo': 'Comunicaciones', 'tema': 'Decidir qué se dice y qué se cuida — Com. 2', 'hora': '17:30–19:00'},
+    {'mes': 'MAY', 'dia': '26', 'dow': 'Mar', 'orient': 'felipe', 'tipo': 'Comunicaciones', 'tema': 'Decidir qué se dice y qué se cuida — Com. 2', 'hora': '18:30–20:00'},
     {'mes': 'MAY', 'dia': '23', 'dow': 'Sáb', 'orient': 'mercy', 'tipo': 'Saberes financieros', 'tema': 'Diversificación de ingresos', 'hora': '17:30–19:00'},
     {'mes': 'MAY', 'dia': '25', 'dow': 'Lun', 'orient': 'jeimmy', 'tipo': 'Saberes RIJ', 'tema': 'Reciprocidad: la ética de la corresponsabilidad', 'hora': '18:30–20:00'},
 ]
