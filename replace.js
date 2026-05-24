@@ -1,5 +1,5 @@
 const fs = require('fs');
-const files = ['README.md', 'data.json', 'index.html', 'styles.css', 'view-cronograma.jsx', 'view-procesos.jsx', 'view-tablero.jsx', 'view-telar.jsx'];
+const files = ['README.md', 'data.json', 'bitacora_at.html', 'styles.css', 'view-cronograma.jsx', 'view-procesos.jsx', 'view-tablero.jsx', 'view-telar.jsx'];
 
 files.forEach(f => {
   let content = fs.readFileSync(f, 'utf8');

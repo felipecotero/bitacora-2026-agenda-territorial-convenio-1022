@@ -285,7 +285,7 @@ function Compromisos() {
               Comparte solo este enlace con las organizaciones
             </div>
             <code style={{ fontSize: 12, color: 'rgba(247,241,230,0.7)', marginTop: 6, display: 'block' }}>
-              {window.location.origin}{window.location.pathname.replace('index.html', '') || '/'}compromiso.html
+              {window.location.origin}{window.location.pathname.replace('bitacora_at.html', '') || '/'}compromiso.html
             </code>
           </div>
           <a href="compromiso.html" target="_blank" className="btn" style={{ background: 'var(--amarillo)', color: 'var(--tinta)', textDecoration: 'none', flexShrink: 0 }}>
