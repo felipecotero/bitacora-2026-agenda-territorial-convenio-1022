@@ -36,101 +36,102 @@ function Documentos() {
         ))}
       </div>
 
-      {/* Ecosistema de sitios web del Ministerio */}
+      {/* Ecosistema completo de sitios web del Ministerio */}
       <div>
         <div className="eyebrow" style={{ marginBottom: 6 }}>Ecosistema digital · Ministerio de las Culturas</div>
         <h2 className="section-title" style={{ fontSize: 22, marginBottom: 4 }}>Sitios conectados</h2>
-        <p className="section-sub violeta" style={{ marginBottom: 20 }}>páginas activas del programa en la web</p>
-        <div className="grid-2">
-          {[
-            {
-              nombre: 'Artes para la Paz',
-              desc: 'Mapa de geo­localización e información de las organizaciones del convenio con el Fondo Mixto.',
-              url: 'https://felipecotero.github.io/ARTESPARALAPAZ/',
-              etiqueta: 'Mapa · Programa',
-              color: '#528E71',
-              emoji: '🗺️',
-            },
-            {
-              nombre: 'Dashboard Hip Hop',
-              desc: 'Dashboard de beneficiarios de la Red Comunitaria de Hip Hop Colombia 2025.',
-              url: 'https://felipecotero.github.io/dashboard-hip-hop/',
-              etiqueta: 'Red Hip Hop',
-              color: '#1D0F2E',
-              emoji: '🎤',
-            },
-            {
-              nombre: 'Infografías Ley de Cultura',
-              desc: 'Ejercicio comunicativo sobre cómo la reforma de la Ley de Cultura conecta con las organizaciones de Artes para la Paz.',
-              url: 'https://felipecotero.github.io/INFOGRAFIAS-LEY-DE-CULTURA/',
-              etiqueta: 'Comunicación',
-              color: '#D97B3F',
-              emoji: '📊',
-            },
-            {
-              nombre: 'Cultura es Dignidad Mayor',
-              desc: 'Sobre el programa presidencial y la participación de las organizaciones culturales en él.',
-              url: 'https://felipecotero.github.io/Cultura_es_dignidad_mayor/',
-              etiqueta: 'Programa presidencial',
-              color: '#A8438A',
-              emoji: '🏛️',
-            },
-            {
-              nombre: 'Índice Mincultura',
-              desc: 'Índice de todas las páginas web activas del Ministerio de las Culturas, las Artes y los Saberes.',
-              url: 'https://felipecotero.github.io/indice-mincultura/',
-              etiqueta: 'Directorio',
-              color: '#3D50A8',
-              emoji: '🔗',
-            },
-            {
-              nombre: 'Bitácora · Agenda Territorial',
-              desc: 'Herramienta interna del equipo del Convenio 1022. Tablero, cronograma, telar y compromisos.',
-              url: 'https://felipecotero.github.io/bitacora-2026-agenda-territorial-convenio-1022/bitacora_at.html',
-              etiqueta: 'Equipo interno',
-              color: '#5A3680',
-              emoji: '📋',
-            },
-          ].map(s => (
-            <a
-              key={s.nombre}
-              href={s.url}
-              target="_blank"
-              rel="noopener"
-              style={{ textDecoration: 'none' }}
-            >
+        <p className="section-sub violeta" style={{ marginBottom: 24 }}>todas las páginas activas del programa en la web</p>
+
+        {/* Helper card component inline */}
+        {(() => {
+          const SiteCard = ({ s }) => (
+            <a href={s.url} target="_blank" rel="noopener" style={{ textDecoration: 'none', display: 'block' }}>
               <div className="card"
                 style={{ height: '100%', transition: 'transform 0.15s, box-shadow 0.15s', cursor: 'pointer' }}
-                onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(29,15,46,0.13)'; }}
+                onMouseEnter={e => { e.currentTarget.style.transform='translateY(-3px)'; e.currentTarget.style.boxShadow='0 10px 28px rgba(29,15,46,0.14)'; }}
                 onMouseLeave={e => { e.currentTarget.style.transform='none'; e.currentTarget.style.boxShadow=''; }}
               >
-                {/* Banda de color superior */}
-                <div style={{ height: 5, background: s.color, borderRadius: '6px 6px 0 0', margin: '-20px -20px 14px' }} />
-                <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
-                  <div style={{
-                    width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-                    background: `${s.color}18`, display: 'flex', alignItems: 'center',
-                    justifyContent: 'center', fontSize: 20,
-                  }}>{s.emoji}</div>
+                <div style={{ height: 4, background: s.color, borderRadius: '6px 6px 0 0', margin: '-20px -20px 14px' }} />
+                <div style={{ display: 'flex', gap: 11, alignItems: 'flex-start' }}>
+                  <div style={{ width: 36, height: 36, borderRadius: 9, flexShrink: 0, background: `${s.color}1A`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18 }}>{s.emoji}</div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <span className="chip" style={{ background: s.color, color: '#fff', fontSize: 10, marginBottom: 6 }}>
-                      {s.etiqueta}
-                    </span>
-                    <h3 style={{ fontFamily: 'var(--display)', fontSize: 15, fontWeight: 700, margin: '4px 0 5px', color: 'var(--tinta)', lineHeight: 1.25 }}>
-                      {s.nombre}
-                    </h3>
-                    <p style={{ fontSize: 12.5, color: 'var(--tinta-3)', margin: 0, lineHeight: 1.55 }}>
-                      {s.desc}
-                    </p>
+                    <span className="chip" style={{ background: s.color, color: '#fff', fontSize: 9.5, marginBottom: 5, padding: '2px 8px' }}>{s.etiqueta}</span>
+                    <h3 style={{ fontFamily: 'var(--display)', fontSize: 14, fontWeight: 700, margin: '3px 0 4px', color: 'var(--tinta)', lineHeight: 1.25 }}>{s.nombre}</h3>
+                    <p style={{ fontSize: 12, color: 'var(--tinta-3)', margin: 0, lineHeight: 1.5 }}>{s.desc}</p>
                   </div>
                 </div>
-                <div style={{ marginTop: 12, fontSize: 11, color: s.color, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
-                  Abrir sitio ↗
-                </div>
+                <div style={{ marginTop: 10, fontSize: 10.5, color: s.color, fontWeight: 600 }}>Abrir sitio ↗</div>
               </div>
             </a>
-          ))}
-        </div>
+          );
+
+          const Grupo = ({ titulo, subtitulo, color, items }) => (
+            <div style={{ marginBottom: 28 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 14, paddingBottom: 10, borderBottom: `2px solid ${color}30` }}>
+                <div style={{ width: 8, height: 8, borderRadius: '50%', background: color, flexShrink: 0 }} />
+                <div>
+                  <div style={{ fontFamily: 'var(--display)', fontWeight: 700, fontSize: 15, color: 'var(--tinta)' }}>{titulo}</div>
+                  {subtitulo && <div style={{ fontSize: 11.5, color: 'var(--tinta-3)', marginTop: 1 }}>{subtitulo}</div>}
+                </div>
+              </div>
+              <div className="grid-2" style={{ gap: 12 }}>
+                {items.map(s => <SiteCard key={s.url} s={s} />)}
+              </div>
+            </div>
+          );
+
+          return (
+            <div>
+              <Grupo
+                titulo="Mapas de redes · Artes para la Paz"
+                subtitulo="Geo­localización de organizaciones por red y territorio"
+                color="#528E71"
+                items={[
+                  { nombre: 'Mapa Redes Culturales · APLP', desc: 'Vista general de todas las organizaciones del programa Artes para la Paz.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/', etiqueta: 'Programa general', color: '#528E71', emoji: '🗺️' },
+                  { nombre: 'Mapa Red de Mujeres', desc: 'Red de Mujeres Artistas, Sabedoras y Gestoras — organizaciones y territorios.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/mapamujeres/', etiqueta: 'Red Mujeres', color: '#A8438A', emoji: '🌸' },
+                  { nombre: 'Mapa Red Intercultural Juvenil', desc: 'RIJ — Red Intercultural Juvenil y sus organizaciones en el territorio.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/maparij/', etiqueta: 'RIJ', color: '#5A3680', emoji: '🌀' },
+                  { nombre: 'Mapa Red Hip Hop', desc: 'Red Comunitaria de Hip Hop Colombia — distribución territorial de beneficiarios.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/mapahiphop/', etiqueta: 'Red Hip Hop', color: '#1D0F2E', emoji: '🎤' },
+                  { nombre: 'Mapa Encuentro de Redes Suroccidente', desc: 'Mapa del encuentro de redes del suroccidente del país.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/mapasuroccidente/', etiqueta: 'Suroccidente', color: '#3D50A8', emoji: '📍' },
+                  { nombre: 'Mapa Redes Culturales · Índice', desc: 'Vista de índice general del mapa de redes culturales Artes para la Paz.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/mapaaplp/', etiqueta: 'Índice APLP', color: '#528E71', emoji: '🗂️' },
+                  { nombre: 'Mapa de Redes · Resumen', desc: 'Vista consolidada de todas las redes culturales en el programa.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/maparedes.html', etiqueta: 'Redes', color: '#6E5B0D', emoji: '🔵' },
+                ]}
+              />
+              <Grupo
+                titulo="Infografías · Marco legal y comunicación"
+                subtitulo="Piezas educativas sobre la Ley de Cultura y el programa"
+                color="#D97B3F"
+                items={[
+                  { nombre: 'Infografías Ley de Cultura', desc: 'Cómo la reforma de la Ley de Cultura conecta con las organizaciones de Artes para la Paz.', url: 'https://felipecotero.github.io/INFOGRAFIAS-LEY-DE-CULTURA/', etiqueta: 'Marco legal', color: '#D97B3F', emoji: '📜' },
+                  { nombre: 'Ley Artes al Aula · Ley 2555/2025', desc: 'Infografías sobre la Ley Artes al Aula y su impacto en las organizaciones culturales.', url: 'https://felipecotero.github.io/INFOGRAFIAS-LEY-DE-CULTURA/ARTES-AL-AULA/', etiqueta: 'Artes al Aula', color: '#D97B3F', emoji: '🎨' },
+                  { nombre: 'Infografías Cultura de Paz', desc: 'Serie de infografías sobre Cultura de Paz en el contexto del programa.', url: 'https://felipecotero.github.io/INFOGRAFIAS-LEY-DE-CULTURA/CDP/', etiqueta: 'Cultura de Paz', color: '#528E71', emoji: '☮️' },
+                  { nombre: 'Infografías Red Suroccidente · Ley 630', desc: 'Infografías Artes para la Paz con énfasis en la Ley 630 para la red suroccidente.', url: 'https://felipecotero.github.io/INFOGRAFIAS-LEY-DE-CULTURA/REDSUROCCIDENTE/', etiqueta: 'Red Suroccidente', color: '#3D50A8', emoji: '🌄' },
+                  { nombre: 'Informe Final · Convenio 1022-2025', desc: 'Fortalecimiento del Ecosistema Cultural y Comunitario — informe de cierre del convenio.', url: 'https://felipecotero.github.io/INFOGRAFIAS-LEY-DE-CULTURA/INFORME_FINAL/', etiqueta: 'Informe final', color: '#1D0F2E', emoji: '📋' },
+                ]}
+              />
+              <Grupo
+                titulo="Programa presidencial · Cultura es Dignidad Mayor"
+                subtitulo="Socialización y participación en el programa"
+                color="#A8438A"
+                items={[
+                  { nombre: 'Cultura es Dignidad Mayor', desc: 'Sobre el programa presidencial y nuestra participación en él.', url: 'https://felipecotero.github.io/Cultura_es_dignidad_mayor/', etiqueta: 'Programa presidencial', color: '#A8438A', emoji: '🏛️' },
+                  { nombre: 'PÚBLICA · Jornadas de Socialización', desc: 'Jornadas de socialización del programa Cultura es Dignidad Mayor para organizaciones culturales.', url: 'https://felipecotero.github.io/Cultura_es_dignidad_mayor/publica/', etiqueta: 'Socialización', color: '#A8438A', emoji: '📢' },
+                  { nombre: 'Plan Movilidad Creativa · Santa Marta', desc: 'Plan de movilidad creativa del CELAC para Santa Marta en el marco del programa.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/CELAC/', etiqueta: 'CELAC · Santa Marta', color: '#6E5B0D', emoji: '✈️' },
+                  { nombre: 'EconoMinco · Mapa económico', desc: 'Mapa de redes culturales con énfasis en la dimensión económica de las organizaciones.', url: 'https://felipecotero.github.io/ARTESPARALAPAZ/ECONOMINCO/', etiqueta: 'Economía cultural', color: '#528E71', emoji: '💡' },
+                ]}
+              />
+              <Grupo
+                titulo="Directorio y herramientas del equipo"
+                subtitulo="Índice general y bitácora interna"
+                color="#3D50A8"
+                items={[
+                  { nombre: 'Índice Mincultura', desc: 'Índice de todas las páginas web activas del Ministerio de las Culturas, las Artes y los Saberes.', url: 'https://felipecotero.github.io/indice-mincultura/', etiqueta: 'Directorio', color: '#3D50A8', emoji: '🔗' },
+                  { nombre: 'Dashboard Hip Hop · Beneficiarios', desc: 'Dashboard de beneficiarios de la Red Comunitaria de Hip Hop Colombia 2025.', url: 'https://felipecotero.github.io/dashboard-hip-hop/docs/', etiqueta: 'Red Hip Hop', color: '#1D0F2E', emoji: '🎤' },
+                  { nombre: 'Bitácora · Agenda Territorial', desc: 'Herramienta interna del equipo del Convenio 1022. Tablero, cronograma, telar y compromisos.', url: 'https://felipecotero.github.io/bitacora-2026-agenda-territorial-convenio-1022/bitacora_at.html', etiqueta: 'Equipo interno', color: '#5A3680', emoji: '📒' },
+                ]}
+              />
+            </div>
+          );
+        })()}
       </div>
 
       {sel && <DocumentoModal doc={sel} onClose={() => setSel(null)} />}
