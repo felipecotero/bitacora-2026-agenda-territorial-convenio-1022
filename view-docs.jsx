@@ -36,14 +36,101 @@ function Documentos() {
         ))}
       </div>
 
-      <div className="card card-tinted-verde">
-        <div className="eyebrow">Próximamente · sitios conectados</div>
-        <h3 style={{ fontFamily: 'var(--display)', fontSize: 18, fontWeight: 600, margin: '4px 0 8px' }}>
-          Ecosistema de cifras, redes y organizaciones
-        </h3>
-        <p style={{ fontSize: 13.5, color: 'var(--tinta-2)', margin: 0, lineHeight: 1.55 }}>
-          Felipe va a conectar los sitios ya montados con: directorios de organizaciones, cifras de inversión y participantes beneficiarios, y el cronograma inicial de la Formación Puente. Esta sección crece desde aquí.
-        </p>
+      {/* Ecosistema de sitios web del Ministerio */}
+      <div>
+        <div className="eyebrow" style={{ marginBottom: 6 }}>Ecosistema digital · Ministerio de las Culturas</div>
+        <h2 className="section-title" style={{ fontSize: 22, marginBottom: 4 }}>Sitios conectados</h2>
+        <p className="section-sub violeta" style={{ marginBottom: 20 }}>páginas activas del programa en la web</p>
+        <div className="grid-2">
+          {[
+            {
+              nombre: 'Artes para la Paz',
+              desc: 'Mapa de geo­localización e información de las organizaciones del convenio con el Fondo Mixto.',
+              url: 'https://felipecotero.github.io/ARTESPARALAPAZ/',
+              etiqueta: 'Mapa · Programa',
+              color: '#528E71',
+              emoji: '🗺️',
+            },
+            {
+              nombre: 'Dashboard Hip Hop',
+              desc: 'Dashboard de beneficiarios de la Red Comunitaria de Hip Hop Colombia 2025.',
+              url: 'https://felipecotero.github.io/dashboard-hip-hop/',
+              etiqueta: 'Red Hip Hop',
+              color: '#1D0F2E',
+              emoji: '🎤',
+            },
+            {
+              nombre: 'Infografías Ley de Cultura',
+              desc: 'Ejercicio comunicativo sobre cómo la reforma de la Ley de Cultura conecta con las organizaciones de Artes para la Paz.',
+              url: 'https://felipecotero.github.io/INFOGRAFIAS-LEY-DE-CULTURA/',
+              etiqueta: 'Comunicación',
+              color: '#D97B3F',
+              emoji: '📊',
+            },
+            {
+              nombre: 'Cultura es Dignidad Mayor',
+              desc: 'Sobre el programa presidencial y la participación de las organizaciones culturales en él.',
+              url: 'https://felipecotero.github.io/Cultura_es_dignidad_mayor/',
+              etiqueta: 'Programa presidencial',
+              color: '#A8438A',
+              emoji: '🏛️',
+            },
+            {
+              nombre: 'Índice Mincultura',
+              desc: 'Índice de todas las páginas web activas del Ministerio de las Culturas, las Artes y los Saberes.',
+              url: 'https://felipecotero.github.io/indice-mincultura/',
+              etiqueta: 'Directorio',
+              color: '#3D50A8',
+              emoji: '🔗',
+            },
+            {
+              nombre: 'Bitácora · Agenda Territorial',
+              desc: 'Herramienta interna del equipo del Convenio 1022. Tablero, cronograma, telar y compromisos.',
+              url: 'https://felipecotero.github.io/bitacora-2026-agenda-territorial-convenio-1022/bitacora_at.html',
+              etiqueta: 'Equipo interno',
+              color: '#5A3680',
+              emoji: '📋',
+            },
+          ].map(s => (
+            <a
+              key={s.nombre}
+              href={s.url}
+              target="_blank"
+              rel="noopener"
+              style={{ textDecoration: 'none' }}
+            >
+              <div className="card"
+                style={{ height: '100%', transition: 'transform 0.15s, box-shadow 0.15s', cursor: 'pointer' }}
+                onMouseEnter={e => { e.currentTarget.style.transform='translateY(-2px)'; e.currentTarget.style.boxShadow='0 8px 24px rgba(29,15,46,0.13)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform='none'; e.currentTarget.style.boxShadow=''; }}
+              >
+                {/* Banda de color superior */}
+                <div style={{ height: 5, background: s.color, borderRadius: '6px 6px 0 0', margin: '-20px -20px 14px' }} />
+                <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                  <div style={{
+                    width: 40, height: 40, borderRadius: 10, flexShrink: 0,
+                    background: `${s.color}18`, display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', fontSize: 20,
+                  }}>{s.emoji}</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <span className="chip" style={{ background: s.color, color: '#fff', fontSize: 10, marginBottom: 6 }}>
+                      {s.etiqueta}
+                    </span>
+                    <h3 style={{ fontFamily: 'var(--display)', fontSize: 15, fontWeight: 700, margin: '4px 0 5px', color: 'var(--tinta)', lineHeight: 1.25 }}>
+                      {s.nombre}
+                    </h3>
+                    <p style={{ fontSize: 12.5, color: 'var(--tinta-3)', margin: 0, lineHeight: 1.55 }}>
+                      {s.desc}
+                    </p>
+                  </div>
+                </div>
+                <div style={{ marginTop: 12, fontSize: 11, color: s.color, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 4 }}>
+                  Abrir sitio ↗
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
 
       {sel && <DocumentoModal doc={sel} onClose={() => setSel(null)} />}
