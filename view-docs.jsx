@@ -42,6 +42,33 @@ function Documentos() {
         <h2 className="section-title" style={{ fontSize: 22, marginBottom: 4 }}>Sitios conectados</h2>
         <p className="section-sub violeta" style={{ marginBottom: 24 }}>todas las páginas activas del programa en la web</p>
 
+        {/* Enlace al índice público */}
+        <a
+          href="https://felipecotero.github.io/indice-mincultura/"
+          target="_blank"
+          rel="noopener"
+          style={{ textDecoration: 'none', display: 'block', marginBottom: 28 }}
+        >
+          <div style={{
+            display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap',
+            padding: '16px 20px', borderRadius: 14,
+            background: 'linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(217,70,239,0.08) 100%)',
+            border: '1.5px solid rgba(139,92,246,0.3)',
+            transition: 'border-color 0.15s, background 0.15s',
+          }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor='rgba(139,92,246,0.6)'; e.currentTarget.style.background='linear-gradient(135deg, rgba(139,92,246,0.18) 0%, rgba(217,70,239,0.12) 100%)'; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor='rgba(139,92,246,0.3)'; e.currentTarget.style.background='linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(217,70,239,0.08) 100%)'; }}
+          >
+            <div style={{ width: 42, height: 42, borderRadius: 10, background: 'rgba(139,92,246,0.15)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, flexShrink: 0 }}>🔗</div>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontSize: 10.5, textTransform: 'uppercase', letterSpacing: '0.12em', color: 'rgba(139,92,246,0.9)', fontWeight: 700, marginBottom: 3 }}>Versión pública · Índice Mincultura</div>
+              <div style={{ fontFamily: 'var(--display)', fontWeight: 700, fontSize: 15, color: 'var(--tinta)', lineHeight: 1.2 }}>Índice de Páginas Web — Ministerio de las Culturas</div>
+              <div style={{ fontSize: 12, color: 'var(--tinta-3)', marginTop: 3 }}>Directorio público con 21 páginas activas del programa · filtros por tipo</div>
+            </div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: 'rgba(139,92,246,0.9)', flexShrink: 0 }}>Abrir directorio público ↗</div>
+          </div>
+        </a>
+
         {/* Helper card component inline */}
         {(() => {
           const SiteCard = ({ s }) => (
