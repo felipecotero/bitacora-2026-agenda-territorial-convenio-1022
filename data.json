@@ -142,13 +142,15 @@
     },
     {
       "fecha": "2026-05-27",
+      "dia": "Miércoles",
       "camino": "C1",
       "orientadora": "mercy",
       "titulo": "Flujo de caja",
       "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
-      "notas": "Sesión 6 · Saberes financieros.",
+      "enlaceSesion": "https://teams.microsoft.com/meet/289776099135787?p=2CT4Eqj7HiNZ3kDY6Y",
+      "notas": "Sesión 7 · Saberes financieros.",
       "estadoCal": "confirmada"
     },
     {
