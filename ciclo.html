@@ -260,6 +260,14 @@
       transition: opacity 0.15s;
     }
     .btn-control:hover { opacity: 0.85; }
+    .btn-control-soon {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(217,123,63,0.15); color: rgba(217,123,63,0.65);
+      border: 1.5px dashed rgba(217,123,63,0.4);
+      padding: 7px 15px; border-radius: 999px;
+      font-size: 13px; font-weight: 600; text-decoration: none;
+      cursor: not-allowed;
+    }
 
     /* ── COLORES POR ORIENTADOR ── */
     .orient-mercy .s-tipo  { color: var(--magenta); }
@@ -441,6 +449,11 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           Punto de control
         </a>`;
+      } else if (item.estado === 'hecha') {
+        botones += `<span class="btn-control-soon" title="El punto de control estará disponible próximamente">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Punto de control
+        </span>`;
       }
 
       if (!botones) {
