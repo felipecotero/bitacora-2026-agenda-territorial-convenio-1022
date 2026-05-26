@@ -117,14 +117,16 @@
       "estadoCal": "propuesta"
     },
     {
-      "fecha": "2026-05-26",
+      "fecha": "2026-05-28",
+      "dia": "Jueves",
       "camino": "C1",
       "orientadora": "felipe",
       "titulo": "Comunicaciones II - Decidir qué se dice y qué se cuida",
       "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
-      "notas": "Sesión 4 · Línea Comunicaciones (Felipe).",
+      "enlaceSesion": "https://teams.microsoft.com/meet/26059444883939?p=ljbfl5BPBAtWap6pBj",
+      "notas": "Sesión 5 · Línea Comunicaciones (Felipe). Reagendada al jueves 28 de mayo.",
       "estadoCal": "confirmada"
     },
     {
