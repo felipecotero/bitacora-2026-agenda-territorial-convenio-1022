@@ -186,7 +186,7 @@
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
       "notas": "Sesión 9 · Cierre línea Saberes financieros.",
-      "estadoCal": "propuesta"
+      "estadoCal": "confirmada"
     },
     {
       "fecha": "2026-06-05",
@@ -277,6 +277,15 @@
     }
   ],
   "bitacora": [
+    {
+      "fecha": "2026-06-03",
+      "tipo": "sintesis",
+      "autor": "mercy",
+      "titulo": "Sesión 10 del Ciclo · Indicadores para el control financiero",
+      "cuerpo": "Mercy Arias orientó la décima sesión del Ciclo de Formación Puente, dedicada a indicadores de control financiero para organizaciones culturales. La sesión cerró la línea de saberes financieros con herramientas concretas para que las organizaciones puedan monitorear su salud económica: indicadores de liquidez, de ejecución presupuestal y de cobertura de gastos fijos. Se trabajó la diferencia entre registrar y controlar —llevar las cuentas no es lo mismo que leer los datos para tomar decisiones—. Las participantes identificaron cuáles indicadores son prioritarios según el tamaño y la complejidad de sus proyectos. Acuerdo de cierre de la línea: cada organización construirá su tablero mínimo de control con al menos tres indicadores propios antes del Encuentro de Cali.",
+      "enlaceUrl": "https://mcultura-my.sharepoint.com/:v:/g/personal/agendaterritorial_mincultura_gov_co/IQB3BrbprkF0Q79Z_N-LuLlpAa4KkqJvwNA1uh_juRr0s2g?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D&e=h2Wjvt",
+      "enlaceLabel": "Ver grabación · Sesión 10 — Indicadores financieros"
+    },
     {
       "fecha": "2026-05-21",
       "tipo": "novedad",
