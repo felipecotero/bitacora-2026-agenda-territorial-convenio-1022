@@ -189,13 +189,15 @@
       "estadoCal": "confirmada"
     },
     {
-      "fecha": "2026-06-05",
+      "fecha": "2026-07-29",
+      "dia": "Miércoles",
       "camino": "C1",
       "orientadora": "jeimmy",
       "titulo": "Caja de Herramientas I - Lo Político del Cuidado Situado",
       "hora": "17:30 - 19:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
+      "enlaceSesion": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_N2Q4Y2Q3ZjgtOTgwZS00MGFlLWIxNDMtNjEzMDNiOTAyYWM0%40thread.v2/0?context=%7b%22Tid%22%3a%2293f28b4e-935c-4c14-88ac-e48697c1fc97%22%2c%22Oid%22%3a%22ef891193-bef0-4344-b607-27b1c4190afd%22%7d",
       "notas": "Sesión 11 · Saberes RIJ.",
       "estadoCal": "confirmada"
     },
@@ -218,15 +220,17 @@
       "notas": "Actualizar directorio RIJ + crear directorio Mujeres."
     },
     {
-      "fecha": "2026-06-22",
+      "fecha": "2026-07-30",
+      "dia": "Jueves",
       "camino": "C1",
       "orientadora": "jeimmy",
-      "titulo": "Herramientas II - Lo Politico del Cuidado Situado",
+      "titulo": "Herramientas II - Lo Político del Cuidado Situado",
       "hora": "18:30 - 20:00",
       "duracion": "1h 30min",
       "lugar": "Microsoft Teams",
+      "enlaceSesion": "https://teams.microsoft.com/l/meetup-join/19%3ameeting_YzRiZDM5YmYtZTM0Ny00ZjE2LThmOTAtNTJhMzM2YzcwMzE2%40thread.v2/0?context=%7b%22Tid%22%3a%2293f28b4e-935c-4c14-88ac-e48697c1fc97%22%2c%22Oid%22%3a%22ef891193-bef0-4344-b607-27b1c4190afd%22%7d",
       "notas": "Sesión 12 · Cierre línea Saberes RIJ.",
-      "estadoCal": "en-revision"
+      "estadoCal": "confirmada"
     },
     {
       "fecha": "2026-06-24",

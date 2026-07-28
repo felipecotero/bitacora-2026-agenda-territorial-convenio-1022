@@ -10,6 +10,11 @@ const SEMANAS = [
   { id: 'sem24', label: 'Sem 8 jun',  inicio: '2026-06-08', fin: '2026-06-14', titulo: 'Semana del 8 al 14 de junio' },
   { id: 'sem25', label: 'Sem 15 jun', inicio: '2026-06-15', fin: '2026-06-21', titulo: 'Semana del 15 al 21 de junio' },
   { id: 'sem26', label: 'Sem 22 jun', inicio: '2026-06-22', fin: '2026-06-28', titulo: 'Semana del 22 al 28 de junio · Encuentro' },
+  { id: 'sem27', label: 'Sem 29 jun', inicio: '2026-06-29', fin: '2026-07-05', titulo: 'Semana del 29 de junio al 5 de julio' },
+  { id: 'sem28', label: 'Sem 6 jul',  inicio: '2026-07-06', fin: '2026-07-12', titulo: 'Semana del 6 al 12 de julio' },
+  { id: 'sem29', label: 'Sem 13 jul', inicio: '2026-07-13', fin: '2026-07-19', titulo: 'Semana del 13 al 19 de julio' },
+  { id: 'sem30', label: 'Sem 20 jul', inicio: '2026-07-20', fin: '2026-07-26', titulo: 'Semana del 20 al 26 de julio' },
+  { id: 'sem31', label: 'Sem 27 jul', inicio: '2026-07-27', fin: '2026-08-02', titulo: 'Semana del 27 de julio al 2 de agosto · Cierre del Ciclo' },
 ];
 
 function semanaActual(hoy) {

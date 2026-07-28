@@ -30,6 +30,7 @@ function Ciclo({ agenda, onGoTo }) {
           lugar: e.lugar,
           estado: 'pendiente',
           estadoCal: e.estadoCal || 'propuesta',
+          enlaceSesion: e.enlaceSesion || '',
           alerta,
         };
       });
@@ -272,6 +273,14 @@ function Ciclo({ agenda, onGoTo }) {
                   <span className="muted" style={{ fontSize: 12.5 }}>· {orient.corto}</span>
                 </div>
                 <h4 style={{ fontSize: 16, fontWeight: 600, margin: 0, lineHeight: 1.35 }}>{s.tema}</h4>
+                {s.enlaceSesion && (
+                  <div style={{ marginTop: 8 }}>
+                    <a href={s.enlaceSesion} target="_blank" rel="noopener noreferrer" className="btn btn-sm" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '4px 10px', borderRadius: 6, background: 'var(--verde, #2D7D46)', color: '#fff', fontSize: 12.5, textDecoration: 'none', fontWeight: 500 }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15.6 11.6L22 7v10l-6.4-4.5v-1zM4 5h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2z"/></svg>
+                      Unirse a la reunión
+                    </a>
+                  </div>
+                )}
                 {s.alerta && (
                   <div style={{ marginTop: 6, fontSize: 12, color: '#9C4719', fontStyle: 'italic' }}>↳ {s.alerta}</div>
                 )}
