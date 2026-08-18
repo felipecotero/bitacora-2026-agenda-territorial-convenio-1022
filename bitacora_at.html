@@ -25,6 +25,7 @@
 <script type="text/babel" src="github-sync.jsx"></script>
 <script type="text/babel" src="view-telar.jsx"></script>
 <script type="text/babel" src="view-compromisos.jsx"></script>
+<script type="text/babel" src="view-analisis.jsx"></script>
 
 <script type="text/babel">
 const { useState, useEffect } = React;
@@ -170,6 +171,7 @@ function App() {
       encuentro:  { img: 'img/bg-mapa.jpg',         pos: 'top right',   op: 0.18, mask: 'radial-gradient(circle at 92% 8%, black 0%, black 32%, transparent 65%)' },
       telar:      { img: 'img/bg-cajas.jpg',        pos: 'bottom right',op: 0.10, mask: 'linear-gradient(to top left, black 0%, black 25%, transparent 55%)' },
       documentos: { img: 'img/bg-circulo.jpg',      pos: 'top right',   op: 0.16, mask: 'radial-gradient(circle at 95% 0%, black 0%, black 28%, transparent 62%)' },
+      analisis:   { img: 'img/bg-mapa.jpg',         pos: 'top right',   op: 0.16, mask: 'radial-gradient(circle at 95% 0%, black 0%, black 28%, transparent 62%)' },
     };
     const t = TEXTURES[active] || TEXTURES.tablero;
     root.style.setProperty('--sec-bg', `url("${t.img}")`);
@@ -189,6 +191,7 @@ function App() {
     telar:      { t: 'El Telar', s: 'Calendario editable · única fuente de verdad' },
     documentos: { t: 'Documentos', s: 'Materiales del Convenio 1022' },
     compromisos: { t: 'Compromisos', s: 'Firmas del Ciclo Puente · matriz de participantes' },
+    analisis:    { t: 'Análisis de Beneficiarios', s: 'Caracterización y proceso de análisis de datos de beneficiarios del Convenio 1022' },
   };
   const tit = titulos[active];
 
@@ -219,6 +222,7 @@ function App() {
         {active === 'telar'      && <Telar agenda={agenda} onUpdateAgenda={updateAgenda} />}
         {active === 'documentos'  && <Documentos />}
         {active === 'compromisos' && <Compromisos />}
+        {active === 'analisis'   && <AnalisisBeneficiarios />}
       </main>
       {toast && (
         <div className="toast" key={toast.id}>

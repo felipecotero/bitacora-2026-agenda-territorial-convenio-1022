@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fichas de Caracterización · Convenio 1022 · Abril–Julio 2026</title>
+<style>
+:root{
+  --bg:#0e1116; --panel:#161b23; --panel2:#1d2430; --border:#2b3444;
+  --ink:#f2f5fa; --ink2:#aeb9cc; --ink3:#7d8aa0;
+  --acc:#ff4d6d; --acc2:#00d1b2; --acc3:#ffb703; --acc4:#4d96ff; --acc5:#9d4edd;
+  --ok:#22c55e; --okbg:#0f2a1a; --no:#ff5470; --nobg:#2a1218; --amber:#ffb703; --amberbg:#2b2410;
+  --shadow:0 8px 28px rgba(0,0,0,.45); --r:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;line-height:1.45;font-size:15px}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 18px 80px}
+
+header.top{background:linear-gradient(135deg,#1a1030 0%,#12202e 55%,#0e1116 100%);
+  border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;box-shadow:var(--shadow);margin-bottom:18px}
+header.top h1{margin:0 0 4px;font-size:22px;letter-spacing:.2px}
+header.top .sub{color:var(--ink2);font-size:14px}
+header.top .tag{display:inline-block;color:#fff;font-weight:700;font-size:11px;
+  padding:3px 9px;border-radius:999px;margin-right:8px;letter-spacing:.4px;background:var(--acc)}
+
+.globalbar{display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.pill{background:var(--panel2);border:1px solid var(--border);border-radius:999px;padding:6px 14px;font-size:13px;color:var(--ink2)}
+.pill b{color:var(--ink)}
+.pill.ok b{color:var(--ok)} .pill.no b{color:var(--no)} .pill.amber b{color:var(--amber)}
+.bar{flex:1;min-width:200px;height:12px;background:#0a0d12;border-radius:999px;border:1px solid var(--border);overflow:hidden}
+.bar > span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--acc2),var(--acc));transition:width .3s}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:18px 0 8px}
+.toolbar input[type=search]{flex:1;min-width:200px;background:var(--panel);border:1px solid var(--border);
+  color:var(--ink);border-radius:10px;padding:10px 14px;font-size:14px;outline:none}
+.toolbar input[type=search]:focus{border-color:var(--acc4)}
+select,.btn{background:var(--panel);border:1px solid var(--border);color:var(--ink);
+  border-radius:10px;padding:9px 13px;font-size:13px;cursor:pointer;outline:none}
+select:focus{border-color:var(--acc4)}
+.btn{font-weight:600;transition:.15s}
+.btn:hover{border-color:var(--acc2);color:var(--acc2)}
+.btn.primary{background:var(--acc2);border-color:var(--acc2);color:#04211c;font-weight:700}
+.btn.primary:hover{filter:brightness(1.08);color:#04211c}
+.btn.pack{background:var(--acc5);border-color:var(--acc5);color:#fff;font-weight:700}
+.btn.pack:hover{filter:brightness(1.12);color:#fff}
+.btn.warn:hover{border-color:var(--acc);color:var(--acc)}
+
+.rubro{margin-top:22px;border:1px solid var(--border);border-radius:var(--r);overflow:hidden;background:var(--panel);box-shadow:var(--shadow)}
+.rubro-head{display:flex;align-items:center;gap:14px;padding:14px 18px;cursor:pointer;background:var(--panel2);user-select:none}
+.rubro-head:hover{background:#222b39}
+.rubro-head .chev{transition:transform .2s;color:var(--ink3);font-size:18px}
+.rubro.collapsed .chev{transform:rotate(-90deg)}
+.rubro.collapsed .rubro-body{display:none}
+.rubro-head h2{margin:0;font-size:17px;flex:1}
+.rubro-head .rcount{font-size:12px;color:var(--ink2);background:#0a0d12;border:1px solid var(--border);padding:4px 10px;border-radius:999px;white-space:nowrap}
+.rubro-head .rbar{width:120px;height:9px;background:#0a0d12;border-radius:999px;border:1px solid var(--border);overflow:hidden}
+.rubro-head .rbar > span{display:block;height:100%;background:linear-gradient(90deg,var(--acc3),var(--acc2))}
+.rubro-body{padding:16px}
+.r1 .rubro-head{border-left:6px solid var(--acc4)}
+.r2 .rubro-head{border-left:6px solid var(--acc3)}
+.r4 .rubro-head{border-left:6px solid var(--acc2)}
+.r8 .rubro-head{border-left:6px solid var(--acc5)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.card{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:14px 15px;position:relative;transition:.15s}
+.card.done{border-color:var(--ok);background:linear-gradient(180deg,var(--okbg),var(--panel2))}
+.card.noesta{border-color:var(--no);background:linear-gradient(180deg,var(--nobg),var(--panel2))}
+.card .no{position:absolute;top:12px;right:12px;font-size:11px;color:var(--ink3);font-variant-numeric:tabular-nums}
+.card h3{margin:0 8px 8px 0;font-size:15px;line-height:1.3;padding-right:34px}
+.card .proj{font-size:12.5px;color:var(--ink);background:#0a0d12;border:1px solid var(--border);
+  border-radius:8px;padding:8px 10px;margin:8px 0 10px;max-height:64px;overflow:auto}
+.card .proj .k{color:var(--ink3)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{font-size:10.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px}
+.chip.red{background:#2a1420;color:#ff9ab0;border:1px solid #4a2233}
+.chip.ori{background:#12242a;color:#7fe3d4;border:1px solid #1d4048}
+.chip.com{background:#1a1730;color:#c3adf0;border:1px solid #33285a}
+
+.ficha{border-top:1px dashed var(--border);padding-top:11px;margin-top:4px}
+.ficha .cl-title{font-size:11px;color:var(--ink3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.row .q{font-size:12.5px;color:var(--ink2);flex:1}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:9px;overflow:hidden;flex:none}
+.seg button{background:transparent;border:0;color:var(--ink2);font-size:12px;font-weight:700;
+  padding:6px 14px;cursor:pointer;transition:.12s;letter-spacing:.3px}
+.seg button:hover{background:#0a0d12}
+.seg button.on-si{background:var(--ok);color:#04211c}
+.seg button.on-no{background:var(--no);color:#2a0710}
+.seg button + button{border-left:1px solid var(--border)}
+
+.dl{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;cursor:pointer;
+  padding:9px 11px;border:1px solid var(--border);border-radius:10px;background:#0a0d12;transition:.15s}
+.dl.disabled{opacity:.4;cursor:not-allowed;filter:grayscale(1)}
+.dl input{appearance:none;width:20px;height:20px;border:2px solid var(--acc2);border-radius:6px;
+  cursor:pointer;position:relative;flex:none;transition:.12s}
+.dl input:checked{background:var(--ok);border-color:var(--ok)}
+.dl input:checked::after{content:"✓";position:absolute;color:#04211c;font-size:14px;font-weight:900;left:3px;top:-1px}
+.dl .lbl{color:var(--acc2)} .dl input:checked ~ .lbl{color:var(--ok)}
+.dl.disabled .lbl{color:var(--ink3)}
+
+.notas{margin-top:10px}
+.notas .cl-title{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3);
+  text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.notas .cl-title .dot{width:7px;height:7px;border-radius:50%;background:var(--acc3);flex:none}
+.notas textarea{width:100%;min-height:46px;resize:vertical;background:#0a0d12;border:1px solid var(--border);
+  color:var(--ink);border-radius:9px;padding:9px 11px;font-size:12.5px;line-height:1.4;outline:none;
+  font-family:inherit;transition:.15s}
+.notas textarea:focus{border-color:var(--acc3)}
+.notas textarea::placeholder{color:var(--ink3)}
+.notas textarea.has{border-color:var(--acc3);background:#181405}
+
+.empty{color:var(--ink3);text-align:center;padding:40px;font-size:14px}
+footer{margin-top:30px;color:var(--ink3);font-size:12px;text-align:center;line-height:1.7}
+.save-flash{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(80px);
+  background:var(--ok);color:#04211c;font-weight:700;padding:10px 20px;border-radius:999px;
+  box-shadow:var(--shadow);transition:.3s;opacity:0;font-size:13px;z-index:50}
+.save-flash.show{transform:translateX(-50%) translateY(0);opacity:1}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.rubro-head .rbar{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div><span class="tag">CONVENIO 1022 DE 2025</span><span class="tag" style="background:var(--acc5)">VIGENCIA ABRIL–JULIO 2026</span></div>
+  <h1>Fichas de Caracterización de Beneficiarios</h1>
+  <div class="sub">Descargo de información por organización · Recurso de adición (comités 25 a 32) · Programa Artes para la Paz</div>
+  <div class="globalbar">
+    <div class="pill">Organizaciones: <b id="g-total">0</b></div>
+    <div class="pill ok">Ficha está: <b id="g-si">0</b></div>
+    <div class="pill no">No está: <b id="g-no">0</b></div>
+    <div class="pill amber">Descargadas: <b id="g-dl">0</b></div>
+    <div class="bar"><span id="g-bar"></span></div>
+  </div>
+</header>
+
+<div class="toolbar">
+  <input type="search" id="q" placeholder="Buscar por nombre, proyecto, No…">
+  <select id="f-rubro"><option value="">Todos los rubros</option></select>
+  <select id="f-ori"><option value="">Todos los orientadores</option></select>
+  <select id="f-estado">
+    <option value="">Estado: todos</option>
+    <option value="sinrev">Sin revisar</option>
+    <option value="si">Ficha está</option>
+    <option value="no">No está</option>
+    <option value="pordl">Está pero sin descargar</option>
+    <option value="dl">Ya descargadas</option>
+    <option value="connota">Con notas</option>
+  </select>
+  <button class="btn" id="expandAll">Expandir</button>
+  <button class="btn" id="collapseAll">Colapsar</button>
+  <button class="btn pack" id="pack">Descargar paquete (.zip)</button>
+  <button class="btn primary" id="export">Exportar CSV</button>
+  <button class="btn" id="save">Guardar copia</button>
+  <button class="btn" id="load">Cargar copia</button>
+  <button class="btn warn" id="reset">Reiniciar chuletas</button>
+  <input type="file" id="loadfile" accept="application/json" style="display:none">
+</div>
+
+<div id="content"></div>
+
+<footer>
+  Las chuletas y notas se guardan automáticamente en este navegador (localStorage). Este HTML es de trabajo, no el documento final.<br>
+  <b>Descargar paquete (.zip)</b> arma una carpeta comprimida con el HTML (datos incluidos) y el archivo sidecar de tu avance, lista para la etapa de análisis.
+</footer>
+</div>
+
+<div class="save-flash" id="flash">Guardado ✓</div>
+
+<script>
+const ORGS = [{"no": "178", "nombre": "CORPORACION COLEGIO DEL CUERPO", "rubro": "Rubro 4", "proyecto": "Rebis/Armero: El Cuerpo G(R)ITO", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "26° COMITÉ OPERATIVO 16 DE ABRIL DE 2026", "comite_num": "26", "comite_fecha": "16 DE ABRIL DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "179", "nombre": "CORPORACION SUEÑOS ARTE Y CULTURA", "rubro": "Rubro 8", "proyecto": "Muestra de Cine de \"No Olvido\"", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "26° COMITÉ OPERATIVO 16 DE ABRIL DE 2026", "comite_num": "26", "comite_fecha": "16 DE ABRIL DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "180", "nombre": "LA ASOCIACION COMPAÑIA LA OTRA", "rubro": "Rubro 8", "proyecto": "JESSICA Y EL MAR", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "26° COMITÉ OPERATIVO 16 DE ABRIL DE 2026", "comite_num": "26", "comite_fecha": "16 DE ABRIL DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "181", "nombre": "VULVARTE", "rubro": "Rubro 8", "proyecto": "\"Narrando una nueva historia: niñas y mujeres Emberá Chamí libres de Mutilación Genital Femenina\"", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "26° COMITÉ OPERATIVO 16 DE ABRIL DE 2026", "comite_num": "26", "comite_fecha": "16 DE ABRIL DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "182", "nombre": "ETRUSKA PRODUCCIONES", "rubro": "Rubro 1", "proyecto": "El Poder de un Alma Buena ( O Las Dificultades para hacer el Bien)", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "26° COMITÉ OPERATIVO 16 DE ABRIL DE 2026", "comite_num": "26", "comite_fecha": "16 DE ABRIL DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "183", "nombre": "IMPROMPTVS", "rubro": "Rubro 4", "proyecto": "Plataforma Vmbral", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "26° COMITÉ OPERATIVO 16 DE ABRIL DE 2026", "comite_num": "26", "comite_fecha": "16 DE ABRIL DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "184", "nombre": "Corporación Impacto Juvenil", "rubro": "Rubro 4", "proyecto": "Villa Flow (Arte Hecho Obra)", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "27° COMITÉ OPERATIVO 27 DE ABRIL DE 2026", "comite_num": "27", "comite_fecha": "27 DE ABRIL DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "185", "nombre": "Fundación Semillero De Libertad, Amor Y Paz", "rubro": "Rubro 4", "proyecto": "Tejiendo Cultura desde la Diáspora: Saberes Ancestrales, Memoria y Arraigo Afrocolombiano en Villasantana", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "27° COMITÉ OPERATIVO 27 DE ABRIL DE 2026", "comite_num": "27", "comite_fecha": "27 DE ABRIL DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "186", "nombre": "Fundación Micelio Tejiendo Saberes (Alianza Con Organización Mujeres Víctimas Del Rio Iró- Orvien)", "rubro": "Rubro 4", "proyecto": "Alianza de memoria indiafro territorial Chocó y Sucre", "orientador": "MERCY ARIAS - RED DE MUJERES", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "MERCY ARIAS", "red": "RED DE MUJERES"}, {"no": "187", "nombre": "Asociación De Mujeres Artesanas Embera Chamí - Tejiendo Caminos Ancestrales", "rubro": "Rubro 4", "proyecto": "Fortalecimiento y documentación de actividades artesanales de las mujeres embera chamí de Mistrató", "orientador": "MERCY ARIAS - RED DE MUJERES", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "MERCY ARIAS", "red": "RED DE MUJERES"}, {"no": "188", "nombre": "Fundación El Hogar De Tota (Alianza Con Fundación Artes De Lara)", "rubro": "Rubro 4", "proyecto": "\"TEJEDORAS DE HISTORIAS\" Bordando memorias.", "orientador": "MERCY ARIAS - RED DE MUJERES", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "MERCY ARIAS", "red": "RED DE MUJERES"}, {"no": "189", "nombre": "Corporación Violeta En Movimiento (En Alianza Con Feminal Battle -Colectivo Melao)", "rubro": "Rubro 4", "proyecto": "Desde el Valle hasta el Galeras: Sostenernos tambien es crear", "orientador": "MERCY ARIAS - RED DE MUJERES", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "MERCY ARIAS", "red": "RED DE MUJERES"}, {"no": "190", "nombre": "Corporación Para La Promoción De La Cultura Y El Turismo Del Huila “Corposanpedro”", "rubro": "Rubro 2", "proyecto": "Fortalecimientos de Artistas, en el marco de la edición 65 del Festival del Bambuco en San Juan y San Pedro 2026", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "191", "nombre": "Asociación Colombiana De Actores", "rubro": "Rubro 8", "proyecto": "PREMIOS BRAVO 2026", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "192", "nombre": "Casa Cultural Adriano Trujillo Ramírez De Bruselas", "rubro": "Rubro 2", "proyecto": "Desarrollo metodológico participativo para la transmisión de saberes y el fortalecimiento de prácticas socioculturales a través de los juegos tradicionales en el corregimiento de Bruselas", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "193", "nombre": "Fundación Para El Desarrollo De Las Artes Escénicas Y Audiovisuales Aleph Teatro", "rubro": "Rubro 8", "proyecto": "Artes Escénicas, Gestión Cultural, Programación Cultural y la Mediación de Públicos, Arte y Tecnología", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "194", "nombre": "Encuentro de redes y  organizaciones artísticas y culturales del Pacífico Sur Nariñense-Tumaco 6 de mayo 2026", "rubro": "Rubro 1", "proyecto": "Encuentro de redes y  organizaciones artísticas y culturales del Pacífico Sur Nariñense-Tumaco 6 de mayo 2026", "orientador": "EMERSON FANDIÑO", "comite": "28° COMITÉ OPERATIVO 04 DE MAYO DE 2026", "comite_num": "28", "comite_fecha": "04 DE MAYO DE 2026", "orientador_corto": "EMERSON FANDIÑO", "red": ""}, {"no": "195", "nombre": "Asociación Compañía Americadanza Grupo Cultural (En Alianza Con Asociación De Mujeres Casa Del Sembrador)", "rubro": "Rubro 4", "proyecto": "Cultivando cacao se cultiva la vida: co-creando rutas de cambio frente a las violencias de genero desde mujeres para mujeres, tejedoras de paz a través del movimiento, la escritura y la imagen.", "orientador": "MERCY ARIAS - RED DE MUJERES", "comite": "29° COMITÉ OPERATIVO 12 DE MAYO DE 2026", "comite_num": "29", "comite_fecha": "12 DE MAYO DE 2026", "orientador_corto": "MERCY ARIAS", "red": "RED DE MUJERES"}, {"no": "196", "nombre": "Cabildo Inga Indígena Santiago", "rubro": "Rubro 4", "proyecto": "Fortalecimiento y recuperación de la practica artesanal del pueblo Inga Manoy mediante el tejido en lana, elaboración de chumbes, cintas, siñidores, y tallado en madera en el cabildo mayor de Santiago Putumayo.", "orientador": "MERCY ARIAS - RED DE MUJERES", "comite": "29° COMITÉ OPERATIVO 12 DE MAYO DE 2026", "comite_num": "29", "comite_fecha": "12 DE MAYO DE 2026", "orientador_corto": "MERCY ARIAS", "red": "RED DE MUJERES"}, {"no": "197", "nombre": "Corporación Piquiñas Del Chango", "rubro": "Rubro 4", "proyecto": "Trenzando nuestros derechos: laboratorio artístico de agenciamiento y cocreación en infancias y juventudes", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "29° COMITÉ OPERATIVO 12 DE MAYO DE 2026", "comite_num": "29", "comite_fecha": "12 DE MAYO DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "198", "nombre": "Grupo De Danzas Alma Huilense (En Alianza Con Colectivo Radio Liberto)", "rubro": "Rubro 8", "proyecto": "Arte-Sanas De Paz", "orientador": "MERCY ARIAS - RED DE MUJERES", "comite": "30° COMITÉ OPERATIVO 21 DE MAYO DE 2026", "comite_num": "30", "comite_fecha": "21 DE MAYO DE 2026", "orientador_corto": "MERCY ARIAS", "red": "RED DE MUJERES"}, {"no": "199", "nombre": "Corporación Centro De Pensamiento Uramba", "rubro": "Rubro 8", "proyecto": "Memoria Viva Fest", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "30° COMITÉ OPERATIVO 21 DE MAYO DE 2026", "comite_num": "30", "comite_fecha": "21 DE MAYO DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "200", "nombre": "Centro De Altos Estudios En Tradición Contemporánea (Cenae)", "rubro": "Rubro 8", "proyecto": "Política Espiritual, Rutas Para Unidad Base De La Plataforma Nacional De Redes Culturales", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "30° COMITÉ OPERATIVO 21 DE MAYO DE 2026", "comite_num": "30", "comite_fecha": "21 DE MAYO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "201", "nombre": "Fundación Amarantha - Nodo Macizo Arte Y Cultura", "rubro": "Rubro 8", "proyecto": "Narrativas Atávicas Y Contemporáneas", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "30° COMITÉ OPERATIVO 21 DE MAYO DE 2026", "comite_num": "30", "comite_fecha": "21 DE MAYO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "202", "nombre": "Corporación Fernando González - Otraparte", "rubro": "Rubro 8", "proyecto": "Escuelita Para La Gestión Cultural: Crear, Resonar Y Conmover", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "30° COMITÉ OPERATIVO 21 DE MAYO DE 2026", "comite_num": "30", "comite_fecha": "21 DE MAYO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "203", "nombre": "Corporación Juvenil Arreglando El País", "rubro": "Rubro 4", "proyecto": "VOCES Y HUELLAS DEL TERRITORIO", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "31° COMITÉ OPERATIVO 01 DE JUNIO DE 2026", "comite_num": "31", "comite_fecha": "01 DE JUNIO DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "204", "nombre": "Corporación Para El Arte, El Deporte Y La Cultura - The Giants Community", "rubro": "Rubro 4", "proyecto": "RUTA DEL PACIFICO VIVO RIJ", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "31° COMITÉ OPERATIVO 01 DE JUNIO DE 2026", "comite_num": "31", "comite_fecha": "01 DE JUNIO DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "205", "nombre": "Corporación Código Estilo Crew", "rubro": "Rubro 4", "proyecto": "PARCHE EN LA MONTAÑA", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "31° COMITÉ OPERATIVO 01 DE JUNIO DE 2026", "comite_num": "31", "comite_fecha": "01 DE JUNIO DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "206", "nombre": "Corporacion Diaspora Africana - Kuagro Ri Jip Jop Palenge Kombilesa Mi", "rubro": "Rubro 4", "proyecto": "INTERVENCIONES CULTURALES POR EL AGUA Y LA VIDA \"APÚ WATA WÜIIN\"", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "31° COMITÉ OPERATIVO 01 DE JUNIO DE 2026", "comite_num": "31", "comite_fecha": "01 DE JUNIO DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "207", "nombre": "Corporación Vida-Paz", "rubro": "Rubro 4", "proyecto": "TEJIDOS DE VIDA: ENTRE MONTAÑAS, SELVA Y RIOS", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "31° COMITÉ OPERATIVO 01 DE JUNIO DE 2026", "comite_num": "31", "comite_fecha": "01 DE JUNIO DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "208", "nombre": "Corporación Cultural Fahrenheit 451", "rubro": "Rubro 4", "proyecto": "RAÍZ ANDINA, FERIA ITINERANTE DE ARTE JOVEN", "orientador": "JEIMMY RUIZ - RED INTERCULTURAL JUVENIL", "comite": "31° COMITÉ OPERATIVO 01 DE JUNIO DE 2026", "comite_num": "31", "comite_fecha": "01 DE JUNIO DE 2026", "orientador_corto": "JEIMMY RUIZ", "red": "RED INTERCULTURAL JUVENIL"}, {"no": "209", "nombre": "Resguardo Indígena Inga De San Andrés", "rubro": "Rubro 8", "proyecto": "Fortalecimiento de la Transmisión y Salvaguardia del Tejido Tradicional en la Comunidad Indígena Inga de San Andrés Putumayo", "orientador": "MERCY ARIAS - RED DE MUJERES", "comite": "32° COMITÉ OPERATIVO 10 DE JUNIO DE 2026", "comite_num": "32", "comite_fecha": "10 DE JUNIO DE 2026", "orientador_corto": "MERCY ARIAS", "red": "RED DE MUJERES"}, {"no": "210", "nombre": "Junta De Acción Comunal Corregimiento De Farallones", "rubro": "Rubro 8", "proyecto": "Farallones Cultural: identidad y expresión artística en la Biblioteca Comunitaria y el Festival de la Piedra", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "32° COMITÉ OPERATIVO 10 DE JUNIO DE 2026", "comite_num": "32", "comite_fecha": "10 DE JUNIO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "211", "nombre": "Resguardo Indígena Kamëntsá Inga San Francisco", "rubro": "Rubro 8", "proyecto": "EL CANTO, LA DANZA, LA MÚSICA Y LOS RITUALES ANCESTRALES DEL TERRITORIO INDÍGENA BINYIOCA - WAIRASACHA", "orientador": "MONICA LOPEZ - RED DE ORGANIZACIONES EMERGENTES", "comite": "32° COMITÉ OPERATIVO 10 DE JUNIO DE 2026", "comite_num": "32", "comite_fecha": "10 DE JUNIO DE 2026", "orientador_corto": "MONICA LOPEZ", "red": "RED DE ORGANIZACIONES EMERGENTES"}, {"no": "212", "nombre": "Encuentro de la Red intercultural de Jovenes", "rubro": "Rubro 4", "proyecto": "Encuentro de la Red intercultural de Jovenes", "orientador": "EMERSON FANDIÑO", "comite": "32° COMITÉ OPERATIVO 10 DE JUNIO DE 2026", "comite_num": "32", "comite_fecha": "10 DE JUNIO DE 2026", "orientador_corto": "EMERSON FANDIÑO", "red": ""}, {"no": "213", "nombre": "Encuentro de la Red de Mujeres Cultoras y Gestoras", "rubro": "Rubro 4", "proyecto": "Encuentro de la Red de Mujeres Cultoras y Gestoras", "orientador": "EMERSON FANDIÑO", "comite": "32° COMITÉ OPERATIVO 10 DE JUNIO DE 2026", "comite_num": "32", "comite_fecha": "10 DE JUNIO DE 2026", "orientador_corto": "EMERSON FANDIÑO", "red": ""}, {"no": "214", "nombre": "Encuentro de las Culturas, las Artes y los saberes", "rubro": "Rubro 4", "proyecto": "Encuentro de las Culturas, las Artes y los saberes", "orientador": "EMERSON FANDIÑO", "comite": "32° COMITÉ OPERATIVO 10 DE JUNIO DE 2026", "comite_num": "32", "comite_fecha": "10 DE JUNIO DE 2026", "orientador_corto": "EMERSON FANDIÑO", "red": ""}];
+const STORE_KEY = "conv1022_fichas_abr_jul_2026_v2";
+const RUBRO_ORDER = ["Rubro 1","Rubro 2","Rubro 4","Rubro 8"];
+const RUBRO_CLASS = {"Rubro 1":"r1","Rubro 2":"r2","Rubro 4":"r4","Rubro 8":"r8"};
+const RUBRO_DESC = {
+  "Rubro 1":"Encuentros / articulación de redes",
+  "Rubro 2":"Fortalecimiento de artistas y festivales",
+  "Rubro 4":"Proyectos artísticos y culturales de organizaciones",
+  "Rubro 8":"Circulación, memoria y salvaguardia"
+};
+
+let state = load();
+function load(){
+  // Prioridad: estado embebido en un paquete autocontenido
+  if(window.__EMBEDDED_STATE__){
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(window.__EMBEDDED_STATE__)); }catch(e){}
+    return window.__EMBEDDED_STATE__;
+  }
+  try{ return JSON.parse(localStorage.getItem(STORE_KEY)) || {}; }catch(e){ return {}; }
+}
+function notifyParent(){
+  if(window.parent && window.parent !== window){
+    try{ window.parent.postMessage({ type:'SIDECAR_UPDATE', state:sidecarObj() }, '*'); }catch(e){}
+  }
+}
+function persist(){ localStorage.setItem(STORE_KEY, JSON.stringify(state)); flash(); notifyParent(); }
+function st(no){ if(!state[no]) state[no]={esta:null,dl:false,nota:""}; if(state[no].nota===undefined) state[no].nota=""; return state[no]; }
+
+let flashT;
+function flash(msg){ const f=document.getElementById("flash"); if(msg) f.textContent=msg; else f.textContent="Guardado ✓";
+  f.classList.add("show"); clearTimeout(flashT); flashT=setTimeout(()=>f.classList.remove("show"),1300); }
+
+const rubros = RUBRO_ORDER.filter(r=>ORGS.some(o=>o.rubro===r));
+const oris = [...new Set(ORGS.map(o=>o.orientador_corto))].sort();
+const fr=document.getElementById("f-rubro"), fo=document.getElementById("f-ori");
+rubros.forEach(r=>fr.insertAdjacentHTML("beforeend",`<option value="${r}">${r} · ${RUBRO_DESC[r]||""}</option>`));
+oris.forEach(o=>fo.insertAdjacentHTML("beforeend",`<option value="${o}">${o}</option>`));
+
+const esc = s => (s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function passFilter(o){
+  const q=document.getElementById("q").value.trim().toLowerCase();
+  const vr=document.getElementById("f-rubro").value;
+  const vo=document.getElementById("f-ori").value;
+  const ve=document.getElementById("f-estado").value;
+  if(vr && o.rubro!==vr) return false;
+  if(vo && o.orientador_corto!==vo) return false;
+  const s=st(o.no);
+  if(ve==="sinrev" && s.esta!==null) return false;
+  if(ve==="si" && s.esta!=="si") return false;
+  if(ve==="no" && s.esta!=="no") return false;
+  if(ve==="pordl" && !(s.esta==="si" && !s.dl)) return false;
+  if(ve==="dl" && !s.dl) return false;
+  if(ve==="connota" && !(s.nota && s.nota.trim())) return false;
+  if(q){
+    const hay=(o.nombre+" "+o.proyecto+" "+o.no+" "+o.orientador+" "+o.comite+" "+(s.nota||"")).toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  return true;
+}
+
+function render(){
+  const cont=document.getElementById("content");
+  const visible = ORGS.filter(passFilter);
+  cont.innerHTML="";
+  if(!visible.length){ cont.innerHTML='<div class="empty">No hay organizaciones que coincidan con el filtro.</div>'; updateGlobal(); return; }
+  rubros.forEach(r=>{
+    const list = visible.filter(o=>o.rubro===r);
+    if(!list.length) return;
+    const total=list.length;
+    const dl=list.filter(o=>st(o.no).dl).length;
+    const pct= total? Math.round(dl/total*100):0;
+    const collapsed = window.__collapsed && window.__collapsed[r];
+    const sec=document.createElement("section");
+    sec.className="rubro "+(RUBRO_CLASS[r]||"")+(collapsed?" collapsed":"");
+    sec.innerHTML=`
+      <div class="rubro-head" data-r="${r}">
+        <span class="chev">▾</span>
+        <h2>${r} <span style="color:var(--ink3);font-weight:400;font-size:13px">· ${RUBRO_DESC[r]||""}</span></h2>
+        <div class="rbar"><span style="width:${pct}%"></span></div>
+        <span class="rcount">${dl}/${total} descargadas</span>
+      </div>
+      <div class="rubro-body"><div class="grid"></div></div>`;
+    const grid=sec.querySelector(".grid");
+    list.forEach(o=>grid.appendChild(card(o)));
+    cont.appendChild(sec);
+  });
+  updateGlobal();
+}
+
+function card(o){
+  const s=st(o.no);
+  const el=document.createElement("div");
+  el.className="card"+(s.dl?" done":(s.esta==="no"?" noesta":""));
+  const comLabel = o.comite_num? `Comité ${o.comite_num} · ${esc(o.comite_fecha)}` : esc(o.comite);
+  const dlDisabled = s.esta!=="si";
+  const hasNota = s.nota && s.nota.trim();
+  el.innerHTML=`
+    <span class="no">No. ${esc(o.no)}</span>
+    <h3>${esc(o.nombre)}</h3>
+    <div class="chips">
+      <span class="chip ori">${esc(o.orientador_corto)}</span>
+      ${o.red?`<span class="chip red">${esc(o.red)}</span>`:""}
+      <span class="chip com">${comLabel}</span>
+    </div>
+    <div class="proj"><span class="k">Proyecto:</span> ${esc(o.proyecto)}</div>
+    <div class="ficha">
+      <div class="cl-title">Ficha de caracterización de beneficiarios</div>
+      <div class="row">
+        <span class="q">¿Está la ficha en la carpeta?</span>
+        <span class="seg">
+          <button data-esta="si" data-no="${o.no}" class="${s.esta==="si"?"on-si":""}">Sí</button>
+          <button data-esta="no" data-no="${o.no}" class="${s.esta==="no"?"on-no":""}">No</button>
+        </span>
+      </div>
+      <label class="dl ${dlDisabled?"disabled":""}">
+        <input type="checkbox" data-dl="${o.no}" ${s.dl?"checked":""} ${dlDisabled?"disabled":""}>
+        <span class="lbl">${s.dl?"Ya la descargué":"Marcar como descargada"}</span>
+      </label>
+      <div class="notas">
+        <div class="cl-title"><span class="dot"></span>Notas</div>
+        <textarea data-nota="${o.no}" class="${hasNota?"has":""}" placeholder="Ej.: falta firma en el acta, ficha incompleta, pendiente confirmar con la orientadora…">${esc(s.nota||"")}</textarea>
+      </div>
+    </div>`;
+  return el;
+}
+
+function updateGlobal(){
+  const total=ORGS.length;
+  const si=ORGS.filter(o=>st(o.no).esta==="si").length;
+  const no=ORGS.filter(o=>st(o.no).esta==="no").length;
+  const dl=ORGS.filter(o=>st(o.no).dl).length;
+  document.getElementById("g-total").textContent=total;
+  document.getElementById("g-si").textContent=si;
+  document.getElementById("g-no").textContent=no;
+  document.getElementById("g-dl").textContent=dl;
+  document.getElementById("g-bar").style.width=(total?Math.round(dl/total*100):0)+"%";
+}
+
+// ---- events ----
+document.getElementById("content").addEventListener("click",e=>{
+  const seg=e.target.closest("button[data-esta]");
+  if(seg){
+    const no=seg.dataset.no, val=seg.dataset.esta, s=st(no);
+    s.esta = (s.esta===val)? null : val;
+    if(s.esta!=="si") s.dl=false;
+    persist(); render(); return;
+  }
+  const h=e.target.closest(".rubro-head");
+  if(h){ const sec=h.parentElement; sec.classList.toggle("collapsed");
+    window.__collapsed=window.__collapsed||{}; window.__collapsed[h.dataset.r]=sec.classList.contains("collapsed"); }
+});
+document.getElementById("content").addEventListener("change",e=>{
+  const t=e.target;
+  if(t.dataset.dl!==undefined){
+    const no=t.dataset.dl, s=st(no);
+    s.dl=t.checked;
+    if(t.checked && s.esta!=="si") s.esta="si";
+    persist(); render();
+  }
+});
+let notaT;
+document.getElementById("content").addEventListener("input",e=>{
+  const t=e.target;
+  if(t.dataset.nota!==undefined){
+    const no=t.dataset.nota;
+    st(no).nota=t.value;
+    t.classList.toggle("has", !!t.value.trim());
+    clearTimeout(notaT);
+    notaT=setTimeout(()=>{ persist(); },500);
+  }
+});
+
+["q","f-rubro","f-ori","f-estado"].forEach(id=>document.getElementById(id).addEventListener("input",render));
+document.getElementById("expandAll").onclick=()=>{window.__collapsed={};render();};
+document.getElementById("collapseAll").onclick=()=>{window.__collapsed={};rubros.forEach(r=>window.__collapsed[r]=true);render();};
+document.getElementById("reset").onclick=()=>{
+  if(confirm("¿Reiniciar todas las chuletas y notas? Esto borra tu avance en este navegador.")){ state={}; persist(); render(); }
+};
+
+document.getElementById("export").onclick=()=>{
+  const head=["No","Organizacion","Rubro","Proyecto","Orientador","Red","Comite","Ficha_esta","Ficha_descargada","Notas"];
+  const rows=[head];
+  ORGS.forEach(o=>{
+    const s=st(o.no);
+    const esta = s.esta==="si"?"SI":(s.esta==="no"?"NO":"SIN REVISAR");
+    rows.push([o.no,o.nombre,o.rubro,o.proyecto,o.orientador_corto,o.red,o.comite,esta,(s.dl?"SI":"NO"),(s.nota||"")]);
+  });
+  const csv=rows.map(r=>r.map(c=>{c=(c==null?"":String(c)); return /[",;\n]/.test(c)?'"'+c.replace(/"/g,'""')+'"':c;}).join(";")).join("\r\n");
+  dl("\ufeff"+csv,"caracterizacion_convenio1022_abr_jul_2026.csv","text/csv;charset=utf-8");
+};
+document.getElementById("save").onclick=()=>dl(JSON.stringify(sidecarObj(),null,2),"avance_fichas_conv1022.json","application/json");
+document.getElementById("load").onclick=()=>document.getElementById("loadfile").click();
+document.getElementById("loadfile").onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const rd=new FileReader();
+  rd.onload=()=>{ try{ const j=JSON.parse(rd.result); state=j.state||j; persist(); render(); alert("Avance cargado."); }
+    catch(err){ alert("No se pudo leer el archivo."); } };
+  rd.readAsText(f);
+};
+function dl(text,name,type){
+  const b=new Blob([text],{type}); const u=URL.createObjectURL(b);
+  const a=document.createElement("a"); a.href=u; a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(u),1500);
+}
+
+// ---------- SIDECAR + PAQUETE ZIP ----------
+function sidecarObj(){
+  return {
+    proyecto:"Convenio 1022 de 2025 · Caracterización beneficiarios · Abril–Julio 2026",
+    key:STORE_KEY,
+    fecha:new Date().toISOString(),
+    total_organizaciones:ORGS.length,
+    state:state
+  };
+}
+
+// Construye una copia autocontenida del propio HTML con el estado embebido
+function buildSelfContainedHTML(){
+  const clone = document.documentElement.cloneNode(true);
+  // vaciar el contenido renderizado: la copia lo regenera desde el estado
+  const c = clone.querySelector("#content"); if(c) c.innerHTML="";
+  // limpiar file input
+  const fi = clone.querySelector("#loadfile"); if(fi) fi.removeAttribute("value");
+  // inyectar estado embebido al inicio del head
+  const emb = document.createElement("script");
+  emb.textContent = "window.__EMBEDDED_STATE__ = "+JSON.stringify(state)+";";
+  clone.querySelector("head").insertBefore(emb, clone.querySelector("head").firstChild);
+  return "<!DOCTYPE html>\n"+clone.outerHTML;
+}
+
+// --- CRC32 ---
+const CRC_TABLE=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[n]=c>>>0;}return t;})();
+function crc32(u8){let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=CRC_TABLE[(c^u8[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+
+// --- ZIP (método store, sin compresión) ---
+function makeZip(files){ // files: [{name, data(Uint8Array)}]
+  const enc=new TextEncoder();
+  const chunks=[]; const central=[]; let offset=0;
+  function u16(n){return new Uint8Array([n&255,(n>>8)&255]);}
+  function u32(n){return new Uint8Array([n&255,(n>>8)&255,(n>>16)&255,(n>>24)&255]);}
+  function push(arr){chunks.push(arr);offset+=arr.length;}
+  for(const f of files){
+    const nameB=enc.encode(f.name);
+    const crc=crc32(f.data);
+    const size=f.data.length;
+    // local header
+    const lh=[];
+    lh.push(u32(0x04034b50)); lh.push(u16(20)); lh.push(u16(0)); lh.push(u16(0));
+    lh.push(u16(0)); lh.push(u16(0)); // time,date
+    lh.push(u32(crc)); lh.push(u32(size)); lh.push(u32(size));
+    lh.push(u16(nameB.length)); lh.push(u16(0));
+    const lhBytes=concat(lh); const localOffset=offset;
+    push(lhBytes); push(nameB); push(f.data);
+    // central record (guardar para después)
+    const cd=[];
+    cd.push(u32(0x02014b50)); cd.push(u16(20)); cd.push(u16(20)); cd.push(u16(0)); cd.push(u16(0));
+    cd.push(u16(0)); cd.push(u16(0));
+    cd.push(u32(crc)); cd.push(u32(size)); cd.push(u32(size));
+    cd.push(u16(nameB.length)); cd.push(u16(0)); cd.push(u16(0));
+    cd.push(u16(0)); cd.push(u16(0)); cd.push(u32(0)); cd.push(u32(localOffset));
+    central.push({head:concat(cd), name:nameB});
+  }
+  const cdStart=offset;
+  for(const c of central){ push(c.head); push(c.name); }
+  const cdSize=offset-cdStart;
+  const eocd=[];
+  eocd.push(u32(0x06054b50)); eocd.push(u16(0)); eocd.push(u16(0));
+  eocd.push(u16(files.length)); eocd.push(u16(files.length));
+  eocd.push(u32(cdSize)); eocd.push(u32(cdStart)); eocd.push(u16(0));
+  push(concat(eocd));
+  return concat(chunks);
+}
+function concat(arrs){let len=0;for(const a of arrs)len+=a.length;const out=new Uint8Array(len);let p=0;for(const a of arrs){out.set(a,p);p+=a.length;}return out;}
+
+document.getElementById("pack").onclick=()=>{
+  try{
+    // asegurar persistencia del estado actual antes de empaquetar
+    localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    const enc=new TextEncoder();
+    const htmlStr=buildSelfContainedHTML();
+    const jsonStr=JSON.stringify(sidecarObj(),null,2);
+    const stamp=new Date().toISOString().slice(0,10);
+    const files=[
+      {name:"fichas_caracterizacion_convenio1022_abr-jul-2026.html", data:enc.encode(htmlStr)},
+      {name:"avance_fichas_conv1022.json", data:enc.encode(jsonStr)},
+      {name:"LEEME.txt", data:enc.encode(
+        "PAQUETE DE CARACTERIZACION - CONVENIO 1022 DE 2025\n"+
+        "Vigencia abril-julio 2026\n"+
+        "Generado: "+new Date().toLocaleString("es-CO")+"\n\n"+
+        "Contenido:\n"+
+        "- fichas_caracterizacion_convenio1022_abr-jul-2026.html : la herramienta con tus datos YA incluidos dentro del archivo (abrela en cualquier navegador o equipo).\n"+
+        "- avance_fichas_conv1022.json : archivo sidecar con las selecciones y notas, en formato analizable.\n\n"+
+        "Total organizaciones: "+ORGS.length+" (sin Rubro 9 / equipo tecnico).\n"
+      )}
+    ];
+    const zip=makeZip(files);
+    const blob=new Blob([zip],{type:"application/zip"});
+    const u=URL.createObjectURL(blob);
+    const a=document.createElement("a"); a.href=u;
+    a.download="paquete_caracterizacion_conv1022_"+stamp+".zip"; a.click();
+    setTimeout(()=>URL.revokeObjectURL(u),2000);
+    flash("Paquete .zip generado ✓");
+  }catch(err){ alert("No se pudo generar el paquete: "+err.message); }
+};
+
+render();
+</script>
+</body>
+</html>

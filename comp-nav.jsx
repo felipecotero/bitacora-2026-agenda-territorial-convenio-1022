@@ -11,6 +11,7 @@ const SECTION_COLORS = {
   telar:      { color: '#3D2058', accent: '#E8C535' }, // tinta violeta + amarillo
   documentos:  { color: '#6E5B0D', accent: '#E8C535' }, // ocre + amarillo
   compromisos: { color: '#8C1A5C', accent: '#E8C535' }, // magenta oscuro + amarillo
+  analisis:    { color: '#00A896', accent: '#5CFFD6' }, // turquesa + verde agua
 };
 window.SECTION_COLORS = SECTION_COLORS;
 
@@ -25,6 +26,7 @@ function Sidebar({ active, onChange, counts }) {
     { id: 'telar',     label: 'El Telar',          section: 'Procesos' },
     { id: 'encuentro',  label: 'Encuentro RIJ',     section: 'Procesos' },
     { id: 'compromisos',label: 'Compromisos',       section: 'Procesos' },
+    { id: 'analisis',   label: 'Análisis de Beneficiarios', section: 'Procesos' },
     { id: 'documentos', label: 'Documentos',        section: 'Materiales' },
   ];
   const sections = [...new Set(items.map(i => i.section))];
