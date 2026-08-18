@@ -1,10 +1,10 @@
-/* Vista Análisis de Beneficiarios — Caracterización, Resultados y Sincronización en Línea (GitHub) */
+/* Vista Análisis de Beneficiarios — Caracterización, Resultados y Sincronización Inteligente en Línea */
 
 const { useState: aUseState, useEffect: aUseEffect, useRef: aUseRef, useMemo: aUseMemo } = React;
 
 function AnalisisBeneficiarios() {
   const [tab, setTab] = aUseState('fichas'); // 'fichas' | 'resultados'
-  const [sidecarState, setSidecarState] = aUseState(null);
+  const [sidecarState, setSidecarState] = aUseState({});
   const [syncStatus, setSyncStatus] = aUseState({ estado: 'ok', mensaje: 'Sincronizado en línea' });
   const iframeRef = aUseRef(null);
   const fileInputRef = aUseRef(null);
@@ -13,34 +13,55 @@ function AnalisisBeneficiarios() {
   const STORE_KEY = 'caracterizacion_conv1022_v1';
   const RAW_SIDECAR_URL = 'https://raw.githubusercontent.com/felipecotero/bitacora-2026-agenda-territorial-convenio-1022/main/fichas_sidecar.json';
 
-  // 1. Cargar estado inicial (Primero LocalStorage, luego GitHub online)
+  // Función inteligente para combinar estado local y remoto sin borrar avances
+  const mergeSidecarStates = (localSt, remoteSt) => {
+    const merged = { ...(remoteSt || {}) };
+    if (localSt && typeof localSt === 'object') {
+      Object.keys(localSt).forEach(key => {
+        const loc = localSt[key];
+        const rem = merged[key];
+        if (loc && (loc.esta || loc.dl || (loc.nota && loc.nota.trim()))) {
+          if (!rem || (!rem.esta && !rem.dl && (!rem.nota || !rem.nota.trim()))) {
+            merged[key] = loc;
+          } else {
+            merged[key] = {
+              esta: loc.esta || rem.esta,
+              dl: loc.dl || rem.dl,
+              nota: (loc.nota && loc.nota.trim()) ? loc.nota : (rem.nota || '')
+            };
+          }
+        }
+      });
+    }
+    return merged;
+  };
+
+  // 1. Cargar estado inicial y sincronizar sin sobreescribir
   aUseEffect(() => {
-    // Fallback rápido: LocalStorage
+    let localSt = {};
     try {
       const saved = localStorage.getItem(STORE_KEY);
-      if (saved) {
-        setSidecarState(JSON.parse(saved));
-      }
+      if (saved) localSt = JSON.parse(saved);
     } catch (e) {}
 
-    // Cargar fuente de verdad en línea desde GitHub
+    setSidecarState(localSt);
     setSyncStatus({ estado: 'cargando', mensaje: 'Cargando datos en línea…' });
+
     fetch(RAW_SIDECAR_URL + '?t=' + Date.now())
       .then(r => {
         if (!r.ok) throw new Error(`GitHub HTTP ${r.status}`);
         return r.json();
       })
       .then(data => {
-        const onlineSt = data.state || data;
-        if (onlineSt && typeof onlineSt === 'object') {
-          setSidecarState(onlineSt);
-          try { localStorage.setItem(STORE_KEY, JSON.stringify(onlineSt)); } catch (e) {}
-          setSyncStatus({ estado: 'ok', mensaje: 'Datos sincronizados desde GitHub' });
-        }
+        const remoteSt = data.state || data || {};
+        const combined = mergeSidecarStates(localSt, remoteSt);
+        setSidecarState(combined);
+        try { localStorage.setItem(STORE_KEY, JSON.stringify(combined)); } catch (e) {}
+        setSyncStatus({ estado: 'ok', mensaje: 'Datos sincronizados en línea' });
       })
       .catch(err => {
         console.warn('No se pudo descargar fichas_sidecar.json desde GitHub:', err);
-        setSyncStatus({ estado: 'local', mensaje: 'Usando respaldo local' });
+        setSyncStatus({ estado: 'local', mensaje: 'Modo local activo' });
       });
   }, []);
 
@@ -49,7 +70,7 @@ function AnalisisBeneficiarios() {
     if (!window.GitHubSync || !window.GitHubSync.estaConfigurado()) return;
 
     if (ghTimerRef.current) clearTimeout(ghTimerRef.current);
-    setSyncStatus({ estado: 'guardando', mensaje: 'Guardando cambios en línea…' });
+    setSyncStatus({ estado: 'guardando', mensaje: 'Guardando en la nube…' });
 
     ghTimerRef.current = setTimeout(async () => {
       const cfg = window.GitHubSync.cargarConfig();
@@ -71,10 +92,10 @@ function AnalisisBeneficiarios() {
           jsonContent,
           `Caracterización: actualización online ${new Date().toISOString().slice(0,16).replace('T',' ')}`
         );
-        setSyncStatus({ estado: 'ok', mensaje: 'Guardado en línea (GitHub)' });
+        setSyncStatus({ estado: 'ok', mensaje: 'Guardado en la nube (GitHub)' });
       } catch (e) {
         console.error('Error al guardar fichas_sidecar en GitHub:', e);
-        setSyncStatus({ estado: 'error', mensaje: 'Error al sincronizar en línea' });
+        setSyncStatus({ estado: 'error', mensaje: 'Error al sincronizar en la nube' });
       }
     }, 1500);
   };
@@ -95,7 +116,7 @@ function AnalisisBeneficiarios() {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  // 4. Calcular métricas estadísticas
+  // 4. Métricas estadísticas
   const stats = aUseMemo(() => {
     if (!sidecarState) return { revisadas: 0, descargadas: 0, notas: 0, total: 65 };
     const keys = Object.keys(sidecarState);
@@ -161,7 +182,7 @@ function AnalisisBeneficiarios() {
         if (iframeRef.current) {
           iframeRef.current.src = iframeRef.current.src;
         }
-        alert("¡Archivo Sidecar cargado y sincronizado exitosamente!");
+        alert("¡Archivo Sidecar cargado exitosamente!");
       } catch (err) {
         alert("Error al leer el archivo JSON Sidecar: " + err.message);
       }
@@ -236,11 +257,11 @@ function AnalisisBeneficiarios() {
             </div>
           </div>
 
-          {/* Aviso contextual de sincronización en línea */}
+          {/* Aviso contextual de seguridad */}
           <div className="sidecar-callout">
-            <span className="icon">☁️</span>
+            <span className="icon">🛡️</span>
             <div>
-              <strong>Sincronización en línea activa:</strong> Los datos se descargan automáticamente desde GitHub (`fichas_sidecar.json`) para que cualquier persona que abra la página vea el avance en tiempo real. También puedes guardar o cargar un archivo Sidecar en cualquier momento.
+              <strong>Persistencia activa:</strong> Tus respuestas y marcas de caracterización se preservan en este navegador y se combinan automáticamente con el servidor para evitar pérdidas de información.
             </div>
           </div>
 
