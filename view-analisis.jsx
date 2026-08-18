@@ -6,7 +6,7 @@ function AnalisisBeneficiarios() {
   const [tab, setTab] = aUseState('fichas'); // 'fichas' | 'resultados'
   const [sidecarState, setSidecarState] = aUseState(() => {
     try {
-      const saved = localStorage.getItem('caracterizacion_conv1022_v1');
+      const saved = localStorage.getItem('conv1022_fichas_abr_jul_2026_v2');
       return saved ? JSON.parse(saved) : {};
     } catch (e) {
       return {};
@@ -17,7 +17,7 @@ function AnalisisBeneficiarios() {
   const fileInputRef = aUseRef(null);
   const ghTimerRef = aUseRef(null);
 
-  const STORE_KEY = 'caracterizacion_conv1022_v1';
+  const STORE_KEY = 'conv1022_fichas_abr_jul_2026_v2';
   const RAW_SIDECAR_URL = 'https://raw.githubusercontent.com/felipecotero/bitacora-2026-agenda-territorial-convenio-1022/main/fichas_sidecar.json';
 
   // Verificar si un objeto state contiene datos útiles

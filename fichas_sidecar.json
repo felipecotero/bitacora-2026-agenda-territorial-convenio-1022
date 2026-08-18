@@ -1,7 +1,193 @@
 {
   "proyecto": "Convenio 1022 de 2025 · Caracterización beneficiarios · Abril–Julio 2026",
-  "key": "caracterizacion_conv1022_v1",
-  "fecha": "2026-08-18T15:53:53.479Z",
-  "total_organizaciones": 65,
-  "state": {}
+  "key": "conv1022_fichas_abr_jul_2026_v2",
+  "fecha": "2026-08-18T16:02:22.694Z",
+  "total_organizaciones": 37,
+  "state": {
+    "178": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "179": {
+      "esta": "no",
+      "dl": false,
+      "nota": "No hay ficha de beneficiarios ni listado de participantes, ni nada que permita cuantificar."
+    },
+    "180": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "181": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "182": {
+      "esta": "no",
+      "dl": false,
+      "nota": "No hay info, ni ficha, ni listas"
+    },
+    "183": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "184": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "185": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "186": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "187": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "188": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "189": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "190": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "191": {
+      "esta": "no",
+      "dl": false,
+      "nota": ""
+    },
+    "192": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "193": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "194": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "195": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "196": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "197": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "198": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "199": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "200": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "201": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "202": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "203": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "204": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "205": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "206": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "207": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "208": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "209": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "210": {
+      "esta": "no",
+      "dl": false,
+      "nota": ""
+    },
+    "211": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "212": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "213": {
+      "esta": "si",
+      "dl": true,
+      "nota": ""
+    },
+    "214": {
+      "esta": "no",
+      "dl": false,
+      "nota": "No hay ficha de beneficiarios ni listado de participantes, ni nada que permita cuantificar."
+    }
+  }
 }
