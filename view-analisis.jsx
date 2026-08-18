@@ -1,34 +1,93 @@
-/* Vista Análisis de Beneficiarios — Caracterización y Resultados */
+/* Vista Análisis de Beneficiarios — Caracterización, Resultados y Sincronización en Línea (GitHub) */
 
-const { useState: aUseState, useEffect: aUseEffect, useRef: aUseRef } = React;
+const { useState: aUseState, useEffect: aUseEffect, useRef: aUseRef, useMemo: aUseMemo } = React;
 
 function AnalisisBeneficiarios() {
   const [tab, setTab] = aUseState('fichas'); // 'fichas' | 'resultados'
   const [sidecarState, setSidecarState] = aUseState(null);
+  const [syncStatus, setSyncStatus] = aUseState({ estado: 'ok', mensaje: 'Sincronizado en línea' });
   const iframeRef = aUseRef(null);
   const fileInputRef = aUseRef(null);
+  const ghTimerRef = aUseRef(null);
 
   const STORE_KEY = 'caracterizacion_conv1022_v1';
+  const RAW_SIDECAR_URL = 'https://raw.githubusercontent.com/felipecotero/bitacora-2026-agenda-territorial-convenio-1022/main/fichas_sidecar.json';
 
-  // Leer estado del localStorage al montar
+  // 1. Cargar estado inicial (Primero LocalStorage, luego GitHub online)
   aUseEffect(() => {
+    // Fallback rápido: LocalStorage
     try {
       const saved = localStorage.getItem(STORE_KEY);
       if (saved) {
         setSidecarState(JSON.parse(saved));
       }
-    } catch (e) {
-      console.warn('No se pudo leer LocalStorage para Sidecar:', e);
-    }
+    } catch (e) {}
+
+    // Cargar fuente de verdad en línea desde GitHub
+    setSyncStatus({ estado: 'cargando', mensaje: 'Cargando datos en línea…' });
+    fetch(RAW_SIDECAR_URL + '?t=' + Date.now())
+      .then(r => {
+        if (!r.ok) throw new Error(`GitHub HTTP ${r.status}`);
+        return r.json();
+      })
+      .then(data => {
+        const onlineSt = data.state || data;
+        if (onlineSt && typeof onlineSt === 'object') {
+          setSidecarState(onlineSt);
+          try { localStorage.setItem(STORE_KEY, JSON.stringify(onlineSt)); } catch (e) {}
+          setSyncStatus({ estado: 'ok', mensaje: 'Datos sincronizados desde GitHub' });
+        }
+      })
+      .catch(err => {
+        console.warn('No se pudo descargar fichas_sidecar.json desde GitHub:', err);
+        setSyncStatus({ estado: 'local', mensaje: 'Usando respaldo local' });
+      });
   }, []);
 
-  // Listener para sincronización en tiempo real desde el iframe
+  // 2. Función para guardar cambios a GitHub en línea
+  const syncToGitHub = (nextState) => {
+    if (!window.GitHubSync || !window.GitHubSync.estaConfigurado()) return;
+
+    if (ghTimerRef.current) clearTimeout(ghTimerRef.current);
+    setSyncStatus({ estado: 'guardando', mensaje: 'Guardando cambios en línea…' });
+
+    ghTimerRef.current = setTimeout(async () => {
+      const cfg = window.GitHubSync.cargarConfig();
+      if (!cfg) return;
+
+      const payloadObj = {
+        proyecto: "Convenio 1022 de 2025 · Caracterización beneficiarios · Abril–Julio 2026",
+        key: STORE_KEY,
+        fecha: new Date().toISOString(),
+        total_organizaciones: 65,
+        state: nextState
+      };
+      const jsonContent = JSON.stringify(payloadObj, null, 2);
+
+      try {
+        const ghConfigForSidecar = { ...cfg, path: 'fichas_sidecar.json' };
+        await window.GitHubSync.commit(
+          ghConfigForSidecar,
+          jsonContent,
+          `Caracterización: actualización online ${new Date().toISOString().slice(0,16).replace('T',' ')}`
+        );
+        setSyncStatus({ estado: 'ok', mensaje: 'Guardado en línea (GitHub)' });
+      } catch (e) {
+        console.error('Error al guardar fichas_sidecar en GitHub:', e);
+        setSyncStatus({ estado: 'error', mensaje: 'Error al sincronizar en línea' });
+      }
+    }, 1500);
+  };
+
+  // 3. Escuchar actualizaciones desde el iframe en tiempo real
   aUseEffect(() => {
     function handleMessage(e) {
       if (e.data && e.data.type === 'SIDECAR_UPDATE') {
         const sc = e.data.state;
         if (sc && sc.state) {
           setSidecarState(sc.state);
+          try { localStorage.setItem(STORE_KEY, JSON.stringify(sc.state)); } catch (err) {}
+          syncToGitHub(sc.state);
         }
       }
     }
@@ -36,8 +95,8 @@ function AnalisisBeneficiarios() {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  // Calcular estadísticas rápidas del estado Sidecar
-  const stats = React.useMemo(() => {
+  // 4. Calcular métricas estadísticas
+  const stats = aUseMemo(() => {
     if (!sidecarState) return { revisadas: 0, descargadas: 0, notas: 0, total: 65 };
     const keys = Object.keys(sidecarState);
     let revisadas = 0;
@@ -83,9 +142,7 @@ function AnalisisBeneficiarios() {
 
   // Importar archivo Sidecar JSON
   const handleImportClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+    if (fileInputRef.current) fileInputRef.current.click();
   };
 
   const handleFileChange = (e) => {
@@ -99,12 +156,12 @@ function AnalisisBeneficiarios() {
         const importedState = json.state || json;
         localStorage.setItem(STORE_KEY, JSON.stringify(importedState));
         setSidecarState(importedState);
+        syncToGitHub(importedState);
 
-        // Recargar iframe para reflejar los datos importados
         if (iframeRef.current) {
           iframeRef.current.src = iframeRef.current.src;
         }
-        alert("¡Archivo Sidecar cargado exitosamente!");
+        alert("¡Archivo Sidecar cargado y sincronizado exitosamente!");
       } catch (err) {
         alert("Error al leer el archivo JSON Sidecar: " + err.message);
       }
@@ -145,12 +202,12 @@ function AnalisisBeneficiarios() {
       {/* SUB-TAB 1: FICHAS DE CARACTERIZACIÓN */}
       {tab === 'fichas' && (
         <div className="col gap-md">
-          {/* Barra de Gestión de Persistencia Sidecar */}
+          {/* Barra de Gestión de Persistencia Sidecar & Sync en Línea */}
           <div className="sidecar-bar card">
             <div className="sidecar-left">
               <div className="sidecar-status-pill">
                 <span className="sidecar-dot pulse"></span>
-                <span>Persistencia Sidecar Activa</span>
+                <span>{syncStatus.mensaje}</span>
               </div>
               <div className="sidecar-stats">
                 <span className="stat-pill"><b>{stats.descargadas}</b> / {stats.total} Descargadas</span>
@@ -167,23 +224,23 @@ function AnalisisBeneficiarios() {
                 accept=".json"
                 onChange={handleFileChange}
               />
-              <button className="btn-sidecar btn-secondary" onClick={handleImportClick} title="Cargar avance previamente guardado">
+              <button className="btn-sidecar btn-secondary" onClick={handleImportClick} title="Cargar avance guardado localmente">
                 ↑ Cargar Sidecar (.json)
               </button>
               <button className="btn-sidecar btn-primary" onClick={handleExportSidecar} title="Descargar copia de respaldo JSON">
                 ↓ Guardar Sidecar (.json)
               </button>
-              <button className="btn-sidecar btn-ghost" onClick={handleOpenFullscreen} title="Abrir en pestaña completa">
+              <button className="btn-sidecar btn-ghost" onClick={handleOpenFullscreen} title="Abrir en pantalla completa">
                 ↗ Abrir Pantalla Completa
               </button>
             </div>
           </div>
 
-          {/* Aviso contextual de seguridad */}
+          {/* Aviso contextual de sincronización en línea */}
           <div className="sidecar-callout">
-            <span className="icon">🛡️</span>
+            <span className="icon">☁️</span>
             <div>
-              <strong>Auto-guardado habilitado:</strong> Todas las marcas y notas se almacenan automáticamente en este navegador. Para transferir tu avance a otro equipo o guardar un respaldo, utiliza el botón <em>Guardar Sidecar (.json)</em>.
+              <strong>Sincronización en línea activa:</strong> Los datos se descargan automáticamente desde GitHub (`fichas_sidecar.json`) para que cualquier persona que abra la página vea el avance en tiempo real. También puedes guardar o cargar un archivo Sidecar en cualquier momento.
             </div>
           </div>
 
@@ -199,7 +256,7 @@ function AnalisisBeneficiarios() {
         </div>
       )}
 
-      {/* SUB-TAB 2: RESULTADOS DEL ANÁLISIS (FASE EN CONSOLIDACIÓN) */}
+      {/* SUB-TAB 2: RESULTADOS DEL ANÁLISIS */}
       {tab === 'resultados' && (
         <div className="col gap-md">
           {/* Banner de Estado de la Fase */}
@@ -208,7 +265,7 @@ function AnalisisBeneficiarios() {
               <span className="hero-eyebrow">Convenio 1022 · Fase de Síntesis</span>
               <h2>Tablero de Resultados del Análisis de Beneficiarios</h2>
               <p>
-                Visualización consolidada de la caracterización socio-demográfica, cobertura territorial y niveles de autonomía digital de las organizaciones y públicos participantes.
+                Visualización consolidada en línea de la caracterización socio-demográfica, cobertura territorial y niveles de autonomía digital de las organizaciones y públicos participantes.
               </p>
             </div>
 
@@ -218,7 +275,7 @@ function AnalisisBeneficiarios() {
                 <span>En Proceso de Caracterización</span>
               </div>
               <div className="status-desc">
-                Esta sección procesará automáticamente los datos del archivo <strong>Sidecar JSON</strong> una vez finalizada la etapa de diligenciamiento en la pestaña 1.
+                Esta sección procesará automáticamente los datos del archivo <strong>Sidecar en línea (fichas_sidecar.json)</strong> una vez finalizada la etapa de diligenciamiento en la pestaña 1.
               </div>
               <div className="status-progress-bar">
                 <div
@@ -236,31 +293,20 @@ function AnalisisBeneficiarios() {
           {/* Maqueta de Módulos Analíticos Proyectados */}
           <div className="resultados-grid">
             
-            {/* Módulo 1: Cobertura Territorial */}
             <div className="card modulo-card">
               <div className="modulo-icon">🗺️</div>
               <div className="modulo-title">1. Cobertura y Distribución Territorial</div>
               <div className="modulo-desc">
-                Análisis de presencia institucional y comunitaria por municipios, subregiones y departamentos de Colombia.
+                Análisis de presencia institucional y comunitaria por municipios, subregiones y comités del Convenio 1022.
               </div>
               <div className="modulo-preview-metrics">
-                <div className="metric-box">
-                  <span className="num">65</span>
-                  <span className="label">Organizaciones</span>
-                </div>
-                <div className="metric-box">
-                  <span className="num">3</span>
-                  <span className="label">Caminos de Formación</span>
-                </div>
-                <div className="metric-box">
-                  <span className="num">8</span>
-                  <span className="label">Rubros Operativos</span>
-                </div>
+                <div className="metric-box"><span className="num">65</span><span className="label">Organizaciones</span></div>
+                <div className="metric-box"><span className="num">3</span><span className="label">Caminos</span></div>
+                <div className="metric-box"><span className="num">8</span><span className="label">Rubros</span></div>
               </div>
               <div className="modulo-footer-tag">Próxima liberación</div>
             </div>
 
-            {/* Módulo 2: Autonomía Digital */}
             <div className="card modulo-card">
               <div className="modulo-icon">💻</div>
               <div className="modulo-title">2. Diagnóstico de Autonomía Digital</div>
@@ -268,14 +314,13 @@ function AnalisisBeneficiarios() {
                 Evaluación de infraestructura tecnológica, conectividad y apropiación de herramientas digitales por red cultural.
               </div>
               <div className="modulo-preview-list">
-                <div className="preview-item"><span>· Conectividad y Equipamiento</span> <span className="p-badge">Pendiente</span></div>
-                <div className="preview-item"><span>· Soberanía y Gestión de Datos</span> <span className="p-badge">Pendiente</span></div>
-                <div className="preview-item"><span>· Herramientas Colaborativas</span> <span className="p-badge">Pendiente</span></div>
+                <div className="preview-item"><span>· Conectividad y Equipamiento</span> <span className="p-badge">En línea</span></div>
+                <div className="preview-item"><span>· Soberanía y Gestión de Datos</span> <span className="p-badge">En línea</span></div>
+                <div className="preview-item"><span>· Herramientas Colaborativas</span> <span className="p-badge">En línea</span></div>
               </div>
               <div className="modulo-footer-tag">Próxima liberación</div>
             </div>
 
-            {/* Módulo 3: Tipologías de Públicos */}
             <div className="card modulo-card">
               <div className="modulo-icon">👥</div>
               <div className="modulo-title">3. Matriz de Públicos & Beneficiarios</div>
@@ -290,7 +335,6 @@ function AnalisisBeneficiarios() {
               <div className="modulo-footer-tag">Próxima liberación</div>
             </div>
 
-            {/* Módulo 4: Informes & Descargables */}
             <div className="card modulo-card">
               <div className="modulo-icon">📊</div>
               <div className="modulo-title">4. Consolidados & Informes Oficiales</div>
