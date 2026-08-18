@@ -1,10 +1,17 @@
-/* Vista Análisis de Beneficiarios — Caracterización, Resultados y Sincronización Inteligente en Línea */
+/* Vista Análisis de Beneficiarios — Caracterización, Resultados y Sincronización Bidireccional Robusta */
 
 const { useState: aUseState, useEffect: aUseEffect, useRef: aUseRef, useMemo: aUseMemo } = React;
 
 function AnalisisBeneficiarios() {
   const [tab, setTab] = aUseState('fichas'); // 'fichas' | 'resultados'
-  const [sidecarState, setSidecarState] = aUseState({});
+  const [sidecarState, setSidecarState] = aUseState(() => {
+    try {
+      const saved = localStorage.getItem('caracterizacion_conv1022_v1');
+      return saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      return {};
+    }
+  });
   const [syncStatus, setSyncStatus] = aUseState({ estado: 'ok', mensaje: 'Sincronizado en línea' });
   const iframeRef = aUseRef(null);
   const fileInputRef = aUseRef(null);
@@ -13,7 +20,16 @@ function AnalisisBeneficiarios() {
   const STORE_KEY = 'caracterizacion_conv1022_v1';
   const RAW_SIDECAR_URL = 'https://raw.githubusercontent.com/felipecotero/bitacora-2026-agenda-territorial-convenio-1022/main/fichas_sidecar.json';
 
-  // Función inteligente para combinar estado local y remoto sin borrar avances
+  // Verificar si un objeto state contiene datos útiles
+  const hasData = (st) => {
+    if (!st || typeof st !== 'object') return false;
+    return Object.keys(st).some(k => {
+      const item = st[k];
+      return item && (item.esta || item.dl || (item.nota && item.nota.trim()));
+    });
+  };
+
+  // Combinación inteligente de estados sin pérdida
   const mergeSidecarStates = (localSt, remoteSt) => {
     const merged = { ...(remoteSt || {}) };
     if (localSt && typeof localSt === 'object') {
@@ -36,7 +52,16 @@ function AnalisisBeneficiarios() {
     return merged;
   };
 
-  // 1. Cargar estado inicial y sincronizar sin sobreescribir
+  // Enviar estado actual al iframe
+  const sendStateToIframe = (st) => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      try {
+        iframeRef.current.contentWindow.postMessage({ type: 'SET_STATE', state: st }, '*');
+      } catch (e) {}
+    }
+  };
+
+  // 1. Cargar estado desde GitHub sin sobreescribir si el servidor viene vacío
   aUseEffect(() => {
     let localSt = {};
     try {
@@ -44,7 +69,6 @@ function AnalisisBeneficiarios() {
       if (saved) localSt = JSON.parse(saved);
     } catch (e) {}
 
-    setSidecarState(localSt);
     setSyncStatus({ estado: 'cargando', mensaje: 'Cargando datos en línea…' });
 
     fetch(RAW_SIDECAR_URL + '?t=' + Date.now())
@@ -54,10 +78,19 @@ function AnalisisBeneficiarios() {
       })
       .then(data => {
         const remoteSt = data.state || data || {};
-        const combined = mergeSidecarStates(localSt, remoteSt);
-        setSidecarState(combined);
-        try { localStorage.setItem(STORE_KEY, JSON.stringify(combined)); } catch (e) {}
-        setSyncStatus({ estado: 'ok', mensaje: 'Datos sincronizados en línea' });
+        if (hasData(remoteSt)) {
+          const combined = mergeSidecarStates(localSt, remoteSt);
+          setSidecarState(combined);
+          try { localStorage.setItem(STORE_KEY, JSON.stringify(combined)); } catch (e) {}
+          sendStateToIframe(combined);
+          setSyncStatus({ estado: 'ok', mensaje: 'Datos sincronizados en línea' });
+        } else {
+          // GitHub no tiene datos aún — mantener estado local intacto
+          if (hasData(localSt)) {
+            sendStateToIframe(localSt);
+          }
+          setSyncStatus({ estado: 'ok', mensaje: 'Sincronizado (Local)' });
+        }
       })
       .catch(err => {
         console.warn('No se pudo descargar fichas_sidecar.json desde GitHub:', err);
@@ -65,7 +98,7 @@ function AnalisisBeneficiarios() {
       });
   }, []);
 
-  // 2. Función para guardar cambios a GitHub en línea
+  // 2. Guardar a GitHub en la nube
   const syncToGitHub = (nextState) => {
     if (!window.GitHubSync || !window.GitHubSync.estaConfigurado()) return;
 
@@ -100,7 +133,7 @@ function AnalisisBeneficiarios() {
     }, 1500);
   };
 
-  // 3. Escuchar actualizaciones desde el iframe en tiempo real
+  // 3. Sincronización en tiempo real desde el iframe
   aUseEffect(() => {
     function handleMessage(e) {
       if (e.data && e.data.type === 'SIDECAR_UPDATE') {
@@ -115,6 +148,17 @@ function AnalisisBeneficiarios() {
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, []);
+
+  // Handler para cuando el iframe termina de cargar en el DOM
+  const handleIframeLoad = () => {
+    try {
+      const saved = localStorage.getItem(STORE_KEY);
+      const st = saved ? JSON.parse(saved) : sidecarState;
+      if (hasData(st)) {
+        sendStateToIframe(st);
+      }
+    } catch (e) {}
+  };
 
   // 4. Métricas estadísticas
   const stats = aUseMemo(() => {
@@ -139,14 +183,18 @@ function AnalisisBeneficiarios() {
   // Exportar archivo Sidecar JSON
   const handleExportSidecar = () => {
     try {
-      const raw = localStorage.getItem(STORE_KEY) || '{}';
-      const st = JSON.parse(raw);
+      let st = sidecarState;
+      try {
+        const raw = localStorage.getItem(STORE_KEY);
+        if (raw) st = JSON.parse(raw);
+      } catch (e) {}
+
       const sidecarObj = {
         proyecto: "Convenio 1022 de 2025 · Caracterización beneficiarios · Abril–Julio 2026",
         key: STORE_KEY,
         fecha: new Date().toISOString(),
         total_organizaciones: 65,
-        state: st
+        state: st || {}
       };
 
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(sidecarObj, null, 2));
@@ -177,11 +225,9 @@ function AnalisisBeneficiarios() {
         const importedState = json.state || json;
         localStorage.setItem(STORE_KEY, JSON.stringify(importedState));
         setSidecarState(importedState);
+        sendStateToIframe(importedState);
         syncToGitHub(importedState);
 
-        if (iframeRef.current) {
-          iframeRef.current.src = iframeRef.current.src;
-        }
         alert("¡Archivo Sidecar cargado exitosamente!");
       } catch (err) {
         alert("Error al leer el archivo JSON Sidecar: " + err.message);
@@ -261,7 +307,7 @@ function AnalisisBeneficiarios() {
           <div className="sidecar-callout">
             <span className="icon">🛡️</span>
             <div>
-              <strong>Persistencia activa:</strong> Tus respuestas y marcas de caracterización se preservan en este navegador y se combinan automáticamente con el servidor para evitar pérdidas de información.
+              <strong>Sincronización interactiva activa:</strong> Tus selecciones y notas se comunican directamente con el marco de datos para evitar pérdidas de información.
             </div>
           </div>
 
@@ -272,6 +318,7 @@ function AnalisisBeneficiarios() {
               src="FINAL_fichas_caracterizacion_convenio1022_abr-jul-2026.html"
               title="Fichas de Caracterización Convenio 1022"
               className="analisis-iframe"
+              onLoad={handleIframeLoad}
             />
           </div>
         </div>
