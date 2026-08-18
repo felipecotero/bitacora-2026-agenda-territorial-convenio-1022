@@ -27,7 +27,7 @@
     "182": {
       "esta": "no",
       "dl": false,
-      "nota": "No hay info, ni ficha, ni listas"
+      "nota": "No hay ficha de beneficiarios ni listado de participantes, ni nada que permita cuantificar."
     },
     "183": {
       "esta": "si",
@@ -72,7 +72,7 @@
     "191": {
       "esta": "no",
       "dl": false,
-      "nota": ""
+      "nota": "No hay ficha de beneficiarios ni listado de participantes, ni nada que permita cuantificar."
     },
     "192": {
       "esta": "si",
@@ -167,7 +167,7 @@
     "210": {
       "esta": "no",
       "dl": false,
-      "nota": ""
+      "nota": "No hay ficha de beneficiarios ni listado de participantes, ni nada que permita cuantificar."
     },
     "211": {
       "esta": "si",
